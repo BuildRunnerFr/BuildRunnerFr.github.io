@@ -127,13 +127,12 @@ def render(c):
         + "</div>"
     )
 
-    fiche = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in h["fiche"])
     route = "".join(
         f'<li class="route__node{" is-target" if i >= 2 else ""}"><span class="route__dot" aria-hidden="true"></span>{name}</li>'
         for i, name in enumerate(ui["route"])
     )
 
-    facts = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"][3:])
+    facts = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"])
 
     xp = ""
     for i, it in enumerate(x["items"], 1):
@@ -286,27 +285,24 @@ def render(c):
 
   <section class="hero" id="home">
     <div class="wrap">
-      <div class="hero__top">
-        <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
-        <p class="hero__coords" aria-hidden="true">48.86°N 2.35°E <span>⇄</span> 48.39°N 4.49°W</p>
-      </div>
-      <h1 class="hero__name"><span class="line"><span>Ethan</span></span> <span class="line"><span>Blombou</span></span></h1>
       <div class="hero__grid">
-        <figure class="portrait">
-          <picture>
-            <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="200px">
-            <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
-          </picture>
-        </figure>
-        <div class="hero__pitch">
+        <div class="hero__text">
+          <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
+          <h1 class="hero__name"><span class="line"><span>Ethan</span></span> <span class="line"><span>Blombou</span></span></h1>
           <p class="hero__statement">{h["statement"]}</p>
           <p class="hero__lead">{h["lead"]}</p>
           <p class="hero__cta">
             <a class="btn btn--solid" href="#projects">{h["cta_projects"]}{ARROW}</a>
             <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
           </p>
+          <p class="hero__place"><span aria-hidden="true">48.86°N 2.35°E ⇄ 48.39°N 4.49°W</span><span class="hero__place-name">{h["place"]}</span></p>
         </div>
-        <dl class="fiche">{fiche}</dl>
+        <figure class="portrait">
+          <picture>
+            <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 270px, 190px">
+            <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
+          </picture>
+        </figure>
       </div>
       <div class="route" role="img" aria-label="{escape(ui["route_label"])}">
         <div class="route__track" aria-hidden="true"><span class="route__packet"></span></div>
