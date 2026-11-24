@@ -124,6 +124,21 @@
     counters.forEach(function (el) { cio.observe(el); });
   }
 
+  /* Boutons aimantés : ils suivent légèrement le pointeur */
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.btn').forEach(function (btn) {
+      btn.addEventListener('pointermove', function (e) {
+        var r = btn.getBoundingClientRect();
+        btn.style.setProperty('--mx', ((e.clientX - r.left - r.width / 2) * 0.22).toFixed(1) + 'px');
+        btn.style.setProperty('--my', ((e.clientY - r.top - r.height / 2) * 0.32).toFixed(1) + 'px');
+      });
+      btn.addEventListener('pointerleave', function () {
+        btn.style.removeProperty('--mx');
+        btn.style.removeProperty('--my');
+      });
+    });
+  }
+
   /* Cartes de projets : légère inclinaison sous le pointeur */
   if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     document.querySelectorAll('.project').forEach(function (card) {

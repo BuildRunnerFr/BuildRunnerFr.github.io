@@ -138,6 +138,12 @@ def render(c):
         f'<li{" class=is-target" if i >= 2 else ""}>{name}</li>' for i, name in enumerate(ui["route"])
     )
 
+    name_lines = " ".join(
+        '<span class="line" aria-hidden="true"><span>'
+        + "".join(f'<span class="l">{ch}</span>' for ch in word)
+        + "</span></span>"
+        for word in ("Ethan", "Blombou")
+    )
     stats = "".join(
         f'<li class="stat reveal"><p class="stat__n">{st[3] if len(st) > 3 else ""}<span data-count="{st[0]}">{st[0]}</span></p>'
         f'<p class="stat__k">{st[1]}</p><p class="stat__d">{st[2]}</p></li>'
@@ -272,7 +278,7 @@ def render(c):
 <meta property="og:image:alt" content="Ethan Blombou">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/syne.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -299,7 +305,7 @@ def render(c):
     <div class="wrap hero__grid">
       <div class="hero__text">
         <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
-        <h1 class="hero__name"><span class="line"><span>Ethan</span></span> <span class="line"><span>Blombou</span></span></h1>
+        <h1 class="hero__name" aria-label="Ethan Blombou">{name_lines}</h1>
         <p class="hero__statement">{h["statement"]}</p>
         <p class="hero__lead">{h["lead"]}</p>
         <p class="hero__cta">
