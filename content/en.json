@@ -1,0 +1,349 @@
+{
+  "lang": "en",
+  "path": "/en/",
+  "other_path": "/",
+  "og_locale": "en_GB",
+  "meta": {
+    "title": "Ethan Blombou · Agentic AI, data and cybersecurity",
+    "description": "Engineering student at IMT Atlantique and cybersecurity apprentice at Société Générale. I come from cyber and I am moving into agentic AI and data science: projects, hackathons, background and contact."
+  },
+  "ui": {
+    "skip": "Skip to content",
+    "menu": "Menu",
+    "nav_label": "Main navigation",
+    "lang_label": "Language",
+    "team": "Team project",
+    "solo": "Solo project",
+    "personal": "Personal project",
+    "my_part": "My part",
+    "code": "View the code",
+    "copy": "Copy",
+    "copied": "Address copied",
+    "logo_of": "Logo",
+    "top": "Back to top"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Open to internships and collaborations",
+    "statement": "I come from cybersecurity and I am heading towards <em class=\"thread-word\">agentic AI</em> and data science.",
+    "lead": "Engineering student at IMT Atlantique and apprentice at Société Générale. I build AI agents that check whether systems are really as secure as people say.",
+    "cta_projects": "See my projects",
+    "cta_contact": "Get in touch",
+    "place": "Between Paris and Brest",
+    "photo_alt": "Portrait of Ethan Blombou with a slight smile, arms crossed, wearing a black jumper"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "One foot in cyber, the other in AI.",
+    "paragraphs": [
+      "I am an engineering student at IMT Atlantique (computer science, networks and telecoms, 2025-2028), working as an apprentice at Société Générale in the Group CIO Office: IT strategy and cyber.",
+      "My common thread: I come from networks and cybersecurity, and I am moving into agentic AI and data science. My favourite projects sit where the two meet: agents that check, cross-reference sources and bring back evidence.",
+      "I take part in a lot of hackathons. It is my way of discovering a field, building something concrete and stepping out of my comfort zone."
+    ],
+    "facts_title": "At a glance",
+    "facts": [
+      [
+        "Based",
+        "Between Paris and Brest"
+      ],
+      [
+        "School",
+        "IMT Atlantique, 2025-2028"
+      ],
+      [
+        "Apprenticeship",
+        "Société Générale, Group CIO Office"
+      ],
+      [
+        "Languages",
+        "French (native), English (C1), Spanish (B1)"
+      ],
+      [
+        "Off duty",
+        "Chess (around 1250 Elo), football, CTFs on Root-Me, TryHackMe and Hack The Box, quantitative finance and personal investing"
+      ]
+    ]
+  },
+  "experience": {
+    "eyebrow": "Experience",
+    "title": "From telecom field work to cyber in a bank.",
+    "items": [
+      {
+        "logo": "societe-generale",
+        "org": "Société Générale",
+        "role": "Cybersecurity apprentice, Group CIO Office",
+        "dates": "Since Sept. 2025",
+        "bullets": [
+          "Python pipeline automating the segregation-of-duties control: REST API of the internal GitHub, three sources cross-checked with pandas.",
+          "Automated weekly reporting to around a hundred tech leads worldwide.",
+          "Control framework for a supplier audit shared between European banks.",
+          "In progress: an AI agent that answers in natural language by cross-referencing frameworks."
+        ]
+      },
+      {
+        "logo": "seatru",
+        "logo2": "umt",
+        "org": "SEATRU, Universiti Malaysia Terengganu",
+        "org2": "Universiti Malaysia Terengganu",
+        "role": "Software development intern",
+        "dates": "May to August 2026 · Malaysia",
+        "bullets": [
+          "Progressive Web App replacing paper field forms for sea turtle conservation.",
+          "Captive portal with a questionnaire for visitors to the island."
+        ]
+      },
+      {
+        "logo": "free",
+        "org": "Free (Iliad group)",
+        "role": "Apprentice telecom works supervisor",
+        "dates": "2024-2025",
+        "bullets": [
+          "Field work, subcontractor coordination, client relations."
+        ]
+      }
+    ],
+    "edu_title": "Education",
+    "edu": [
+      {
+        "logo": "imt-atlantique",
+        "org": "IMT Atlantique",
+        "what": "Engineering degree (diplôme d'ingénieur): computer science, networks and telecoms",
+        "dates": "2025-2028"
+      },
+      {
+        "logo": "iut-velizy",
+        "org": "IUT de Vélizy",
+        "what": "BUT (bachelor's) in Networks and Telecoms, cybersecurity track",
+        "dates": "2022-2025"
+      },
+      {
+        "logo": "tu-sofia",
+        "org": "Technical University of Sofia",
+        "what": "Erasmus+ semester",
+        "dates": "2024"
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Projects",
+    "title": "What I build, mostly at hackathons.",
+    "intro": "For team projects, my own contribution is stated separately.",
+    "featured": {
+      "name": "TRIAD",
+      "tagline": "Adversarial NIS2 cyber audit",
+      "context": "Deloitte × Google Cloud hackathon",
+      "logos": [
+        [
+          "deloitte",
+          "Deloitte"
+        ],
+        [
+          "google-cloud",
+          "Google Cloud"
+        ]
+      ],
+      "kind": "team",
+      "desc": "Four AI agents cross-check what the IT department says, what it wrote and what is actually configured in its cloud. Every contradiction becomes a sourced finding tied to the relevant NIS2 article.",
+      "part": "Development and deployment on Google Cloud: four AI agents with Google ADK and Gemini on Vertex AI, read-only probes, FastAPI backend on Cloud Run, infrastructure described with Terraform.",
+      "tags": [
+        "Google ADK",
+        "Gemini · Vertex AI",
+        "FastAPI",
+        "Cloud Run",
+        "Terraform"
+      ],
+      "url": "https://github.com/BuildRunnerFr/triad",
+      "image": "/assets/triad-cockpit.webp",
+      "image_w": 1600,
+      "image_h": 1000,
+      "image_alt": "TRIAD cockpit (interface in French): four out of four statements from the IT department are contradicted by the real configuration, with findings ranked by severity"
+    },
+    "items": [
+      {
+        "name": "Attest",
+        "tagline": "DORA compliance auditor",
+        "context": "Meta hackathon · Nov. 2026",
+        "logos": [
+          [
+            "meta",
+            "Meta"
+          ]
+        ],
+        "kind": "solo",
+        "desc": "An AI agent that audits a bank's systems against DORA: it tests them read-only, seals and masks the evidence, routes fixes for approval, re-tests, then writes the report.",
+        "tags": [
+          "Python",
+          "Muse Spark",
+          "SAM",
+          "GitHub Actions"
+        ],
+        "url": "https://github.com/BuildRunnerFr/attest",
+        "image": "/assets/attest-report.webp",
+        "image_w": 1000,
+        "image_h": 761,
+        "image_alt": "Executive summary of an audit report generated by Attest for a fictitious bank: seven controls tested, six findings"
+      },
+      {
+        "name": "European AI Championship 2026",
+        "tagline": "Three AI security challenges in 22 hours",
+        "context": "Paris · 21-22 Nov. 2026 · team Epi84",
+        "logos": [],
+        "kind": "team",
+        "desc": "My first machine learning experience, in competition conditions.",
+        "part": "The unlearning task (making a model forget images) and, as a pair, the watermarking task (locating an invisible watermark in images).",
+        "tags": [
+          "Python",
+          "Unlearning",
+          "Watermarking"
+        ],
+        "url": "https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026"
+      },
+      {
+        "name": "Clair",
+        "tagline": "Personal finance tracker",
+        "context": "Web application",
+        "logos": [],
+        "kind": "personal",
+        "desc": "Read-only bank accounts, categorised spending and a natural-language assistant.",
+        "tags": [
+          "Next.js",
+          "TypeScript",
+          "Supabase"
+        ],
+        "url": "https://github.com/BuildRunnerFr/clair"
+      }
+    ],
+    "more_title": "Also",
+    "more": [
+      [
+        "Automated video production pipeline",
+        "Claude API, FFmpeg, Whisper"
+      ],
+      [
+        "Anomaly detection on ADSL/VDSL2 lines",
+        "Python"
+      ],
+      [
+        "Secure network infrastructure",
+        "Active Directory, pfSense, Suricata, SIEM, attack simulations with Caldera"
+      ]
+    ]
+  },
+  "skills": {
+    "eyebrow": "Skills",
+    "title": "The tools I work with.",
+    "groups": [
+      {
+        "name": "Languages",
+        "items": [
+          [
+            "Python",
+            "python"
+          ],
+          [
+            "SQL",
+            ""
+          ],
+          [
+            "C",
+            "c"
+          ],
+          [
+            "C++",
+            "cplusplus"
+          ],
+          [
+            "Java",
+            ""
+          ]
+        ]
+      },
+      {
+        "name": "Cloud and tooling",
+        "items": [
+          [
+            "Google Cloud",
+            "googlecloud"
+          ],
+          [
+            "Terraform",
+            "terraform"
+          ],
+          [
+            "FastAPI",
+            "fastapi"
+          ],
+          [
+            "Linux",
+            "linux"
+          ],
+          [
+            "Git",
+            "git"
+          ]
+        ]
+      },
+      {
+        "name": "Data",
+        "items": [
+          [
+            "pandas",
+            "pandas"
+          ],
+          [
+            "NumPy",
+            "numpy"
+          ]
+        ]
+      },
+      {
+        "name": "Security",
+        "items": [
+          [
+            "Splunk",
+            "splunk"
+          ],
+          [
+            "Elastic",
+            "elastic"
+          ]
+        ],
+        "note": "SIEM"
+      }
+    ],
+    "languages_title": "Spoken languages",
+    "languages": [
+      [
+        "French",
+        "native"
+      ],
+      [
+        "English",
+        "C1"
+      ],
+      [
+        "Spanish",
+        "B1"
+      ]
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "An internship, a project, a hackathon? Let's talk.",
+    "text": "I am happy to hear from recruiters and from people building in agentic AI, ML or data.",
+    "email_label": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "footer": {
+    "note": "Logos and trademarks belong to their respective owners.",
+    "made": "Static site, made by hand."
+  }
+}

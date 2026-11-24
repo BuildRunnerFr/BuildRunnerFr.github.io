@@ -1,425 +1,269 @@
-<!DOCTYPE html>
-<html lang="en" data-lang="en">
+<!doctype html>
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ethan Blombou | Agentic AI and cybersecurity</title>
-<meta name="description" content="Ethan Blombou, engineering student at IMT Atlantique and cybersecurity apprentice at Société Générale. I build AI agents that check things for real.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --paper: #EEF1F6;
-    --surface: #FFFFFF;
-    --ink: #101B3A;
-    --muted: #55607C;
-    --line: rgba(16, 27, 58, 0.14);
-    --cobalt: #2447E0;
-    --proof: #0E7A4B;
-    --proof-bg: #DDF3E8;
-    --display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-    --body: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--body);
-    font-size: 1.0625rem;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-  html[data-lang="en"] [lang="fr"],
-  html[data-lang="fr"] [lang="en"] { display: none !important; }
-
-  a { color: var(--cobalt); text-underline-offset: 3px; }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
-
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-
-  /* Top bar */
-  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; }
-  .top-name { font-family: var(--display); font-weight: 700; font-size: 1.125rem; color: var(--ink); text-decoration: none; }
-  .top-nav { display: flex; align-items: center; gap: 22px; }
-  .top-nav a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
-  .top-nav a:hover { text-decoration: underline; }
-  .lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface); }
-  .lang-switch button { font: inherit; font-size: 0.85rem; font-weight: 600; border: 0; background: none; color: var(--muted); padding: 6px 12px; cursor: pointer; }
-  .lang-switch button[aria-pressed="true"] { background: var(--ink); color: #fff; }
-
-  /* Hero */
-  .hero { padding: 56px 0 72px; }
-  .hero h1 {
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: clamp(2.75rem, 8.2vw, 6.25rem);
-    line-height: 0.95;
-    letter-spacing: -0.035em;
-    margin: 0 0 28px;
-    max-width: 12ch;
-  }
-  .hero-intro { max-width: 58ch; font-size: 1.1875rem; margin: 0 0 48px; }
-
-  /* Claims ledger: the signature element */
-  .ledger { background: var(--surface); border-radius: 20px; border: 1px solid var(--line); overflow: hidden; }
-  .ledger-head, .claim { display: grid; grid-template-columns: 1fr 1.25fr; }
-  .ledger-head { background: var(--ink); color: #fff; font-family: var(--display); font-weight: 600; font-size: 1rem; }
-  .ledger-head div { padding: 14px 24px; }
-  .claim + .claim { border-top: 1px solid var(--line); }
-  .claim > div { padding: 22px 24px; }
-  .claim-say { font-family: var(--display); font-weight: 600; font-size: 1.3125rem; line-height: 1.25; }
-  .claim-proof { border-left: 1px solid var(--line); display: flex; gap: 14px; align-items: flex-start; }
-  .claim-proof p { margin: 0; }
-  .check {
-    flex: none; width: 28px; height: 28px; border-radius: 50%;
-    background: var(--proof-bg); color: var(--proof);
-    display: grid; place-items: center; margin-top: 1px;
-  }
-  .check svg { width: 15px; height: 15px; }
-  @media (prefers-reduced-motion: no-preference) {
-    .check { animation: stamp 0.45s cubic-bezier(.2, 1.6, .4, 1) both; }
-    .claim:nth-child(2) .check { animation-delay: 0.5s; }
-    .claim:nth-child(3) .check { animation-delay: 0.85s; }
-    .claim:nth-child(4) .check { animation-delay: 1.2s; }
-    .claim:nth-child(5) .check { animation-delay: 1.55s; }
-    @keyframes stamp { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  }
-
-  /* Sections */
-  section { padding: 72px 0; }
-  section h2 {
-    font-family: var(--display); font-weight: 700;
-    font-size: clamp(1.875rem, 4vw, 2.75rem); line-height: 1.05; letter-spacing: -0.025em;
-    margin: 0 0 12px;
-  }
-  .section-lead { max-width: 60ch; color: var(--muted); margin: 0 0 40px; }
-
-  /* Featured project */
-  .feature { background: var(--ink); color: #fff; border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 1fr 1.1fr; }
-  .feature-text { padding: 40px; }
-  .feature-context { color: #B9C4E4; font-size: 0.95rem; margin: 0 0 10px; }
-  .feature h3 { font-family: var(--display); font-weight: 700; font-size: 2.25rem; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 16px; }
-  .feature p { margin: 0 0 16px; color: #E3E8F6; }
-  .feature ul { margin: 0 0 28px; padding-left: 20px; color: #E3E8F6; }
-  .feature li { margin-bottom: 6px; }
-  .feature-img { background: #0A1228; display: flex; align-items: center; padding: 28px 0 28px 28px; }
-  .feature-img img { width: 100%; height: auto; display: block; border-radius: 12px 0 0 12px; }
-  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
-  .btn { display: inline-block; font-weight: 600; text-decoration: none; padding: 11px 20px; border-radius: 999px; }
-  .btn-light { background: #fff; color: var(--ink); }
-  .btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #fff; }
-  .btn-dark { background: var(--ink); color: #fff; }
-  .btn-outline { border: 1px solid var(--ink); color: var(--ink); }
-
-  /* Other projects as rows */
-  .projects { margin-top: 20px; }
-  .project { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 28px; align-items: start; padding: 28px 4px; border-bottom: 1px solid var(--line); }
-  .project h3 { font-family: var(--display); font-weight: 700; font-size: 1.5rem; line-height: 1.15; margin: 0 0 4px; }
-  .project-context { color: var(--muted); font-size: 0.95rem; margin: 0; }
-  .project p { margin: 0; }
-  .project-result { margin-top: 10px !important; font-weight: 600; color: var(--proof); }
-  .project a.repo { font-weight: 600; white-space: nowrap; }
-
-  /* Path */
-  .path { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--ink); }
-  .path li { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 0 0 28px 24px; position: relative; }
-  .path li::before { content: ""; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 2px solid var(--ink); }
-  .path li.now::before { background: var(--cobalt); border-color: var(--cobalt); }
-  .path-when { font-family: var(--display); font-weight: 600; font-variant-numeric: tabular-nums; }
-  .path-what strong { display: block; font-size: 1.125rem; }
-  .path-what span { color: var(--muted); }
-
-  /* Toolbox */
-  .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .tools h3 { font-family: var(--display); font-weight: 600; font-size: 1.25rem; margin: 0 0 8px; }
-  .tools p { margin: 0; color: var(--muted); }
-
-  /* Contact */
-  .contact { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 48px 40px; }
-  .contact h2 { max-width: 18ch; }
-  .contact p { max-width: 56ch; margin: 0 0 28px; }
-  footer { padding: 32px 0 48px; color: var(--muted); font-size: 0.9rem; }
-
-  @media (max-width: 820px) {
-    .top-nav a { display: none; }
-    .ledger-head { display: none; }
-    .claim { grid-template-columns: 1fr; }
-    .claim-proof { border-left: 0; padding-top: 0 !important; }
-    .feature { grid-template-columns: 1fr; }
-    .feature-text { padding: 28px 24px; }
-    .feature-img { padding: 0 0 24px 24px; }
-    .project { grid-template-columns: 1fr; gap: 10px; }
-    .path li { grid-template-columns: 1fr; gap: 2px; }
-    .tools { grid-template-columns: 1fr; gap: 24px; }
-    .contact { padding: 32px 24px; }
-    section { padding: 52px 0; }
-  }
-</style>
+<title>Ethan Blombou · IA agentique, data et cybersécurité</title>
+<meta name="description" content="Élève ingénieur à IMT Atlantique et apprenti cybersécurité à la Société Générale. Je viens de la cyber et je vais vers l&#x27;IA agentique et la data science : projets, hackathons, parcours et contact.">
+<meta name="author" content="Ethan Blombou">
+<meta name="theme-color" content="#f5efe3">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://buildrunnerfr.github.io/">
+<link rel="alternate" hreflang="fr" href="https://buildrunnerfr.github.io/">
+<link rel="alternate" hreflang="en" href="https://buildrunnerfr.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://buildrunnerfr.github.io/">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Ethan Blombou">
+<meta property="og:title" content="Ethan Blombou · IA agentique, data et cybersécurité">
+<meta property="og:description" content="Élève ingénieur à IMT Atlantique et apprenti cybersécurité à la Société Générale. Je viens de la cyber et je vais vers l&#x27;IA agentique et la data science : projets, hackathons, parcours et contact.">
+<meta property="og:url" content="https://buildrunnerfr.github.io/">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://buildrunnerfr.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Blombou">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+<script>document.documentElement.classList.add('js')</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Ethan Blombou", "url": "https://buildrunnerfr.github.io/", "image": "https://buildrunnerfr.github.io/assets/ethan.jpg", "email": "mailto:ethancte@gmail.com", "jobTitle": "Apprenti cybersécurité, Group CIO Office", "worksFor": {"@type": "Organization", "name": "Société Générale"}, "alumniOf": [{"@type": "CollegeOrUniversity", "name": "IMT Atlantique"}, {"@type": "CollegeOrUniversity", "name": "IUT de Vélizy"}], "knowsLanguage": ["fr", "en", "es"], "sameAs": ["https://www.linkedin.com/in/ethan-blombou", "https://github.com/BuildRunnerFr"]}</script>
 </head>
 <body>
-<div class="wrap">
+<a class="skip" href="#main">Aller au contenu</a>
 
-  <header class="top">
-    <a class="top-name" href="#top">Ethan Blombou</a>
-    <nav class="top-nav" aria-label="Main">
-      <a href="#projects"><span lang="en">Projects</span><span lang="fr">Projets</span></a>
-      <a href="#path"><span lang="en">Path</span><span lang="fr">Parcours</span></a>
-      <a href="#contact">Contact</a>
-      <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-set-lang="fr" aria-pressed="false">FR</button>
+<svg width="0" height="0" class="defs" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="galet" clipPathUnits="objectBoundingBox">
+      <path d="M.5.012C.72-.01.93.09.972.31c.04.2-.005.43-.1.57C.76 1.01.53 1.005.34.975.16.945.045.83.02.63-.01.43.03.21.16.1.26.03.38.022.5.012Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<header class="top">
+  <nav class="nav" aria-label="Navigation principale">
+    <a class="nav__brand" href="#home">Ethan Blombou</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav__toggle-bars" aria-hidden="true"></span><span>Menu</span>
+    </button>
+    <ul class="nav__links" id="nav-links"><li><a href="#about" data-nav="about">À propos</a></li><li><a href="#experience" data-nav="experience">Expériences</a></li><li><a href="#projects" data-nav="projects">Projets</a></li><li><a href="#skills" data-nav="skills">Compétences</a></li><li><a href="#contact" data-nav="contact">Contact</a></li></ul>
+    <div class="lang" role="group" aria-label="Langue"><a href="/" lang="fr" hreflang="fr" data-lang-link aria-current="true"><span aria-hidden="true">FR</span><span class="sr-only">Français</span></a><a href="/en/" lang="en" hreflang="en" data-lang-link><span aria-hidden="true">EN</span><span class="sr-only">English</span></a></div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="home">
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="badge"><span class="badge__dot" aria-hidden="true"></span>Ouvert aux stages et aux collaborations</p>
+        <h1 class="hero__name">Ethan <span>Blombou</span></h1>
+        <p class="hero__statement">Je viens de la cybersécurité, je vais vers <em class="thread-word">l'IA agentique</em> et la data science.</p>
+        <p class="hero__lead">Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sûrs qu'on le dit.</p>
+        <p class="hero__cta">
+          <a class="btn btn--solid" href="#projects">Voir mes projets<svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn--line" href="#contact">Me contacter</a>
+        </p>
+        <p class="hero__place"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 18s5.5-5 5.5-9.3A5.5 5.5 0 0 0 4.500 8.700C4.500 13 10 18 10 18Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="10" cy="8.600" r="1.900" fill="currentColor"/></svg>Entre Paris et Brest</p>
       </div>
-    </nav>
-  </header>
-
-  <main id="top">
-    <div class="hero">
-      <h1>
-        <span lang="en">Don't take my word for it.</span>
-        <span lang="fr">Ne me croyez pas sur parole.</span>
-      </h1>
-      <p class="hero-intro" lang="en">I'm Ethan, engineering student at IMT Atlantique and cybersecurity apprentice at Société Générale. I build AI agents that check whether systems are really as secure as people say. So here is my own profile, audited the same way.</p>
-      <p class="hero-intro" lang="fr">Je suis Ethan, élève ingénieur à IMT Atlantique et apprenti en cybersécurité à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sécurisés qu'on le dit. Voici donc mon propre profil, audité de la même façon.</p>
-
-      <div class="ledger">
-        <div class="ledger-head">
-          <div><span lang="en">What I say</span><span lang="fr">Ce que je dis</span></div>
-          <div><span lang="en">The proof</span><span lang="fr">La preuve</span></div>
-        </div>
-
-        <div class="claim">
-          <div class="claim-say"><span lang="en">I ship AI agents that actually run.</span><span lang="fr">Je livre des agents IA qui tournent vraiment.</span></div>
-          <div class="claim-proof">
-            <span class="check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span>
-            <p lang="en">TRIAD, four agents auditing a Google Cloud setup, is <a href="https://triad-311153381291.europe-west9.run.app">live on Cloud Run</a>. Try it.</p>
-            <p lang="fr">TRIAD, quatre agents qui auditent une configuration Google Cloud, est <a href="https://triad-311153381291.europe-west9.run.app">en ligne sur Cloud Run</a>. Essayez-le.</p>
-          </div>
-        </div>
-
-        <div class="claim">
-          <div class="claim-say"><span lang="en">My agents get it right, and I measure it.</span><span lang="fr">Mes agents visent juste, et je le mesure.</span></div>
-          <div class="claim-proof">
-            <span class="check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span>
-            <p lang="en">Attest scored 56 checks out of 56 on every benchmark run across 8 fictitious banks, with no false finding. <a href="https://github.com/BuildRunnerFr/attest">Read the run ledger</a>.</p>
-            <p lang="fr">Attest a réussi 56 contrôles sur 56 à chaque exécution du banc d'essai sur 8 banques fictives, sans aucun faux constat. <a href="https://github.com/BuildRunnerFr/attest">Voir le registre des exécutions</a>.</p>
-          </div>
-        </div>
-
-        <div class="claim">
-          <div class="claim-say"><span lang="en">I learn fast.</span><span lang="fr">J'apprends vite.</span></div>
-          <div class="claim-proof">
-            <span class="check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span>
-            <p lang="en">My first ML competition ever: 0.762 mIoU on invisible watermark localisation, in 22 hours, at the <a href="https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026">European AI Championship 2026</a>.</p>
-            <p lang="fr">Ma toute première compétition de ML : 0,762 de mIoU sur la localisation de tatouages invisibles, en 22 heures, à l'<a href="https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026">European AI Championship 2026</a>.</p>
-          </div>
-        </div>
-
-        <div class="claim">
-          <div class="claim-say"><span lang="en">I know cybersecurity from the inside.</span><span lang="fr">Je connais la cyber de l'intérieur.</span></div>
-          <div class="claim-proof">
-            <span class="check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3.2L13 4.8"/></svg></span>
-            <p lang="en">Apprentice in the Group CIO Office at Société Générale since 2025, after a cybersecurity bachelor's. <a href="https://www.linkedin.com/in/ethan-blombou">See my LinkedIn</a>.</p>
-            <p lang="fr">Apprenti au Group CIO Office de la Société Générale depuis 2025, après un BUT parcours cybersécurité. <a href="https://www.linkedin.com/in/ethan-blombou">Voir mon LinkedIn</a>.</p>
-          </div>
-        </div>
-      </div>
+      <figure class="portrait">
+        <svg class="blob blob--sage" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c34-4 70 12 82 46s6 78-18 104-66 38-100 26S10 140 8 104 30 36 58 20c14-8 28-10 42-12Z"/></svg>
+        <svg class="blob blob--clay" viewBox="0 0 200 200" aria-hidden="true"><path d="M96 14c36-8 72 16 84 50s-2 76-30 98-70 30-102 12S6 118 14 82s46-60 82-68Z"/></svg>
+        <picture class="portrait__photo">
+          <source type="image/webp" srcset="/assets/ethan-480.webp 480w, /assets/ethan-800.webp 800w" sizes="(min-width: 900px) 400px, 72vw">
+          <img src="/assets/ethan.jpg" alt="Portrait d&#x27;Ethan Blombou, souriant légèrement, bras croisés, en pull noir" width="800" height="1083" fetchpriority="high" decoding="async">
+        </picture>
+        <svg class="portrait__thread" viewBox="0 0 240 120" aria-hidden="true"><path pathLength="1" d="M6 92c30-50 62-66 84-44s-8 58-26 40 6-62 52-68 84 14 118 44" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round"/></svg>
+      </figure>
     </div>
+    <svg class="wave wave--sand" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
+  </section>
 
-    <section id="projects">
-      <h2><span lang="en">What I've built</span><span lang="fr">Ce que j'ai construit</span></h2>
-      <p class="section-lead" lang="en">Mostly in hackathons: a new domain, a new stack, about a day to ship.</p>
-      <p class="section-lead" lang="fr">Surtout en hackathon : un nouveau domaine, une nouvelle stack, environ une journée pour livrer.</p>
+  <section class="section section--sand" id="about" aria-labelledby="about-title">
+    <div class="wrap about">
+      <div class="about__main">
+        <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>À propos</span></p>
+        <h2 class="title reveal" id="about-title">Un pied dans la cyber, l'autre dans l'IA.</h2>
+        <div class="prose reveal"><p>Je suis élève ingénieur à IMT Atlantique (informatique, réseaux et télécoms, 2025-2028), en apprentissage à la Société Générale, au Group CIO Office : stratégie IT et cyber.</p><p>Mon fil rouge : je viens des réseaux et de la cybersécurité, et je vais vers l'IA agentique et la data science. Les projets que je préfère sont à la jonction des deux : des agents qui contrôlent, croisent des sources et rapportent des preuves.</p><p>Je fais beaucoup de hackathons. C'est ma façon de découvrir un domaine, de construire quelque chose de concret et de sortir de ma zone de confort.</p></div>
+      </div>
+      <aside class="facts reveal" aria-label="En bref">
+        <h3 class="facts__title">En bref</h3>
+        <dl><div><dt>Basé</dt><dd>Entre Paris et Brest</dd></div><div><dt>École</dt><dd>IMT Atlantique, 2025-2028</dd></div><div><dt>Alternance</dt><dd>Société Générale, Group CIO Office</dd></div><div><dt>Langues</dt><dd>Français natif, anglais C1, espagnol B1</dd></div><div><dt>À côté</dt><dd>Échecs (environ 1250 Elo), foot, CTF sur Root-Me, TryHackMe et Hack The Box, finance quantitative et investissement personnel</dd></div></dl>
+      </aside>
+    </div>
+    <svg class="wave wave--paper" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
+  </section>
 
-      <article class="feature">
-        <div class="feature-text">
-          <p class="feature-context" lang="en">Hackathon Deloitte × Google Cloud, team project</p>
-          <p class="feature-context" lang="fr">Hackathon Deloitte × Google Cloud, projet d'équipe</p>
-          <h3>TRIAD</h3>
-          <p lang="en">An adversarial NIS2 cyber audit. Four AI agents compare what the IT department says, what it wrote, and what is really configured in its cloud. Each contradiction becomes a sourced finding.</p>
-          <p lang="fr">Un audit cyber NIS2 contradictoire. Quatre agents IA comparent ce que la DSI dit, ce qu'elle a écrit et ce qui est réellement configuré dans son cloud. Chaque contradiction devient un constat sourcé.</p>
-          <p lang="en"><strong>My part:</strong></p>
-          <p lang="fr"><strong>Ma partie :</strong></p>
-          <ul lang="en">
-            <li>The 4 agents, with Google ADK and Gemini on Vertex AI</li>
-            <li>Read-only probes on IAM, firewall, storage, backups, KMS and logs</li>
-            <li>FastAPI backend on Cloud Run, infrastructure in Terraform</li>
-          </ul>
-          <ul lang="fr">
-            <li>Les 4 agents, avec Google ADK et Gemini sur Vertex AI</li>
-            <li>Des sondes en lecture seule sur IAM, pare-feu, stockage, sauvegardes, KMS et journaux</li>
-            <li>Backend FastAPI sur Cloud Run, infrastructure en Terraform</li>
-          </ul>
-          <div class="btn-row">
-            <a class="btn btn-light" href="https://triad-311153381291.europe-west9.run.app"><span lang="en">Open the live demo</span><span lang="fr">Ouvrir la démo</span></a>
-            <a class="btn btn-ghost" href="https://github.com/BuildRunnerFr/triad"><span lang="en">View the code</span><span lang="fr">Voir le code</span></a>
+  <section class="section" id="experience" aria-labelledby="experience-title">
+    <div class="wrap">
+      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Expériences</span></p>
+      <h2 class="title reveal" id="experience-title">Du terrain télécom à la cyber en banque.</h2>
+      <div class="path">
+        <div class="thread" aria-hidden="true">
+          <svg viewBox="0 0 40 1000" preserveAspectRatio="none"><path d="M20 0c14 60-12 110 0 170s14 110 0 170-14 110 0 170 12 110 0 170-12 110 0 170 10 100 0 150" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+        </div>
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step__dot" aria-hidden="true"></span>
+            <div class="step__logos"><img class="logo logo--wide logo--societe-generale" src="/assets/logos/societe-generale.svg" alt="Société Générale" width="145" height="28" loading="lazy" decoding="async"></div>
+            <h3 class="step__role">Apprenti cybersécurité, Group CIO Office</h3>
+            <p class="step__meta"><span class="step__org">Société Générale</span><span class="step__dates">Depuis sept. 2025</span></p>
+            <ul class="step__list"><li>Pipeline Python qui automatise le contrôle de séparation des tâches : API REST du GitHub interne, croisement de trois sources avec pandas.</li><li>Reporting hebdomadaire automatisé vers une centaine de tech leads à l'international.</li><li>Référentiel de contrôle pour un audit fournisseurs mutualisé entre banques européennes.</li><li>En cours : un agent IA qui répond en langage naturel en croisant des référentiels.</li></ul>
+          </li>
+          <li class="step reveal">
+            <span class="step__dot" aria-hidden="true"></span>
+            <div class="step__logos"><img class="logo logo--square logo--seatru" src="/assets/logos/seatru.png" alt="SEATRU, Universiti Malaysia Terengganu" width="192" height="191" loading="lazy" decoding="async"><img class="logo logo--mid logo--umt" src="/assets/logos/umt.png" alt="Universiti Malaysia Terengganu" width="420" height="309" loading="lazy" decoding="async"></div>
+            <h3 class="step__role">Stagiaire développeur</h3>
+            <p class="step__meta"><span class="step__org">SEATRU, Universiti Malaysia Terengganu</span><span class="step__dates">Mai à août 2026 · Malaisie</span></p>
+            <ul class="step__list"><li>Progressive Web App qui remplace les fiches papier de terrain pour la protection des tortues marines.</li><li>Portail captif avec questionnaire pour les visiteurs de l'île.</li></ul>
+          </li>
+          <li class="step reveal">
+            <span class="step__dot" aria-hidden="true"></span>
+            <div class="step__logos"><img class="logo logo--mid logo--free" src="/assets/logos/free.svg" alt="Free (groupe Iliad)" width="86" height="32" loading="lazy" decoding="async"></div>
+            <h3 class="step__role">Apprenti conducteur de travaux télécom</h3>
+            <p class="step__meta"><span class="step__org">Free (groupe Iliad)</span><span class="step__dates">2024-2025</span></p>
+            <ul class="step__list"><li>Terrain, coordination de sous-traitants, relation client.</li></ul>
+          </li>
+        </ol>
+      </div>
+      <h3 class="subtitle reveal">Formation</h3>
+      <ul class="edus">
+          <li class="edu reveal">
+            <div class="edu__logo"><img class="logo logo--mid logo--imt-atlantique" src="/assets/logos/imt-atlantique.svg" alt="IMT Atlantique" width="466" height="287" loading="lazy" decoding="async"></div>
+            <div>
+              <h4 class="edu__org">IMT Atlantique</h4>
+              <p class="edu__what">Diplôme d'ingénieur : informatique, réseaux et télécoms</p>
+              <p class="edu__dates">2025-2028</p>
+            </div>
+          </li>
+          <li class="edu reveal">
+            <div class="edu__logo"><img class="logo logo--wide logo--iut-velizy" src="/assets/logos/iut-velizy.png" alt="IUT de Vélizy" width="900" height="165" loading="lazy" decoding="async"></div>
+            <div>
+              <h4 class="edu__org">IUT de Vélizy</h4>
+              <p class="edu__what">BUT Réseaux et Télécoms, parcours cybersécurité</p>
+              <p class="edu__dates">2022-2025</p>
+            </div>
+          </li>
+          <li class="edu reveal">
+            <div class="edu__logo"><img class="logo logo--square logo--tu-sofia" src="/assets/logos/tu-sofia.png" alt="Université technique de Sofia" width="185" height="200" loading="lazy" decoding="async"></div>
+            <div>
+              <h4 class="edu__org">Université technique de Sofia</h4>
+              <p class="edu__what">Semestre Erasmus+</p>
+              <p class="edu__dates">2024</p>
+            </div>
+          </li>
+      </ul>
+    </div>
+    <svg class="wave wave--sand" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
+  </section>
+
+  <section class="section section--sand" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Projets</span></p>
+      <h2 class="title reveal" id="projects-title">Ce que je construis, surtout en hackathon.</h2>
+      <p class="intro reveal">Pour les projets d'équipe, ma contribution est indiquée à part.</p>
+      
+        <article class="project project--featured reveal">
+          <div class="project__media">
+            <img src="/assets/triad-cockpit.webp" alt="Cockpit de TRIAD : quatre affirmations de la DSI sur quatre sont contredites par la configuration réelle, avec la liste des ruptures classées par gravité" width="1600" height="1000" loading="lazy" decoding="async">
           </div>
-        </div>
-        <div class="feature-img">
-          <img src="assets/triad-cockpit.webp" alt="TRIAD executive cockpit showing audit findings" loading="lazy">
-        </div>
-      </article>
-
+          <div class="project__body">
+            <p class="project__context"><span class="kind kind--team">Projet d'équipe</span><span>Hackathon Deloitte × Google Cloud</span></p>
+            <div class="project__logos"><img class="plogo plogo--wide plogo--deloitte" src="/assets/logos/deloitte.svg" alt="Deloitte" width="892" height="171" loading="lazy" decoding="async"><img class="plogo plogo--wide plogo--google-cloud" src="/assets/logos/google-cloud.svg" alt="Google Cloud" width="123" height="20" loading="lazy" decoding="async"></div>
+            <h3 class="project__name">TRIAD</h3>
+            <p class="project__tagline">Audit cyber NIS2 contradictoire</p>
+            <p>Quatre agents IA confrontent ce que la DSI dit, ce qu'elle a écrit et ce qui est réellement configuré dans son cloud. Chaque contradiction devient un constat sourcé, rattaché à l'article NIS2 concerné.</p>
+            <div class="part"><p class="part__label">Ma partie</p><p>Développement et déploiement sur Google Cloud : quatre agents IA avec Google ADK et Gemini sur Vertex AI, sondes en lecture seule, backend FastAPI sur Cloud Run, infrastructure décrite avec Terraform.</p></div>
+            <ul class="tags"><li>Google ADK</li><li>Gemini · Vertex AI</li><li>FastAPI</li><li>Cloud Run</li><li>Terraform</li></ul>
+            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/triad" rel="noopener">Voir le code<span class="sr-only"> : TRIAD</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+          </div>
+        </article>
       <div class="projects">
-        <article class="project">
-          <div>
-            <h3>Attest</h3>
-            <p class="project-context" lang="en">Meta Global AI Developer Hackathon, Nov 2026, solo</p>
-            <p class="project-context" lang="fr">Meta Global AI Developer Hackathon, nov. 2026, en solo</p>
+        <article class="project reveal">
+          <div class="project__media"><img src="/assets/attest-report.webp" alt="Synthèse d&#x27;un rapport d&#x27;audit généré par Attest pour une banque fictive : sept contrôles testés, six constats" width="1000" height="761" loading="lazy" decoding="async"></div>
+          <div class="project__body">
+            <p class="project__context"><span class="kind kind--solo">Projet solo</span><span>Hackathon Meta · nov. 2026</span></p>
+            <div class="project__logos"><img class="plogo plogo--wide plogo--meta" src="/assets/logos/meta.svg" alt="Meta" width="948" height="191" loading="lazy" decoding="async"></div>
+            <h3 class="project__name">Attest</h3>
+            <p class="project__tagline">Auditeur de conformité DORA</p>
+            <p>Un agent IA qui audite les systèmes d'une banque au regard de DORA : il les teste en lecture seule, scelle et masque les preuves, soumet les corrections à validation, reteste, puis rédige le rapport.</p>
+            
+            <ul class="tags"><li>Python</li><li>Muse Spark</li><li>SAM</li><li>GitHub Actions</li></ul>
+            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/attest" rel="noopener">Voir le code<span class="sr-only"> : Attest</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
           </div>
-          <div>
-            <p lang="en">An AI agent that audits a bank's systems against DORA by testing them, read-only, instead of reading documents. It seals the evidence, masks personal data, re-tests after fixes and writes the report. Built on Muse Spark 1.3 and SAM 3.1.</p>
-            <p lang="fr">Un agent IA qui audite les systèmes d'une banque selon DORA en les testant, en lecture seule, au lieu de lire des documents. Il scelle les preuves, masque les données personnelles, re-teste après correction et rédige le rapport. Construit sur Muse Spark 1.3 et SAM 3.1.</p>
-            <p class="project-result" lang="en">56/56 checks correct, prompt injection caught 7 times out of 7</p>
-            <p class="project-result" lang="fr">56/56 contrôles justes, injection de prompt détectée 7 fois sur 7</p>
-          </div>
-          <a class="repo" href="https://github.com/BuildRunnerFr/attest"><span lang="en">View the code</span><span lang="fr">Voir le code</span></a>
         </article>
-
-        <article class="project">
-          <div>
-            <h3>European AI Championship 2026</h3>
-            <p class="project-context" lang="en">Paris, 21–22 Nov 2026, team Epi84</p>
-            <p class="project-context" lang="fr">Paris, 21–22 nov. 2026, équipe Epi84</p>
+        <article class="project reveal">
+          
+          <div class="project__body">
+            <p class="project__context"><span class="kind kind--team">Projet d'équipe</span><span>Paris · 21-22 nov. 2026 · équipe Epi84</span></p>
+            
+            <h3 class="project__name">European AI Championship 2026</h3>
+            <p class="project__tagline">Trois défis de sécurité de l'IA en 22 heures</p>
+            <p>Ma première expérience de machine learning, en conditions de compétition.</p>
+            <div class="part"><p class="part__label">Ma partie</p><p>La tâche d'unlearning (faire oublier des images à un modèle) et, en binôme, la tâche de watermarking (localiser un tatouage invisible dans des images).</p></div>
+            <ul class="tags"><li>Python</li><li>Unlearning</li><li>Watermarking</li></ul>
+            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026" rel="noopener">Voir le code<span class="sr-only"> : European AI Championship 2026</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
           </div>
-          <div>
-            <p lang="en">Three AI-security challenges in 22 hours on one 4-GPU node. I worked on locating invisible watermarks in images (with a teammate) and on machine unlearning: making a model forget 3,500 images.</p>
-            <p lang="fr">Trois défis de sécurité de l'IA en 22 heures sur un nœud de 4 GPU. J'ai travaillé sur la localisation de tatouages invisibles dans des images (avec un coéquipier) et sur le machine unlearning : faire oublier 3 500 images à un modèle.</p>
-            <p class="project-result" lang="en">0.762 mIoU on watermark localisation (public leaderboard)</p>
-            <p class="project-result" lang="fr">0,762 de mIoU sur la localisation de tatouages (classement public)</p>
-          </div>
-          <a class="repo" href="https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026"><span lang="en">View the code</span><span lang="fr">Voir le code</span></a>
         </article>
-
-        <article class="project">
-          <div>
-            <h3>Clair</h3>
-            <p class="project-context" lang="en">Personal project</p>
-            <p class="project-context" lang="fr">Projet personnel</p>
+        <article class="project reveal">
+          
+          <div class="project__body">
+            <p class="project__context"><span class="kind kind--personal">Projet personnel</span><span>Application web</span></p>
+            
+            <h3 class="project__name">Clair</h3>
+            <p class="project__tagline">Suivi financier personnel</p>
+            <p>Comptes bancaires en lecture seule, dépenses classées et assistant en langage naturel.</p>
+            
+            <ul class="tags"><li>Next.js</li><li>TypeScript</li><li>Supabase</li></ul>
+            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/clair" rel="noopener">Voir le code<span class="sr-only"> : Clair</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
           </div>
-          <div>
-            <p lang="en">A personal finance tracker: Next.js and Supabase with row-level security, bank sync through the TrueLayer API, and automatic categorisation of transactions.</p>
-            <p lang="fr">Une appli de suivi financier personnel : Next.js et Supabase avec sécurité au niveau des lignes, synchronisation bancaire via l'API TrueLayer et catégorisation automatique des transactions.</p>
-          </div>
-          <a class="repo" href="https://github.com/BuildRunnerFr/clair"><span lang="en">View the code</span><span lang="fr">Voir le code</span></a>
         </article>
       </div>
-    </section>
+      <h3 class="subtitle reveal">Et aussi</h3>
+      <ul class="more"><li class="reveal"><span class="more__name">Pipeline de production vidéo automatisé</span><span class="more__stack">Claude API, FFmpeg, Whisper</span></li><li class="reveal"><span class="more__name">Détection d'anomalies sur lignes ADSL/VDSL2</span><span class="more__stack">Python</span></li><li class="reveal"><span class="more__name">Infrastructure réseau sécurisée</span><span class="more__stack">Active Directory, pfSense, Suricata, SIEM, simulations d'attaque avec Caldera</span></li></ul>
+    </div>
+    <svg class="wave wave--paper" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
+  </section>
 
-    <section id="path">
-      <h2><span lang="en">The path so far</span><span lang="fr">Mon parcours</span></h2>
-      <p class="section-lead" lang="en">From networks and telecoms to cybersecurity, and now deep into AI.</p>
-      <p class="section-lead" lang="fr">Des réseaux et télécoms à la cybersécurité, et maintenant à fond dans l'IA.</p>
-      <ol class="path">
-        <li class="now">
-          <div class="path-when"><span lang="en">2025 to now</span><span lang="fr">Depuis 2025</span></div>
-          <div class="path-what">
-            <strong>Société Générale, Group CIO Office</strong>
-            <span lang="en">Cybersecurity apprentice. Python automation that cross-checks access controls across three data sources, weekly reporting to about 100 tech leads worldwide.</span>
-            <span lang="fr">Apprenti en cybersécurité. Automatisation Python qui croise les contrôles d'accès de trois sources de données, reporting hebdomadaire vers une centaine de responsables techniques dans le monde.</span>
-          </div>
-        </li>
-        <li class="now">
-          <div class="path-when">2025 – 2028</div>
-          <div class="path-what">
-            <strong>IMT Atlantique</strong>
-            <span lang="en">Master of Engineering in Computer Science, Networks and Telecoms, by apprenticeship.</span>
-            <span lang="fr">Diplôme d'ingénieur en informatique, réseaux et télécoms, par apprentissage.</span>
-          </div>
-        </li>
-        <li>
-          <div class="path-when">2026</div>
-          <div class="path-what">
-            <strong>SEATRU, Universiti Malaysia Terengganu</strong>
-            <span lang="en">Software engineering intern. Built a web app replacing paper field forms for sea turtle conservation.</span>
-            <span lang="fr">Stage en développement logiciel. Une appli web qui remplace les fiches papier de terrain pour la protection des tortues marines.</span>
-          </div>
-        </li>
-        <li>
-          <div class="path-when">2024 – 2025</div>
-          <div class="path-what">
-            <strong>Free (Iliad)</strong>
-            <span lang="en">Apprentice telecom works supervisor: field operations and subcontractor teams.</span>
-            <span lang="fr">Apprenti conducteur de travaux télécom : opérations terrain et équipes de sous-traitants.</span>
-          </div>
-        </li>
-        <li>
-          <div class="path-when">2022 – 2025</div>
-          <div class="path-what">
-            <strong>IUT Vélizy</strong>
-            <span lang="en">Bachelor's in Networks and Telecoms, cybersecurity major, with an Erasmus+ semester at the Technical University of Sofia.</span>
-            <span lang="fr">BUT Réseaux et Télécommunications, parcours cybersécurité, avec un semestre Erasmus+ à l'Université technique de Sofia.</span>
-          </div>
-        </li>
-      </ol>
-    </section>
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Compétences</span></p>
+      <h2 class="title reveal" id="skills-title">Les outils que j'utilise.</h2>
+      <div class="groups"><div class="group reveal"><h3 class="group__name">Langages</h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/python.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Python</span></li><li class="chip"><span>SQL</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/c.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>C</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/cplusplus.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>C++</span></li><li class="chip"><span>Java</span></li></ul></div><div class="group reveal"><h3 class="group__name">Cloud et outils</h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/googlecloud.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Google Cloud</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/terraform.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Terraform</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/fastapi.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>FastAPI</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/linux.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Linux</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/git.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Git</span></li></ul></div><div class="group reveal"><h3 class="group__name">Data</h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/pandas.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>pandas</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/numpy.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>NumPy</span></li></ul></div><div class="group reveal"><h3 class="group__name">Sécurité <span class="group__note">SIEM</span></h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/splunk.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Splunk</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/elastic.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Elastic</span></li></ul></div><div class="group reveal"><h3 class="group__name">Langues</h3><ul class="chips"><li class="chip"><span>Français</span><span class="chip__level">natif</span></li><li class="chip"><span>Anglais</span><span class="chip__level">C1</span></li><li class="chip"><span>Espagnol</span><span class="chip__level">B1</span></li></ul></div></div>
+    </div>
+    <svg class="wave wave--forest" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
+  </section>
 
-    <section id="tools">
-      <h2><span lang="en">What I work with</span><span lang="fr">Mes outils</span></h2>
-      <div class="tools" style="margin-top:32px">
-        <div>
-          <h3><span lang="en">AI and data</span><span lang="fr">IA et data</span></h3>
-          <p lang="en">Multi-agent systems with Google ADK, Gemini and Vertex AI, PyTorch, pandas, NumPy, statistics and probability.</p>
-          <p lang="fr">Systèmes multi-agents avec Google ADK, Gemini et Vertex AI, PyTorch, pandas, NumPy, statistiques et probabilités.</p>
-        </div>
-        <div>
-          <h3><span lang="en">Cybersecurity</span><span lang="fr">Cybersécurité</span></h3>
-          <p lang="en">NIS2 and DORA compliance, cloud security, SIEM with Splunk and Elastic, Suricata, pfSense, Active Directory.</p>
-          <p lang="fr">Conformité NIS2 et DORA, sécurité du cloud, SIEM avec Splunk et Elastic, Suricata, pfSense, Active Directory.</p>
-        </div>
-        <div>
-          <h3><span lang="en">Build and deploy</span><span lang="fr">Développer et déployer</span></h3>
-          <p lang="en">Python, TypeScript, SQL, FastAPI, Next.js, Google Cloud Run, Terraform, Docker, Linux.</p>
-          <p lang="fr">Python, TypeScript, SQL, FastAPI, Next.js, Google Cloud Run, Terraform, Docker, Linux.</p>
-        </div>
+  <section class="section section--forest" id="contact" aria-labelledby="contact-title">
+    <svg class="contact__blob" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c34-4 70 12 82 46s6 78-18 104-66 38-100 26S10 140 8 104 30 36 58 20c14-8 28-10 42-12Z"/></svg>
+    <svg class="contact__pebble" viewBox="0 0 200 200" aria-hidden="true"><path d="M96 14c36-8 72 16 84 50s-2 76-30 98-70 30-102 12S6 118 14 82s46-60 82-68Z"/></svg>
+    <div class="wrap contact">
+      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Contact</span></p>
+      <h2 class="title title--xl reveal" id="contact-title">Un stage, un projet, un hackathon ? Écrivons-nous.</h2>
+      <p class="contact__text reveal">Je réponds volontiers aux recruteurs comme aux personnes qui construisent dans l'IA agentique, le ML ou la data.</p>
+      <div class="contact__mail reveal">
+        <a class="mail" href="mailto:ethancte@gmail.com"><span class="sr-only">E-mail : </span>ethancte@gmail.com</a>
+        <button class="copy" type="button" data-copy="ethancte@gmail.com" data-done="Adresse copiée">Copier</button>
+        <span class="copy__status" role="status" aria-live="polite"></span>
       </div>
-    </section>
+      <ul class="contact__links reveal">
+        <li><a class="link link--light" href="https://www.linkedin.com/in/ethan-blombou" rel="noopener me">LinkedIn<span class="link__handle">in/ethan-blombou</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a class="link link--light" href="https://github.com/BuildRunnerFr" rel="noopener me">GitHub<span class="link__handle">BuildRunnerFr</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      </ul>
+    </div>
+  </section>
 
-    <section id="contact">
-      <div class="contact">
-        <h2><span lang="en">Working on agentic AI, ML or data science?</span><span lang="fr">Vous travaillez sur l'IA agentique, le ML ou la data science ?</span></h2>
-        <p lang="en">I'd like to hear about it. I'm based between Paris and Brest, I speak French, English and some Spanish, and I'm always up for the next hackathon.</p>
-        <p lang="fr">Parlons-en. Je vis entre Paris et Brest, je parle français, anglais et un peu espagnol, et je suis toujours partant pour le prochain hackathon.</p>
-        <div class="btn-row">
-          <a class="btn btn-dark" href="mailto:ethancte@gmail.com"><span lang="en">Email me</span><span lang="fr">M'écrire</span></a>
-          <a class="btn btn-outline" href="https://www.linkedin.com/in/ethan-blombou">LinkedIn</a>
-          <a class="btn btn-outline" href="https://github.com/BuildRunnerFr">GitHub</a>
-        </div>
-      </div>
-    </section>
-  </main>
+</main>
 
-  <footer>© 2026 Ethan Blombou</footer>
-</div>
+<footer class="footer">
+  <div class="wrap footer__in">
+    <p>© 2026 Ethan Blombou · Site statique, fait main.</p>
+    <p>Les logos et marques cités appartiennent à leurs détenteurs respectifs.</p>
+    <p><a href="#home">Haut de page ↑</a></p>
+  </div>
+</footer>
 
-<script>
-  (function () {
-    var root = document.documentElement;
-    var buttons = document.querySelectorAll('[data-set-lang]');
-    function setLang(lang) {
-      root.setAttribute('data-lang', lang);
-      root.setAttribute('lang', lang);
-      buttons.forEach(function (b) {
-        b.setAttribute('aria-pressed', b.getAttribute('data-set-lang') === lang ? 'true' : 'false');
-      });
-      document.title = lang === 'fr'
-        ? 'Ethan Blombou | IA agentique et cybersécurité'
-        : 'Ethan Blombou | Agentic AI and cybersecurity';
-    }
-    var saved = null;
-    try { saved = localStorage.getItem('lang'); } catch (e) {}
-    var initial = saved || ((navigator.language || '').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en');
-    setLang(initial);
-    buttons.forEach(function (b) {
-      b.addEventListener('click', function () {
-        var lang = b.getAttribute('data-set-lang');
-        setLang(lang);
-        try { localStorage.setItem('lang', lang); } catch (e) {}
-      });
-    });
-  })();
-</script>
+<script src="/assets/js/main.js" defer></script>
 </body>
 </html>

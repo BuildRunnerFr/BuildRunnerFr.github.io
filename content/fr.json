@@ -1,0 +1,349 @@
+{
+  "lang": "fr",
+  "path": "/",
+  "other_path": "/en/",
+  "og_locale": "fr_FR",
+  "meta": {
+    "title": "Ethan Blombou · IA agentique, data et cybersécurité",
+    "description": "Élève ingénieur à IMT Atlantique et apprenti cybersécurité à la Société Générale. Je viens de la cyber et je vais vers l'IA agentique et la data science : projets, hackathons, parcours et contact."
+  },
+  "ui": {
+    "skip": "Aller au contenu",
+    "menu": "Menu",
+    "nav_label": "Navigation principale",
+    "lang_label": "Langue",
+    "team": "Projet d'équipe",
+    "solo": "Projet solo",
+    "personal": "Projet personnel",
+    "my_part": "Ma partie",
+    "code": "Voir le code",
+    "copy": "Copier",
+    "copied": "Adresse copiée",
+    "logo_of": "Logo",
+    "top": "Haut de page"
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "experience": "Expériences",
+    "projects": "Projets",
+    "skills": "Compétences",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Ouvert aux stages et aux collaborations",
+    "statement": "Je viens de la cybersécurité, je vais vers <em class=\"thread-word\">l'IA agentique</em> et la data science.",
+    "lead": "Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sûrs qu'on le dit.",
+    "cta_projects": "Voir mes projets",
+    "cta_contact": "Me contacter",
+    "place": "Entre Paris et Brest",
+    "photo_alt": "Portrait d'Ethan Blombou, souriant légèrement, bras croisés, en pull noir"
+  },
+  "about": {
+    "eyebrow": "À propos",
+    "title": "Un pied dans la cyber, l'autre dans l'IA.",
+    "paragraphs": [
+      "Je suis élève ingénieur à IMT Atlantique (informatique, réseaux et télécoms, 2025-2028), en apprentissage à la Société Générale, au Group CIO Office : stratégie IT et cyber.",
+      "Mon fil rouge : je viens des réseaux et de la cybersécurité, et je vais vers l'IA agentique et la data science. Les projets que je préfère sont à la jonction des deux : des agents qui contrôlent, croisent des sources et rapportent des preuves.",
+      "Je fais beaucoup de hackathons. C'est ma façon de découvrir un domaine, de construire quelque chose de concret et de sortir de ma zone de confort."
+    ],
+    "facts_title": "En bref",
+    "facts": [
+      [
+        "Basé",
+        "Entre Paris et Brest"
+      ],
+      [
+        "École",
+        "IMT Atlantique, 2025-2028"
+      ],
+      [
+        "Alternance",
+        "Société Générale, Group CIO Office"
+      ],
+      [
+        "Langues",
+        "Français natif, anglais C1, espagnol B1"
+      ],
+      [
+        "À côté",
+        "Échecs (environ 1250 Elo), foot, CTF sur Root-Me, TryHackMe et Hack The Box, finance quantitative et investissement personnel"
+      ]
+    ]
+  },
+  "experience": {
+    "eyebrow": "Expériences",
+    "title": "Du terrain télécom à la cyber en banque.",
+    "items": [
+      {
+        "logo": "societe-generale",
+        "org": "Société Générale",
+        "role": "Apprenti cybersécurité, Group CIO Office",
+        "dates": "Depuis sept. 2025",
+        "bullets": [
+          "Pipeline Python qui automatise le contrôle de séparation des tâches : API REST du GitHub interne, croisement de trois sources avec pandas.",
+          "Reporting hebdomadaire automatisé vers une centaine de tech leads à l'international.",
+          "Référentiel de contrôle pour un audit fournisseurs mutualisé entre banques européennes.",
+          "En cours : un agent IA qui répond en langage naturel en croisant des référentiels."
+        ]
+      },
+      {
+        "logo": "seatru",
+        "logo2": "umt",
+        "org": "SEATRU, Universiti Malaysia Terengganu",
+        "org2": "Universiti Malaysia Terengganu",
+        "role": "Stagiaire développeur",
+        "dates": "Mai à août 2026 · Malaisie",
+        "bullets": [
+          "Progressive Web App qui remplace les fiches papier de terrain pour la protection des tortues marines.",
+          "Portail captif avec questionnaire pour les visiteurs de l'île."
+        ]
+      },
+      {
+        "logo": "free",
+        "org": "Free (groupe Iliad)",
+        "role": "Apprenti conducteur de travaux télécom",
+        "dates": "2024-2025",
+        "bullets": [
+          "Terrain, coordination de sous-traitants, relation client."
+        ]
+      }
+    ],
+    "edu_title": "Formation",
+    "edu": [
+      {
+        "logo": "imt-atlantique",
+        "org": "IMT Atlantique",
+        "what": "Diplôme d'ingénieur : informatique, réseaux et télécoms",
+        "dates": "2025-2028"
+      },
+      {
+        "logo": "iut-velizy",
+        "org": "IUT de Vélizy",
+        "what": "BUT Réseaux et Télécoms, parcours cybersécurité",
+        "dates": "2022-2025"
+      },
+      {
+        "logo": "tu-sofia",
+        "org": "Université technique de Sofia",
+        "what": "Semestre Erasmus+",
+        "dates": "2024"
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Projets",
+    "title": "Ce que je construis, surtout en hackathon.",
+    "intro": "Pour les projets d'équipe, ma contribution est indiquée à part.",
+    "featured": {
+      "name": "TRIAD",
+      "tagline": "Audit cyber NIS2 contradictoire",
+      "context": "Hackathon Deloitte × Google Cloud",
+      "logos": [
+        [
+          "deloitte",
+          "Deloitte"
+        ],
+        [
+          "google-cloud",
+          "Google Cloud"
+        ]
+      ],
+      "kind": "team",
+      "desc": "Quatre agents IA confrontent ce que la DSI dit, ce qu'elle a écrit et ce qui est réellement configuré dans son cloud. Chaque contradiction devient un constat sourcé, rattaché à l'article NIS2 concerné.",
+      "part": "Développement et déploiement sur Google Cloud : quatre agents IA avec Google ADK et Gemini sur Vertex AI, sondes en lecture seule, backend FastAPI sur Cloud Run, infrastructure décrite avec Terraform.",
+      "tags": [
+        "Google ADK",
+        "Gemini · Vertex AI",
+        "FastAPI",
+        "Cloud Run",
+        "Terraform"
+      ],
+      "url": "https://github.com/BuildRunnerFr/triad",
+      "image": "/assets/triad-cockpit.webp",
+      "image_w": 1600,
+      "image_h": 1000,
+      "image_alt": "Cockpit de TRIAD : quatre affirmations de la DSI sur quatre sont contredites par la configuration réelle, avec la liste des ruptures classées par gravité"
+    },
+    "items": [
+      {
+        "name": "Attest",
+        "tagline": "Auditeur de conformité DORA",
+        "context": "Hackathon Meta · nov. 2026",
+        "logos": [
+          [
+            "meta",
+            "Meta"
+          ]
+        ],
+        "kind": "solo",
+        "desc": "Un agent IA qui audite les systèmes d'une banque au regard de DORA : il les teste en lecture seule, scelle et masque les preuves, soumet les corrections à validation, reteste, puis rédige le rapport.",
+        "tags": [
+          "Python",
+          "Muse Spark",
+          "SAM",
+          "GitHub Actions"
+        ],
+        "url": "https://github.com/BuildRunnerFr/attest",
+        "image": "/assets/attest-report.webp",
+        "image_w": 1000,
+        "image_h": 761,
+        "image_alt": "Synthèse d'un rapport d'audit généré par Attest pour une banque fictive : sept contrôles testés, six constats"
+      },
+      {
+        "name": "European AI Championship 2026",
+        "tagline": "Trois défis de sécurité de l'IA en 22 heures",
+        "context": "Paris · 21-22 nov. 2026 · équipe Epi84",
+        "logos": [],
+        "kind": "team",
+        "desc": "Ma première expérience de machine learning, en conditions de compétition.",
+        "part": "La tâche d'unlearning (faire oublier des images à un modèle) et, en binôme, la tâche de watermarking (localiser un tatouage invisible dans des images).",
+        "tags": [
+          "Python",
+          "Unlearning",
+          "Watermarking"
+        ],
+        "url": "https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026"
+      },
+      {
+        "name": "Clair",
+        "tagline": "Suivi financier personnel",
+        "context": "Application web",
+        "logos": [],
+        "kind": "personal",
+        "desc": "Comptes bancaires en lecture seule, dépenses classées et assistant en langage naturel.",
+        "tags": [
+          "Next.js",
+          "TypeScript",
+          "Supabase"
+        ],
+        "url": "https://github.com/BuildRunnerFr/clair"
+      }
+    ],
+    "more_title": "Et aussi",
+    "more": [
+      [
+        "Pipeline de production vidéo automatisé",
+        "Claude API, FFmpeg, Whisper"
+      ],
+      [
+        "Détection d'anomalies sur lignes ADSL/VDSL2",
+        "Python"
+      ],
+      [
+        "Infrastructure réseau sécurisée",
+        "Active Directory, pfSense, Suricata, SIEM, simulations d'attaque avec Caldera"
+      ]
+    ]
+  },
+  "skills": {
+    "eyebrow": "Compétences",
+    "title": "Les outils que j'utilise.",
+    "groups": [
+      {
+        "name": "Langages",
+        "items": [
+          [
+            "Python",
+            "python"
+          ],
+          [
+            "SQL",
+            ""
+          ],
+          [
+            "C",
+            "c"
+          ],
+          [
+            "C++",
+            "cplusplus"
+          ],
+          [
+            "Java",
+            ""
+          ]
+        ]
+      },
+      {
+        "name": "Cloud et outils",
+        "items": [
+          [
+            "Google Cloud",
+            "googlecloud"
+          ],
+          [
+            "Terraform",
+            "terraform"
+          ],
+          [
+            "FastAPI",
+            "fastapi"
+          ],
+          [
+            "Linux",
+            "linux"
+          ],
+          [
+            "Git",
+            "git"
+          ]
+        ]
+      },
+      {
+        "name": "Data",
+        "items": [
+          [
+            "pandas",
+            "pandas"
+          ],
+          [
+            "NumPy",
+            "numpy"
+          ]
+        ]
+      },
+      {
+        "name": "Sécurité",
+        "items": [
+          [
+            "Splunk",
+            "splunk"
+          ],
+          [
+            "Elastic",
+            "elastic"
+          ]
+        ],
+        "note": "SIEM"
+      }
+    ],
+    "languages_title": "Langues",
+    "languages": [
+      [
+        "Français",
+        "natif"
+      ],
+      [
+        "Anglais",
+        "C1"
+      ],
+      [
+        "Espagnol",
+        "B1"
+      ]
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Un stage, un projet, un hackathon ? Écrivons-nous.",
+    "text": "Je réponds volontiers aux recruteurs comme aux personnes qui construisent dans l'IA agentique, le ML ou la data.",
+    "email_label": "E-mail",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "footer": {
+    "note": "Les logos et marques cités appartiennent à leurs détenteurs respectifs.",
+    "made": "Site statique, fait main."
+  }
+}

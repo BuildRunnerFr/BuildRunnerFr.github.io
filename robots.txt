@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://buildrunnerfr.github.io/sitemap.xml
