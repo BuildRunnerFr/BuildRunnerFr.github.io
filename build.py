@@ -127,6 +127,12 @@ def render(c):
         + "</div>"
     )
 
+    check = '<span class="check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.500l3.200 3.200L13 4.800"/></svg></span>'
+    claims = "".join(
+        f'<li class="claim"><p class="claim__say"><span class="sr-only">{h["say"]} : </span>{say}</p>'
+        f'<div class="claim__proof">{check}<p><span class="sr-only">{h["proof"]} : </span>{proof}</p></div></li>'
+        for say, proof in h["claims"]
+    )
     route = "".join(
         f'<li class="route__node{" is-target" if i >= 2 else ""}"><span class="route__dot" aria-hidden="true"></span>{name}</li>'
         for i, name in enumerate(ui["route"])
@@ -288,21 +294,24 @@ def render(c):
       <div class="hero__grid">
         <div class="hero__text">
           <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
-          <h1 class="hero__name"><span class="line"><span>Ethan</span></span> <span class="line"><span>Blombou</span></span></h1>
-          <p class="hero__statement">{h["statement"]}</p>
-          <p class="hero__lead">{h["lead"]}</p>
+          <h1 class="hero__title">{h["title"]}</h1>
+          <p class="hero__intro">{h["intro"]}</p>
           <p class="hero__cta">
             <a class="btn btn--solid" href="#projects">{h["cta_projects"]}{ARROW}</a>
             <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
           </p>
-          <p class="hero__place"><span aria-hidden="true">48.86°N 2.35°E ⇄ 48.39°N 4.49°W</span><span class="hero__place-name">{h["place"]}</span></p>
         </div>
         <figure class="portrait">
           <picture>
-            <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 270px, 190px">
+            <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 230px, 150px">
             <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
           </picture>
+          <figcaption>Ethan Blombou<span>{h["place"]}</span></figcaption>
         </figure>
+      </div>
+      <div class="ledger">
+        <div class="ledger__head" aria-hidden="true"><p>{h["say"]}</p><p>{h["proof"]}</p></div>
+        <ul class="ledger__rows">{claims}</ul>
       </div>
       <div class="route" role="img" aria-label="{escape(ui["route_label"])}">
         <div class="route__track" aria-hidden="true"><span class="route__packet"></span></div>
