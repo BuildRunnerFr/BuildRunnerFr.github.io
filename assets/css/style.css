@@ -245,7 +245,21 @@ a:hover > .arrow { transform: translateX(4px); }
   .project--featured .project__body { flex: 1; padding: 2.3rem; }
 }
 .projects { display: grid; gap: 1.1rem; margin-top: 1.1rem; }
-@media (min-width: 760px) { .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } .projects .project:first-child { grid-row: span 2; } }
+@media (min-width: 760px) { .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* cartes à image : même hauteur de visuel, l'image est cadrée par le haut */
+.projects .project__media { aspect-ratio: 3 / 2; }
+.projects .project__media > img { height: 100%; object-fit: cover; object-position: 50% 0; }
+/* carte sans image : pleine largeur, texte sur deux colonnes */
+@media (min-width: 760px) {
+  .projects .project:not(:has(.project__media)) { grid-column: 1 / -1; }
+  .projects .project:not(:has(.project__media)) .project__body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: clamp(1.5rem, 4vw, 3.5rem); row-gap: 0.7rem; align-items: start; }
+  .projects .project:not(:has(.project__media)) .project__context { grid-column: 1; grid-row: 1; }
+  .projects .project:not(:has(.project__media)) .project__name { grid-column: 1; grid-row: 2; }
+  .projects .project:not(:has(.project__media)) .project__tagline { grid-column: 1; grid-row: 3; margin-top: 0; }
+  .projects .project:not(:has(.project__media)) .project__desc { grid-column: 2; grid-row: 1 / span 2; }
+  .projects .project:not(:has(.project__media)) .tags { grid-column: 2; grid-row: 3; }
+  .projects .project:not(:has(.project__media)) .project__foot { grid-column: 2; grid-row: 4; padding-top: 0.4rem; }
+}
 .projects + .subtitle { margin-top: clamp(3rem, 6vw, 4.5rem); }
 .more li { display: grid; gap: 0.15rem 2rem; padding: 1rem 0; border-bottom: 1px solid rgba(251, 238, 221, 0.2); }
 @media (min-width: 760px) { .more li { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: baseline; } }
