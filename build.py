@@ -128,8 +128,7 @@ def render(c):
     )
 
     route = "".join(
-        f'<li class="route__node{" is-target" if i >= 2 else ""}"><span class="route__dot" aria-hidden="true"></span>{name}</li>'
-        for i, name in enumerate(ui["route"])
+        f'<li{" class=is-target" if i >= 2 else ""}>{name}</li>' for i, name in enumerate(ui["route"])
     )
 
     facts = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"])
@@ -243,7 +242,7 @@ def render(c):
 <title>{c["meta"]["title"]}</title>
 <meta name="description" content="{escape(c["meta"]["description"])}">
 <meta name="author" content="Ethan Blombou">
-<meta name="theme-color" content="#f3f2ed">
+<meta name="theme-color" content="#c4492a">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="fr" href="{SITE}/">
@@ -261,8 +260,7 @@ def render(c):
 <meta property="og:image:alt" content="Ethan Blombou">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/syne.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -284,42 +282,29 @@ def render(c):
 
 <main id="main">
 
-  <svg width="0" height="0" class="defs" aria-hidden="true" focusable="false"><defs><clipPath id="galet" clipPathUnits="objectBoundingBox"><path d="M.5.012C.72-.01.93.09.972.31c.04.2-.005.43-.1.57C.76 1.01.53 1.005.34.975.16.945.045.83.02.63-.01.43.03.21.16.1.26.03.38.022.5.012Z"/></clipPath></defs></svg>
   <section class="hero" id="home">
-    <div class="wrap">
-      <div class="hero__grid">
-        <div class="hero__text">
-          <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
-          <h1 class="hero__name">Ethan <span>Blombou</span></h1>
-          <p class="hero__statement">{h["statement"]}</p>
-          <p class="hero__lead">{h["lead"]}</p>
-          <p class="hero__cta">
-            <a class="btn btn--solid" href="#projects">{h["cta_projects"]}{ARROW}</a>
-            <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
-          </p>
-          <p class="hero__place"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 18s5.500-5 5.500-9.300A5.500 5.500 0 0 0 4.500 8.700C4.500 13 10 18 10 18Z" fill="none" stroke="currentColor" stroke-width="1.600" stroke-linejoin="round"/><circle cx="10" cy="8.600" r="1.900" fill="currentColor"/></svg>{h["place"]}</p>
-        </div>
-        <figure class="portrait">
-          <svg class="blob blob--sage" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c34-4 70 12 82 46s6 78-18 104-66 38-100 26S10 140 8 104 30 36 58 20c14-8 28-10 42-12Z"/></svg>
-          <svg class="blob blob--clay" viewBox="0 0 200 200" aria-hidden="true"><path d="M96 14c36-8 72 16 84 50s-2 76-30 98-70 30-102 12S6 118 14 82s46-60 82-68Z"/></svg>
-          <picture class="portrait__photo">
-            <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 300px, min(240px, 64vw)">
-            <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
-          </picture>
-          <svg class="portrait__thread" viewBox="0 0 240 120" aria-hidden="true"><path pathLength="1" d="M6 92c30-50 62-66 84-44s-8 58-26 40 6-62 52-68 84 14 118 44" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round"/></svg>
-        </figure>
+    <div class="wrap hero__grid">
+      <div class="hero__text">
+        <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
+        <h1 class="hero__name"><span class="line"><span>Ethan</span></span> <span class="line"><span>Blombou</span></span></h1>
+        <p class="hero__statement">{h["statement"]}</p>
+        <p class="hero__lead">{h["lead"]}</p>
+        <p class="hero__cta">
+          <a class="btn btn--dark" href="#projects">{h["cta_projects"]}{ARROW}</a>
+          <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
+        </p>
       </div>
+      <figure class="portrait">
+        <picture>
+          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 250px, 190px">
+          <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
+        </picture>
+      </figure>
     </div>
-    <svg class="hero__wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
   </section>
 
-  <div class="routeband">
-    <div class="wrap">
-      <div class="route" role="img" aria-label="{escape(ui["route_label"])}">
-        <div class="route__track" aria-hidden="true"><span class="route__packet"></span></div>
-        <ol class="route__nodes" aria-hidden="true">{route}</ol>
-      </div>
-    </div>
+  <div class="band" role="img" aria-label="{escape(ui["route_label"])}">
+    <ol class="wrap" aria-hidden="true">{route}</ol>
   </div>
 
   <section class="section" id="about" aria-labelledby="about-title">
