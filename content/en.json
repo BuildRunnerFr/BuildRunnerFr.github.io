@@ -45,52 +45,12 @@
   },
   "hero": {
     "badge": "Open to internships and collaborations",
-    "statement": "I come from cybersecurity and I am heading towards <em>agentic AI</em> and data science.",
+    "statement": "I come from cybersecurity and I am heading towards <em class=\"thread-word\">agentic AI</em> and data science.",
     "lead": "Engineering student at IMT Atlantique and apprentice at Société Générale. I build AI agents that check whether systems are really as secure as people say.",
     "cta_projects": "See my projects",
     "cta_contact": "Get in touch",
     "place": "Between Paris and Brest",
-    "photo_alt": "Portrait of Ethan Blombou with a slight smile, arms crossed, wearing a black jumper",
-    "fiche": [
-      [
-        "Role",
-        "Cybersecurity apprentice, Société Générale"
-      ],
-      [
-        "School",
-        "IMT Atlantique, 2025-2028"
-      ],
-      [
-        "Based",
-        "Paris ⇄ Brest"
-      ],
-      [
-        "Focus",
-        "Agentic AI, ML, data"
-      ]
-    ],
-    "title": "Don't take my word for it.",
-    "intro": "I'm Ethan, engineering student at IMT Atlantique and cybersecurity apprentice at Société Générale. I build AI agents that check whether systems are really as secure as people say. So here is my own profile, audited the same way.",
-    "say": "What I say",
-    "proof": "The proof",
-    "claims": [
-      [
-        "I build and deploy AI agents.",
-        "TRIAD: four agents auditing a Google Cloud setup, built with Google ADK and deployed on Cloud Run. <a href=\"https://github.com/BuildRunnerFr/triad\">View the code</a>."
-      ],
-      [
-        "My agents get it right, and I measure it.",
-        "Attest scored 56 checks out of 56 on every benchmark run across 8 fictitious banks, with no false finding. <a href=\"https://github.com/BuildRunnerFr/attest\">Read the run ledger</a>."
-      ],
-      [
-        "I learn fast.",
-        "My first ML competition ever: 0.762 mIoU (public score) on invisible watermark localisation, as a pair and in 22 hours, at the <a href=\"https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026\">European AI Championship 2026</a>."
-      ],
-      [
-        "I know cybersecurity from the inside.",
-        "Apprentice in the Group CIO Office at Société Générale since 2025, after a cybersecurity bachelor's. <a href=\"https://www.linkedin.com/in/ethan-blombou\">See my LinkedIn</a>."
-      ]
-    ]
+    "photo_alt": "Portrait of Ethan Blombou with a slight smile, arms crossed, wearing a black jumper"
   },
   "about": {
     "eyebrow": "About",

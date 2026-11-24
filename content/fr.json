@@ -45,52 +45,12 @@
   },
   "hero": {
     "badge": "Ouvert aux stages et aux collaborations",
-    "statement": "Je viens de la cybersécurité, je vais vers <em>l'IA agentique</em> et la data science.",
+    "statement": "Je viens de la cybersécurité, je vais vers <em class=\"thread-word\">l'IA agentique</em> et la data science.",
     "lead": "Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sûrs qu'on le dit.",
     "cta_projects": "Voir mes projets",
     "cta_contact": "Me contacter",
     "place": "Entre Paris et Brest",
-    "photo_alt": "Portrait d'Ethan Blombou, souriant légèrement, bras croisés, en pull noir",
-    "fiche": [
-      [
-        "Rôle",
-        "Apprenti cybersécurité, Société Générale"
-      ],
-      [
-        "École",
-        "IMT Atlantique, 2025-2028"
-      ],
-      [
-        "Basé",
-        "Paris ⇄ Brest"
-      ],
-      [
-        "Cap",
-        "IA agentique, ML, data"
-      ]
-    ],
-    "title": "Ne me croyez pas sur parole.",
-    "intro": "Je suis Ethan, élève ingénieur à IMT Atlantique et apprenti en cybersécurité à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sécurisés qu'on le dit. Voici donc mon propre profil, audité de la même façon.",
-    "say": "Ce que je dis",
-    "proof": "La preuve",
-    "claims": [
-      [
-        "Je construis et je déploie des agents IA.",
-        "TRIAD : quatre agents qui auditent une configuration Google Cloud, développés avec Google ADK et déployés sur Cloud Run. <a href=\"https://github.com/BuildRunnerFr/triad\">Voir le code</a>."
-      ],
-      [
-        "Mes agents visent juste, et je le mesure.",
-        "Attest a réussi 56 contrôles sur 56 à chaque exécution du banc d'essai sur 8 banques fictives, sans aucun faux constat. <a href=\"https://github.com/BuildRunnerFr/attest\">Voir le registre des exécutions</a>."
-      ],
-      [
-        "J'apprends vite.",
-        "Ma toute première compétition de ML : 0,762 de mIoU (score public) sur la localisation de tatouages invisibles, en binôme et en 22 heures, à l'<a href=\"https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026\">European AI Championship 2026</a>."
-      ],
-      [
-        "Je connais la cyber de l'intérieur.",
-        "Apprenti au Group CIO Office de la Société Générale depuis 2025, après un BUT parcours cybersécurité. <a href=\"https://www.linkedin.com/in/ethan-blombou\">Voir mon LinkedIn</a>."
-      ]
-    ]
+    "photo_alt": "Portrait d'Ethan Blombou, souriant légèrement, bras croisés, en pull noir"
   },
   "about": {
     "eyebrow": "À propos",
