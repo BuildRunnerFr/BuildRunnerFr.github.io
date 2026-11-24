@@ -20,7 +20,20 @@
     "copy": "Copy",
     "copied": "Address copied",
     "logo_of": "Logo",
-    "top": "Back to top"
+    "top": "Back to top",
+    "all": "All",
+    "filter": "Filter tools by field",
+    "certs": "Certifications",
+    "portfolio": "Portfolio",
+    "route": [
+      "Networks and telecoms",
+      "Cybersecurity",
+      "Agentic AI",
+      "Data science"
+    ],
+    "route_label": "My path, from networks to agentic AI and data science",
+    "aside": "Off duty",
+    "tools": "tools"
   },
   "nav": {
     "home": "Home",
@@ -32,12 +45,30 @@
   },
   "hero": {
     "badge": "Open to internships and collaborations",
-    "statement": "I come from cybersecurity and I am heading towards <em class=\"thread-word\">agentic AI</em> and data science.",
+    "statement": "I come from cybersecurity and I am heading towards <em>agentic AI</em> and data science.",
     "lead": "Engineering student at IMT Atlantique and apprentice at Société Générale. I build AI agents that check whether systems are really as secure as people say.",
     "cta_projects": "See my projects",
     "cta_contact": "Get in touch",
     "place": "Between Paris and Brest",
-    "photo_alt": "Portrait of Ethan Blombou with a slight smile, arms crossed, wearing a black jumper"
+    "photo_alt": "Portrait of Ethan Blombou with a slight smile, arms crossed, wearing a black jumper",
+    "fiche": [
+      [
+        "Role",
+        "Cybersecurity apprentice, Société Générale"
+      ],
+      [
+        "School",
+        "IMT Atlantique, 2025-2028"
+      ],
+      [
+        "Based",
+        "Paris ⇄ Brest"
+      ],
+      [
+        "Focus",
+        "Agentic AI, ML, data"
+      ]
+    ]
   },
   "about": {
     "eyebrow": "About",
@@ -128,6 +159,16 @@
         "org": "Technical University of Sofia",
         "what": "Erasmus+ semester",
         "dates": "2024"
+      }
+    ],
+    "certs": [
+      {
+        "name": "Python Essentials 1",
+        "issuer": "Cisco Networking Academy"
+      },
+      {
+        "name": "Python Essentials 2",
+        "issuer": "Cisco Networking Academy"
       }
     ]
   },
@@ -238,19 +279,84 @@
   },
   "skills": {
     "eyebrow": "Skills",
-    "title": "The tools I work with.",
+    "title": "My toolbox.",
     "groups": [
       {
-        "name": "Languages",
+        "key": "ai",
+        "name": "AI and agents",
+        "items": [
+          [
+            "Claude",
+            "claude"
+          ],
+          [
+            "ChatGPT",
+            ""
+          ],
+          [
+            "Gemini · Vertex AI",
+            "googlegemini"
+          ],
+          [
+            "Google ADK",
+            ""
+          ],
+          [
+            "Microsoft Copilot Studio",
+            ""
+          ],
+          [
+            "PyTorch",
+            "pytorch"
+          ]
+        ]
+      },
+      {
+        "key": "data",
+        "name": "Data",
         "items": [
           [
             "Python",
             "python"
           ],
           [
+            "pandas",
+            "pandas"
+          ],
+          [
+            "NumPy",
+            "numpy"
+          ],
+          [
             "SQL",
             ""
           ],
+          [
+            "Alteryx",
+            ""
+          ],
+          [
+            "PostgreSQL",
+            "postgresql"
+          ],
+          [
+            "MongoDB",
+            "mongodb"
+          ],
+          [
+            "Statistics and probability",
+            ""
+          ],
+          [
+            "Signal processing",
+            ""
+          ]
+        ]
+      },
+      {
+        "key": "dev",
+        "name": "Languages and development",
+        "items": [
           [
             "C",
             "c"
@@ -262,49 +368,130 @@
           [
             "Java",
             ""
-          ]
-        ]
-      },
-      {
-        "name": "Cloud and tooling",
-        "items": [
-          [
-            "Google Cloud",
-            "googlecloud"
           ],
           [
-            "Terraform",
-            "terraform"
+            "TypeScript",
+            "typescript"
+          ],
+          [
+            "JavaScript",
+            "javascript"
+          ],
+          [
+            "PHP",
+            "php"
+          ],
+          [
+            "Bash",
+            "gnubash"
+          ],
+          [
+            "HTML",
+            "html5"
+          ],
+          [
+            "CSS",
+            "css"
           ],
           [
             "FastAPI",
             "fastapi"
           ],
           [
-            "Linux",
-            "linux"
+            "Next.js",
+            "nextdotjs"
           ],
           [
             "Git",
             "git"
-          ]
-        ]
-      },
-      {
-        "name": "Data",
-        "items": [
-          [
-            "pandas",
-            "pandas"
           ],
           [
-            "NumPy",
-            "numpy"
+            "GitHub Actions",
+            "githubactions"
+          ],
+          [
+            "GitLab",
+            "gitlab"
           ]
         ]
       },
       {
-        "name": "Security",
+        "key": "net",
+        "name": "Networks and telecoms",
+        "items": [
+          [
+            "TCP/IP",
+            ""
+          ],
+          [
+            "OSPF",
+            ""
+          ],
+          [
+            "BGP",
+            ""
+          ],
+          [
+            "MPLS",
+            ""
+          ],
+          [
+            "VLAN",
+            ""
+          ],
+          [
+            "STP",
+            ""
+          ],
+          [
+            "ACL",
+            ""
+          ],
+          [
+            "QoS",
+            ""
+          ],
+          [
+            "DNS",
+            ""
+          ],
+          [
+            "DHCP",
+            ""
+          ],
+          [
+            "VPN",
+            ""
+          ],
+          [
+            "Wi-Fi",
+            ""
+          ],
+          [
+            "VoIP · SIP",
+            ""
+          ],
+          [
+            "Optical fibre",
+            ""
+          ],
+          [
+            "ADSL · VDSL2",
+            ""
+          ],
+          [
+            "SNMP monitoring",
+            ""
+          ],
+          [
+            "Wireshark",
+            "wireshark"
+          ]
+        ]
+      },
+      {
+        "key": "sec",
+        "name": "Cybersecurity",
         "items": [
           [
             "Splunk",
@@ -313,9 +500,74 @@
           [
             "Elastic",
             "elastic"
+          ],
+          [
+            "Suricata",
+            ""
+          ],
+          [
+            "pfSense",
+            "pfsense"
+          ],
+          [
+            "Stormshield",
+            ""
+          ],
+          [
+            "Active Directory",
+            ""
+          ],
+          [
+            "PKI and cryptography",
+            ""
+          ],
+          [
+            "Penetration testing",
+            ""
+          ],
+          [
+            "Caldera",
+            ""
+          ],
+          [
+            "NIS2 · DORA compliance",
+            ""
+          ],
+          [
+            "CTF",
+            ""
           ]
-        ],
-        "note": "SIEM"
+        ]
+      },
+      {
+        "key": "cloud",
+        "name": "Cloud and systems",
+        "items": [
+          [
+            "Google Cloud",
+            "googlecloud"
+          ],
+          [
+            "Cloud Run",
+            ""
+          ],
+          [
+            "Terraform",
+            "terraform"
+          ],
+          [
+            "Docker",
+            "docker"
+          ],
+          [
+            "Linux",
+            "linux"
+          ],
+          [
+            "Virtualisation",
+            ""
+          ]
+        ]
       }
     ],
     "languages_title": "Spoken languages",

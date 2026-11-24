@@ -72,18 +72,6 @@ def icon(slug):
 
 
 ARROW = '<svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-SQUIGGLE = '<svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
-
-
-def wave(cls):
-    return (
-        f'<svg class="wave {cls}" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">'
-        '<path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>'
-    )
-
-
-def eyebrow(text):
-    return f'<p class="eyebrow">{SQUIGGLE}<span>{text}</span></p>'
 
 
 def tags(items):
@@ -112,18 +100,24 @@ def code_link(c, p):
     )
 
 
+def shead(n, kicker, title, id_):
+    return (
+        f'<header class="shead"><p class="shead__k"><span class="shead__n">{n}</span>{kicker}</p>'
+        f'<h2 class="shead__t reveal" id="{id_}">{title}</h2></header>'
+    )
+
+
 def render(c):
     lang = c["lang"]
-    other = "en" if lang == "fr" else "fr"
     url = SITE + c["path"]
+    ui = c["ui"]
     h, a, x, pr, sk, ct = c["hero"], c["about"], c["experience"], c["projects"], c["skills"], c["contact"]
 
     nav_links = "".join(
         f'<li><a href="#{s}" data-nav="{s}">{c["nav"][s]}</a></li>' for s in SECTIONS[1:]
     )
-
     lang_switch = (
-        f'<div class="lang" role="group" aria-label="{c["ui"]["lang_label"]}">'
+        f'<div class="lang" role="group" aria-label="{ui["lang_label"]}">'
         + "".join(
             f'<a href="{c["path"] if l == lang else c["other_path"]}" lang="{l}" hreflang="{l}" data-lang-link'
             + (' aria-current="true"' if l == lang else "")
@@ -133,90 +127,92 @@ def render(c):
         + "</div>"
     )
 
-    facts = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"])
+    fiche = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in h["fiche"])
+    route = "".join(
+        f'<li class="route__node{" is-target" if i >= 2 else ""}"><span class="route__dot" aria-hidden="true"></span>{name}</li>'
+        for i, name in enumerate(ui["route"])
+    )
+
+    facts = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"][3:])
 
     xp = ""
-    for i, it in enumerate(x["items"]):
+    for i, it in enumerate(x["items"], 1):
         logos = logo(it["logo"], it["org"])
         if it.get("logo2"):
             logos += logo(it["logo2"], it["org2"])
         bullets = "".join(f"<li>{b}</li>" for b in it["bullets"])
         xp += f"""
-          <li class="step reveal">
-            <span class="step__dot" aria-hidden="true"></span>
-            <div class="step__logos">{logos}</div>
-            <h3 class="step__role">{it["role"]}</h3>
-            <p class="step__meta"><span class="step__org">{it["org"]}</span><span class="step__dates">{it["dates"]}</span></p>
-            <ul class="step__list">{bullets}</ul>
+          <li class="hop reveal">
+            <p class="hop__n" aria-hidden="true">{i:02d}</p>
+            <p class="hop__dates">{it["dates"]}</p>
+            <div class="hop__body">
+              <div class="hop__logos">{logos}</div>
+              <h3 class="hop__role">{it["role"]}</h3>
+              <p class="hop__org">{it["org"]}</p>
+              <ul class="hop__list">{bullets}</ul>
+            </div>
           </li>"""
 
     edu = ""
     for it in x["edu"]:
         edu += f"""
-          <li class="edu reveal">
-            <div class="edu__logo">{logo(it["logo"], it["org"])}</div>
-            <div>
-              <h4 class="edu__org">{it["org"]}</h4>
-              <p class="edu__what">{it["what"]}</p>
-              <p class="edu__dates">{it["dates"]}</p>
-            </div>
-          </li>"""
+            <li class="row reveal">
+              <div class="row__logo">{logo(it["logo"], it["org"])}</div>
+              <div class="row__main"><h4>{it["org"]}</h4><p>{it["what"]}</p></div>
+              <p class="row__dates">{it["dates"]}</p>
+            </li>"""
+    certs = ""
+    for it in x["certs"]:
+        certs += f"""
+            <li class="row row--cert reveal">
+              <div class="row__main"><h4>{it["name"]}</h4><p>{it["issuer"]}</p></div>
+            </li>"""
 
-    f = pr["featured"]
-    featured = f"""
-        <article class="project project--featured reveal">
-          <div class="project__media">
-            <img src="{f["image"]}" alt="{escape(f["image_alt"])}" width="{f["image_w"]}" height="{f["image_h"]}" loading="lazy" decoding="async">
-          </div>
-          <div class="project__body">
-            <p class="project__context">{kind_badge(c, f["kind"])}<span>{f["context"]}</span></p>
-            {project_logos(c, f["logos"])}
-            <h3 class="project__name">{f["name"]}</h3>
-            <p class="project__tagline">{f["tagline"]}</p>
-            <p>{f["desc"]}</p>
-            {part_block(c, f.get("part"))}
-            {tags(f["tags"])}
-            <p class="project__links">{code_link(c, f)}</p>
-          </div>
-        </article>"""
-
-    cards = ""
-    for p in pr["items"]:
+    def project(p, featured=False):
         media = ""
         if p.get("image"):
             media = (
                 f'<div class="project__media"><img src="{p["image"]}" alt="{escape(p["image_alt"])}" '
                 f'width="{p["image_w"]}" height="{p["image_h"]}" loading="lazy" decoding="async"></div>'
             )
-        cards += f"""
-        <article class="project reveal">
+        return f"""
+        <article class="project{" project--featured" if featured else ""} reveal">
           {media}
           <div class="project__body">
             <p class="project__context">{kind_badge(c, p["kind"])}<span>{p["context"]}</span></p>
-            {project_logos(c, p["logos"])}
             <h3 class="project__name">{p["name"]}</h3>
             <p class="project__tagline">{p["tagline"]}</p>
-            <p>{p["desc"]}</p>
+            <p class="project__desc">{p["desc"]}</p>
             {part_block(c, p.get("part"))}
             {tags(p["tags"])}
-            <p class="project__links">{code_link(c, p)}</p>
+            <div class="project__foot">{code_link(c, p)}{project_logos(c, p["logos"])}</div>
           </div>
         </article>"""
 
+    featured = project(pr["featured"], True)
+    cards = "".join(project(p) for p in pr["items"])
     more = "".join(
         f'<li class="reveal"><span class="more__name">{n}</span><span class="more__stack">{s}</span></li>'
         for n, s in pr["more"]
     )
 
+    total = sum(len(g["items"]) for g in sk["groups"])
+    filters = f'<button type="button" class="filter" data-filter="all" aria-pressed="true">{ui["all"]}<span>{total}</span></button>'
     groups = ""
     for g in sk["groups"]:
+        filters += f'<button type="button" class="filter" data-filter="{g["key"]}" aria-pressed="false">{g["name"]}<span>{len(g["items"])}</span></button>'
         chips = "".join(f'<li class="chip">{icon(slug)}<span>{escape(name)}</span></li>' for name, slug in g["items"])
-        note = f' <span class="group__note">{g["note"]}</span>' if g.get("note") else ""
-        groups += f'<div class="group reveal"><h3 class="group__name">{g["name"]}{note}</h3><ul class="chips">{chips}</ul></div>'
+        groups += (
+            f'<div class="group reveal" data-group="{g["key"]}"><h3 class="group__name">{g["name"]}'
+            f'<span class="group__count">{len(g["items"])}</span></h3><ul class="chips">{chips}</ul></div>'
+        )
     langs = "".join(
         f'<li class="chip"><span>{n}</span><span class="chip__level">{lv}</span></li>' for n, lv in sk["languages"]
     )
-    groups += f'<div class="group reveal"><h3 class="group__name">{sk["languages_title"]}</h3><ul class="chips">{langs}</ul></div>'
+    groups += (
+        f'<div class="group reveal" data-group="lang"><h3 class="group__name">{sk["languages_title"]}'
+        f'<span class="group__count">{len(sk["languages"])}</span></h3><ul class="chips">{langs}</ul></div>'
+    )
 
     paragraphs = "".join(f"<p>{p}</p>" for p in a["paragraphs"])
 
@@ -228,7 +224,7 @@ def render(c):
             "url": SITE + "/",
             "image": SITE + "/assets/ethan.jpg",
             "email": "mailto:" + EMAIL,
-            "jobTitle": c["experience"]["items"][0]["role"],
+            "jobTitle": x["items"][0]["role"],
             "worksFor": {"@type": "Organization", "name": "Société Générale"},
             "alumniOf": [
                 {"@type": "CollegeOrUniversity", "name": "IMT Atlantique"},
@@ -248,7 +244,7 @@ def render(c):
 <title>{c["meta"]["title"]}</title>
 <meta name="description" content="{escape(c["meta"]["description"])}">
 <meta name="author" content="Ethan Blombou">
-<meta name="theme-color" content="#f5efe3">
+<meta name="theme-color" content="#f3f2ed">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="fr" href="{SITE}/">
@@ -266,28 +262,20 @@ def render(c):
 <meta property="og:image:alt" content="Ethan Blombou">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script>document.documentElement.classList.add('js')</script>
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
-<a class="skip" href="#main">{c["ui"]["skip"]}</a>
-
-<svg width="0" height="0" class="defs" aria-hidden="true" focusable="false">
-  <defs>
-    <clipPath id="galet" clipPathUnits="objectBoundingBox">
-      <path d="M.5.012C.72-.01.93.09.972.31c.04.2-.005.43-.1.57C.76 1.01.53 1.005.34.975.16.945.045.83.02.63-.01.43.03.21.16.1.26.03.38.022.5.012Z"/>
-    </clipPath>
-  </defs>
-</svg>
+<a class="skip" href="#main">{ui["skip"]}</a>
 
 <header class="top">
-  <nav class="nav" aria-label="{c["ui"]["nav_label"]}">
-    <a class="nav__brand" href="#home">Ethan Blombou</a>
+  <nav class="nav" aria-label="{ui["nav_label"]}">
+    <a class="nav__brand" href="#home"><span class="nav__mark" aria-hidden="true">EB</span>Ethan Blombou</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
-      <span class="nav__toggle-bars" aria-hidden="true"></span><span>{c["ui"]["menu"]}</span>
+      <span class="nav__toggle-bars" aria-hidden="true"></span><span>{ui["menu"]}</span>
     </button>
     <ul class="nav__links" id="nav-links">{nav_links}</ul>
     {lang_switch}
@@ -297,68 +285,72 @@ def render(c):
 <main id="main">
 
   <section class="hero" id="home">
-    <div class="wrap hero__grid">
-      <div class="hero__text">
+    <div class="wrap">
+      <div class="hero__top">
         <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
-        <h1 class="hero__name">Ethan <span>Blombou</span></h1>
-        <p class="hero__statement">{h["statement"]}</p>
-        <p class="hero__lead">{h["lead"]}</p>
-        <p class="hero__cta">
-          <a class="btn btn--solid" href="#projects">{h["cta_projects"]}{ARROW}</a>
-          <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
-        </p>
-        <p class="hero__place"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 18s5.5-5 5.5-9.3A5.5 5.5 0 0 0 4.500 8.700C4.500 13 10 18 10 18Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="10" cy="8.600" r="1.900" fill="currentColor"/></svg>{h["place"]}</p>
+        <p class="hero__coords" aria-hidden="true">48.86°N 2.35°E <span>⇄</span> 48.39°N 4.49°W</p>
       </div>
-      <figure class="portrait">
-        <svg class="blob blob--sage" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c34-4 70 12 82 46s6 78-18 104-66 38-100 26S10 140 8 104 30 36 58 20c14-8 28-10 42-12Z"/></svg>
-        <svg class="blob blob--clay" viewBox="0 0 200 200" aria-hidden="true"><path d="M96 14c36-8 72 16 84 50s-2 76-30 98-70 30-102 12S6 118 14 82s46-60 82-68Z"/></svg>
-        <picture class="portrait__photo">
-          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w, /assets/ethan-890.webp 890w" sizes="(min-width: 900px) 340px, min(300px, 78vw)">
-          <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
-        </picture>
-        <svg class="portrait__thread" viewBox="0 0 240 120" aria-hidden="true"><path pathLength="1" d="M6 92c30-50 62-66 84-44s-8 58-26 40 6-62 52-68 84 14 118 44" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round"/></svg>
-      </figure>
+      <h1 class="hero__name"><span class="line"><span>Ethan</span></span> <span class="line"><span>Blombou</span></span></h1>
+      <div class="hero__grid">
+        <figure class="portrait">
+          <picture>
+            <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="200px">
+            <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
+          </picture>
+        </figure>
+        <div class="hero__pitch">
+          <p class="hero__statement">{h["statement"]}</p>
+          <p class="hero__lead">{h["lead"]}</p>
+          <p class="hero__cta">
+            <a class="btn btn--solid" href="#projects">{h["cta_projects"]}{ARROW}</a>
+            <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
+          </p>
+        </div>
+        <dl class="fiche">{fiche}</dl>
+      </div>
+      <div class="route" role="img" aria-label="{escape(ui["route_label"])}">
+        <div class="route__track" aria-hidden="true"><span class="route__packet"></span></div>
+        <ol class="route__nodes" aria-hidden="true">{route}</ol>
+      </div>
     </div>
-    {wave("wave--sand")}
   </section>
 
-  <section class="section section--sand" id="about" aria-labelledby="about-title">
-    <div class="wrap about">
-      <div class="about__main">
-        {eyebrow(a["eyebrow"])}
-        <h2 class="title reveal" id="about-title">{a["title"]}</h2>
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      {shead("01", a["eyebrow"], a["title"], "about-title")}
+      <div class="about">
         <div class="prose reveal">{paragraphs}</div>
+        <dl class="facts reveal">{facts}</dl>
       </div>
-      <aside class="facts reveal" aria-label="{a["facts_title"]}">
-        <h3 class="facts__title">{a["facts_title"]}</h3>
-        <dl>{facts}</dl>
-      </aside>
     </div>
-    {wave("wave--paper")}
   </section>
 
   <section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
-      {eyebrow(x["eyebrow"])}
-      <h2 class="title reveal" id="experience-title">{x["title"]}</h2>
+      {shead("02", x["eyebrow"], x["title"], "experience-title")}
       <div class="path">
-        <div class="thread" aria-hidden="true">
-          <svg viewBox="0 0 40 1000" preserveAspectRatio="none"><path d="M20 0c14 60-12 110 0 170s14 110 0 170-14 110 0 170 12 110 0 170-12 110 0 170 10 100 0 150" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
-        </div>
-        <ol class="steps">{xp}
+        <div class="path__line" aria-hidden="true"><span></span></div>
+        <ol class="hops">{xp}
         </ol>
       </div>
-      <h3 class="subtitle reveal">{x["edu_title"]}</h3>
-      <ul class="edus">{edu}
-      </ul>
+      <div class="creds">
+        <div>
+          <h3 class="subtitle reveal">{x["edu_title"]}</h3>
+          <ul class="rows">{edu}
+          </ul>
+        </div>
+        <div>
+          <h3 class="subtitle reveal">{ui["certs"]}</h3>
+          <ul class="rows">{certs}
+          </ul>
+        </div>
+      </div>
     </div>
-    {wave("wave--sand")}
   </section>
 
-  <section class="section section--sand" id="projects" aria-labelledby="projects-title">
+  <section class="section" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
-      {eyebrow(pr["eyebrow"])}
-      <h2 class="title reveal" id="projects-title">{pr["title"]}</h2>
+      {shead("03", pr["eyebrow"], pr["title"], "projects-title")}
       <p class="intro reveal">{pr["intro"]}</p>
       {featured}
       <div class="projects">{cards}
@@ -366,33 +358,28 @@ def render(c):
       <h3 class="subtitle reveal">{pr["more_title"]}</h3>
       <ul class="more">{more}</ul>
     </div>
-    {wave("wave--paper")}
   </section>
 
   <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      {eyebrow(sk["eyebrow"])}
-      <h2 class="title reveal" id="skills-title">{sk["title"]}</h2>
+      {shead("04", sk["eyebrow"], sk["title"], "skills-title")}
+      <div class="filters reveal" role="group" aria-label="{escape(ui["filter"])}">{filters}</div>
       <div class="groups">{groups}</div>
     </div>
-    {wave("wave--forest")}
   </section>
 
-  <section class="section section--forest" id="contact" aria-labelledby="contact-title">
-    <svg class="contact__blob" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c34-4 70 12 82 46s6 78-18 104-66 38-100 26S10 140 8 104 30 36 58 20c14-8 28-10 42-12Z"/></svg>
-    <svg class="contact__pebble" viewBox="0 0 200 200" aria-hidden="true"><path d="M96 14c36-8 72 16 84 50s-2 76-30 98-70 30-102 12S6 118 14 82s46-60 82-68Z"/></svg>
+  <section class="section section--dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap contact">
-      {eyebrow(ct["eyebrow"])}
-      <h2 class="title title--xl reveal" id="contact-title">{ct["title"]}</h2>
+      {shead("05", ct["eyebrow"], ct["title"], "contact-title")}
       <p class="contact__text reveal">{ct["text"]}</p>
       <div class="contact__mail reveal">
         <a class="mail" href="mailto:{EMAIL}"><span class="sr-only">{ct["email_label"]} : </span>{EMAIL}</a>
-        <button class="copy" type="button" data-copy="{EMAIL}" data-done="{c["ui"]["copied"]}">{c["ui"]["copy"]}</button>
+        <button class="copy" type="button" data-copy="{EMAIL}" data-done="{ui["copied"]}">{ui["copy"]}</button>
         <span class="copy__status" role="status" aria-live="polite"></span>
       </div>
       <ul class="contact__links reveal">
-        <li><a class="link link--light" href="{LINKEDIN}" rel="noopener me">{ct["linkedin"]}<span class="link__handle">in/ethan-blombou</span>{ARROW}</a></li>
-        <li><a class="link link--light" href="{GITHUB}" rel="noopener me">{ct["github"]}<span class="link__handle">BuildRunnerFr</span>{ARROW}</a></li>
+        <li><a class="link" href="{LINKEDIN}" rel="noopener me">{ct["linkedin"]}<span class="link__handle">in/ethan-blombou</span>{ARROW}</a></li>
+        <li><a class="link" href="{GITHUB}" rel="noopener me">{ct["github"]}<span class="link__handle">BuildRunnerFr</span>{ARROW}</a></li>
       </ul>
     </div>
   </section>
@@ -401,9 +388,9 @@ def render(c):
 
 <footer class="footer">
   <div class="wrap footer__in">
-    <p>© 2026 Ethan Blombou · {c["footer"]["made"]}</p>
+    <p>© 2026 Ethan Blombou</p>
     <p>{c["footer"]["note"]}</p>
-    <p><a href="#home">{c["ui"]["top"]} ↑</a></p>
+    <p><a href="#home">{ui["top"]} ↑</a></p>
   </div>
 </footer>
 

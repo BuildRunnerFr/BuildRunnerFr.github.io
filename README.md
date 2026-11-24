@@ -25,6 +25,6 @@ python3 -m http.server 4173
 - `assets/css/style.css`, `assets/js/main.js` : styles et interactions
 - `assets/logos/` : logos des organisations, fichiers d'origine non modifiés (seuls les PNG ont été réduits en taille)
 - `assets/icons/` : icônes des technologies, issues de Simple Icons
-- `assets/fonts/` : Fraunces et Instrument Sans (licence OFL)
+- `assets/fonts/` : Bricolage Grotesque, Instrument Sans et JetBrains Mono (licence OFL)
 
 Les logos et marques appartiennent à leurs détenteurs respectifs.

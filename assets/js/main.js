@@ -68,15 +68,29 @@
     });
   }
 
-  /* Le fil se déroule avec le scroll */
+  /* La ligne des expériences se remplit avec le scroll */
   var path = document.querySelector('.path');
-  var thread = document.querySelector('.thread');
+  var thread = document.querySelector('.path__line');
   function setThread() {
     if (!path || !thread || reduce) return;
     var r = path.getBoundingClientRect();
-    var p = (window.innerHeight * 0.72 - r.top) / r.height;
+    var p = (window.innerHeight * 0.7 - r.top) / r.height;
     thread.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(4));
   }
+
+  /* Filtre des outils par domaine */
+  var filters = document.querySelectorAll('.filter');
+  var groups = document.querySelectorAll('.group');
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.dataset.filter;
+      filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      groups.forEach(function (g) {
+        g.hidden = key !== 'all' && g.dataset.group !== key;
+        g.classList.add('is-in');
+      });
+    });
+  });
 
   var ticking = false;
   function onScroll() {

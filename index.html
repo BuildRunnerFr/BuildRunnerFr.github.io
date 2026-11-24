@@ -6,7 +6,7 @@
 <title>Ethan Blombou · IA agentique, data et cybersécurité</title>
 <meta name="description" content="Élève ingénieur à IMT Atlantique et apprenti cybersécurité à la Société Générale. Je viens de la cyber et je vais vers l&#x27;IA agentique et la data science : projets, hackathons, parcours et contact.">
 <meta name="author" content="Ethan Blombou">
-<meta name="theme-color" content="#f5efe3">
+<meta name="theme-color" content="#f3f2ed">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://buildrunnerfr.github.io/">
 <link rel="alternate" hreflang="fr" href="https://buildrunnerfr.github.io/">
@@ -24,7 +24,7 @@
 <meta property="og:image:alt" content="Ethan Blombou">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script>document.documentElement.classList.add('js')</script>
@@ -33,17 +33,9 @@
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
 
-<svg width="0" height="0" class="defs" aria-hidden="true" focusable="false">
-  <defs>
-    <clipPath id="galet" clipPathUnits="objectBoundingBox">
-      <path d="M.5.012C.72-.01.93.09.972.31c.04.2-.005.43-.1.57C.76 1.01.53 1.005.34.975.16.945.045.83.02.63-.01.43.03.21.16.1.26.03.38.022.5.012Z"/>
-    </clipPath>
-  </defs>
-</svg>
-
 <header class="top">
   <nav class="nav" aria-label="Navigation principale">
-    <a class="nav__brand" href="#home">Ethan Blombou</a>
+    <a class="nav__brand" href="#home"><span class="nav__mark" aria-hidden="true">EB</span>Ethan Blombou</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
       <span class="nav__toggle-bars" aria-hidden="true"></span><span>Menu</span>
     </button>
@@ -55,128 +47,135 @@
 <main id="main">
 
   <section class="hero" id="home">
-    <div class="wrap hero__grid">
-      <div class="hero__text">
+    <div class="wrap">
+      <div class="hero__top">
         <p class="badge"><span class="badge__dot" aria-hidden="true"></span>Ouvert aux stages et aux collaborations</p>
-        <h1 class="hero__name">Ethan <span>Blombou</span></h1>
-        <p class="hero__statement">Je viens de la cybersécurité, je vais vers <em class="thread-word">l'IA agentique</em> et la data science.</p>
-        <p class="hero__lead">Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sûrs qu'on le dit.</p>
-        <p class="hero__cta">
-          <a class="btn btn--solid" href="#projects">Voir mes projets<svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a class="btn btn--line" href="#contact">Me contacter</a>
-        </p>
-        <p class="hero__place"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 18s5.5-5 5.5-9.3A5.5 5.5 0 0 0 4.500 8.700C4.500 13 10 18 10 18Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="10" cy="8.600" r="1.900" fill="currentColor"/></svg>Entre Paris et Brest</p>
+        <p class="hero__coords" aria-hidden="true">48.86°N 2.35°E <span>⇄</span> 48.39°N 4.49°W</p>
       </div>
-      <figure class="portrait">
-        <svg class="blob blob--sage" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c34-4 70 12 82 46s6 78-18 104-66 38-100 26S10 140 8 104 30 36 58 20c14-8 28-10 42-12Z"/></svg>
-        <svg class="blob blob--clay" viewBox="0 0 200 200" aria-hidden="true"><path d="M96 14c36-8 72 16 84 50s-2 76-30 98-70 30-102 12S6 118 14 82s46-60 82-68Z"/></svg>
-        <picture class="portrait__photo">
-          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w, /assets/ethan-890.webp 890w" sizes="(min-width: 900px) 340px, min(300px, 78vw)">
-          <img src="/assets/ethan.jpg" alt="Portrait d&#x27;Ethan Blombou, souriant légèrement, bras croisés, en pull noir" width="890" height="1205" fetchpriority="high" decoding="async">
-        </picture>
-        <svg class="portrait__thread" viewBox="0 0 240 120" aria-hidden="true"><path pathLength="1" d="M6 92c30-50 62-66 84-44s-8 58-26 40 6-62 52-68 84 14 118 44" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round"/></svg>
-      </figure>
+      <h1 class="hero__name"><span class="line"><span>Ethan</span></span> <span class="line"><span>Blombou</span></span></h1>
+      <div class="hero__grid">
+        <figure class="portrait">
+          <picture>
+            <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="200px">
+            <img src="/assets/ethan.jpg" alt="Portrait d&#x27;Ethan Blombou, souriant légèrement, bras croisés, en pull noir" width="890" height="1205" fetchpriority="high" decoding="async">
+          </picture>
+        </figure>
+        <div class="hero__pitch">
+          <p class="hero__statement">Je viens de la cybersécurité, je vais vers <em>l'IA agentique</em> et la data science.</p>
+          <p class="hero__lead">Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sûrs qu'on le dit.</p>
+          <p class="hero__cta">
+            <a class="btn btn--solid" href="#projects">Voir mes projets<svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn btn--line" href="#contact">Me contacter</a>
+          </p>
+        </div>
+        <dl class="fiche"><div><dt>Rôle</dt><dd>Apprenti cybersécurité, Société Générale</dd></div><div><dt>École</dt><dd>IMT Atlantique, 2025-2028</dd></div><div><dt>Basé</dt><dd>Paris ⇄ Brest</dd></div><div><dt>Cap</dt><dd>IA agentique, ML, data</dd></div></dl>
+      </div>
+      <div class="route" role="img" aria-label="Mon parcours, des réseaux vers l&#x27;IA agentique et la data science">
+        <div class="route__track" aria-hidden="true"><span class="route__packet"></span></div>
+        <ol class="route__nodes" aria-hidden="true"><li class="route__node"><span class="route__dot" aria-hidden="true"></span>Réseaux et télécoms</li><li class="route__node"><span class="route__dot" aria-hidden="true"></span>Cybersécurité</li><li class="route__node is-target"><span class="route__dot" aria-hidden="true"></span>IA agentique</li><li class="route__node is-target"><span class="route__dot" aria-hidden="true"></span>Data science</li></ol>
+      </div>
     </div>
-    <svg class="wave wave--sand" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
   </section>
 
-  <section class="section section--sand" id="about" aria-labelledby="about-title">
-    <div class="wrap about">
-      <div class="about__main">
-        <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>À propos</span></p>
-        <h2 class="title reveal" id="about-title">Un pied dans la cyber, l'autre dans l'IA.</h2>
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <header class="shead"><p class="shead__k"><span class="shead__n">01</span>À propos</p><h2 class="shead__t reveal" id="about-title">Un pied dans la cyber, l'autre dans l'IA.</h2></header>
+      <div class="about">
         <div class="prose reveal"><p>Je suis élève ingénieur à IMT Atlantique (informatique, réseaux et télécoms, 2025-2028), en apprentissage à la Société Générale, au Group CIO Office : stratégie IT et cyber.</p><p>Mon fil rouge : je viens des réseaux et de la cybersécurité, et je vais vers l'IA agentique et la data science. Les projets que je préfère sont à la jonction des deux : des agents qui contrôlent, croisent des sources et rapportent des preuves.</p><p>Je fais beaucoup de hackathons. C'est ma façon de découvrir un domaine, de construire quelque chose de concret et de sortir de ma zone de confort.</p></div>
+        <dl class="facts reveal"><div><dt>Langues</dt><dd>Français natif, anglais C1, espagnol B1</dd></div><div><dt>À côté</dt><dd>Échecs (environ 1250 Elo), foot, CTF sur Root-Me, TryHackMe et Hack The Box, finance quantitative et investissement personnel</dd></div></dl>
       </div>
-      <aside class="facts reveal" aria-label="En bref">
-        <h3 class="facts__title">En bref</h3>
-        <dl><div><dt>Basé</dt><dd>Entre Paris et Brest</dd></div><div><dt>École</dt><dd>IMT Atlantique, 2025-2028</dd></div><div><dt>Alternance</dt><dd>Société Générale, Group CIO Office</dd></div><div><dt>Langues</dt><dd>Français natif, anglais C1, espagnol B1</dd></div><div><dt>À côté</dt><dd>Échecs (environ 1250 Elo), foot, CTF sur Root-Me, TryHackMe et Hack The Box, finance quantitative et investissement personnel</dd></div></dl>
-      </aside>
     </div>
-    <svg class="wave wave--paper" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
   </section>
 
   <section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
-      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Expériences</span></p>
-      <h2 class="title reveal" id="experience-title">Du terrain télécom à la cyber en banque.</h2>
+      <header class="shead"><p class="shead__k"><span class="shead__n">02</span>Expériences</p><h2 class="shead__t reveal" id="experience-title">Du terrain télécom à la cyber en banque.</h2></header>
       <div class="path">
-        <div class="thread" aria-hidden="true">
-          <svg viewBox="0 0 40 1000" preserveAspectRatio="none"><path d="M20 0c14 60-12 110 0 170s14 110 0 170-14 110 0 170 12 110 0 170-12 110 0 170 10 100 0 150" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
-        </div>
-        <ol class="steps">
-          <li class="step reveal">
-            <span class="step__dot" aria-hidden="true"></span>
-            <div class="step__logos"><img class="logo logo--wide logo--societe-generale" src="/assets/logos/societe-generale.svg" alt="Société Générale" width="145" height="28" loading="lazy" decoding="async"></div>
-            <h3 class="step__role">Apprenti cybersécurité, Group CIO Office</h3>
-            <p class="step__meta"><span class="step__org">Société Générale</span><span class="step__dates">Depuis sept. 2025</span></p>
-            <ul class="step__list"><li>Pipeline Python qui automatise le contrôle de séparation des tâches : API REST du GitHub interne, croisement de trois sources avec pandas.</li><li>Reporting hebdomadaire automatisé vers une centaine de tech leads à l'international.</li><li>Référentiel de contrôle pour un audit fournisseurs mutualisé entre banques européennes.</li><li>En cours : un agent IA qui répond en langage naturel en croisant des référentiels.</li></ul>
+        <div class="path__line" aria-hidden="true"><span></span></div>
+        <ol class="hops">
+          <li class="hop reveal">
+            <p class="hop__n" aria-hidden="true">01</p>
+            <p class="hop__dates">Depuis sept. 2025</p>
+            <div class="hop__body">
+              <div class="hop__logos"><img class="logo logo--wide logo--societe-generale" src="/assets/logos/societe-generale.svg" alt="Société Générale" width="145" height="28" loading="lazy" decoding="async"></div>
+              <h3 class="hop__role">Apprenti cybersécurité, Group CIO Office</h3>
+              <p class="hop__org">Société Générale</p>
+              <ul class="hop__list"><li>Pipeline Python qui automatise le contrôle de séparation des tâches : API REST du GitHub interne, croisement de trois sources avec pandas.</li><li>Reporting hebdomadaire automatisé vers une centaine de tech leads à l'international.</li><li>Référentiel de contrôle pour un audit fournisseurs mutualisé entre banques européennes.</li><li>En cours : un agent IA qui répond en langage naturel en croisant des référentiels.</li></ul>
+            </div>
           </li>
-          <li class="step reveal">
-            <span class="step__dot" aria-hidden="true"></span>
-            <div class="step__logos"><img class="logo logo--square logo--seatru" src="/assets/logos/seatru.png" alt="SEATRU, Universiti Malaysia Terengganu" width="192" height="191" loading="lazy" decoding="async"><img class="logo logo--mid logo--umt" src="/assets/logos/umt.png" alt="Universiti Malaysia Terengganu" width="420" height="309" loading="lazy" decoding="async"></div>
-            <h3 class="step__role">Stagiaire développeur</h3>
-            <p class="step__meta"><span class="step__org">SEATRU, Universiti Malaysia Terengganu</span><span class="step__dates">Mai à août 2026 · Malaisie</span></p>
-            <ul class="step__list"><li>Progressive Web App qui remplace les fiches papier de terrain pour la protection des tortues marines.</li><li>Portail captif avec questionnaire pour les visiteurs de l'île.</li></ul>
+          <li class="hop reveal">
+            <p class="hop__n" aria-hidden="true">02</p>
+            <p class="hop__dates">Mai à août 2026 · Malaisie</p>
+            <div class="hop__body">
+              <div class="hop__logos"><img class="logo logo--square logo--seatru" src="/assets/logos/seatru.png" alt="SEATRU, Universiti Malaysia Terengganu" width="192" height="191" loading="lazy" decoding="async"><img class="logo logo--mid logo--umt" src="/assets/logos/umt.png" alt="Universiti Malaysia Terengganu" width="420" height="309" loading="lazy" decoding="async"></div>
+              <h3 class="hop__role">Stagiaire développeur</h3>
+              <p class="hop__org">SEATRU, Universiti Malaysia Terengganu</p>
+              <ul class="hop__list"><li>Progressive Web App qui remplace les fiches papier de terrain pour la protection des tortues marines.</li><li>Portail captif avec questionnaire pour les visiteurs de l'île.</li></ul>
+            </div>
           </li>
-          <li class="step reveal">
-            <span class="step__dot" aria-hidden="true"></span>
-            <div class="step__logos"><img class="logo logo--mid logo--free" src="/assets/logos/free.svg" alt="Free (groupe Iliad)" width="86" height="32" loading="lazy" decoding="async"></div>
-            <h3 class="step__role">Apprenti conducteur de travaux télécom</h3>
-            <p class="step__meta"><span class="step__org">Free (groupe Iliad)</span><span class="step__dates">2024-2025</span></p>
-            <ul class="step__list"><li>Terrain, coordination de sous-traitants, relation client.</li></ul>
+          <li class="hop reveal">
+            <p class="hop__n" aria-hidden="true">03</p>
+            <p class="hop__dates">2024-2025</p>
+            <div class="hop__body">
+              <div class="hop__logos"><img class="logo logo--mid logo--free" src="/assets/logos/free.svg" alt="Free (groupe Iliad)" width="86" height="32" loading="lazy" decoding="async"></div>
+              <h3 class="hop__role">Apprenti conducteur de travaux télécom</h3>
+              <p class="hop__org">Free (groupe Iliad)</p>
+              <ul class="hop__list"><li>Terrain, coordination de sous-traitants, relation client.</li></ul>
+            </div>
           </li>
         </ol>
       </div>
-      <h3 class="subtitle reveal">Formation</h3>
-      <ul class="edus">
-          <li class="edu reveal">
-            <div class="edu__logo"><img class="logo logo--mid logo--imt-atlantique" src="/assets/logos/imt-atlantique.svg" alt="IMT Atlantique" width="466" height="287" loading="lazy" decoding="async"></div>
-            <div>
-              <h4 class="edu__org">IMT Atlantique</h4>
-              <p class="edu__what">Diplôme d'ingénieur : informatique, réseaux et télécoms</p>
-              <p class="edu__dates">2025-2028</p>
-            </div>
-          </li>
-          <li class="edu reveal">
-            <div class="edu__logo"><img class="logo logo--wide logo--iut-velizy" src="/assets/logos/iut-velizy.png" alt="IUT de Vélizy" width="900" height="165" loading="lazy" decoding="async"></div>
-            <div>
-              <h4 class="edu__org">IUT de Vélizy</h4>
-              <p class="edu__what">BUT Réseaux et Télécoms, parcours cybersécurité</p>
-              <p class="edu__dates">2022-2025</p>
-            </div>
-          </li>
-          <li class="edu reveal">
-            <div class="edu__logo"><img class="logo logo--square logo--tu-sofia" src="/assets/logos/tu-sofia.png" alt="Université technique de Sofia" width="185" height="200" loading="lazy" decoding="async"></div>
-            <div>
-              <h4 class="edu__org">Université technique de Sofia</h4>
-              <p class="edu__what">Semestre Erasmus+</p>
-              <p class="edu__dates">2024</p>
-            </div>
-          </li>
-      </ul>
+      <div class="creds">
+        <div>
+          <h3 class="subtitle reveal">Formation</h3>
+          <ul class="rows">
+            <li class="row reveal">
+              <div class="row__logo"><img class="logo logo--mid logo--imt-atlantique" src="/assets/logos/imt-atlantique.svg" alt="IMT Atlantique" width="466" height="287" loading="lazy" decoding="async"></div>
+              <div class="row__main"><h4>IMT Atlantique</h4><p>Diplôme d'ingénieur : informatique, réseaux et télécoms</p></div>
+              <p class="row__dates">2025-2028</p>
+            </li>
+            <li class="row reveal">
+              <div class="row__logo"><img class="logo logo--wide logo--iut-velizy" src="/assets/logos/iut-velizy.png" alt="IUT de Vélizy" width="900" height="165" loading="lazy" decoding="async"></div>
+              <div class="row__main"><h4>IUT de Vélizy</h4><p>BUT Réseaux et Télécoms, parcours cybersécurité</p></div>
+              <p class="row__dates">2022-2025</p>
+            </li>
+            <li class="row reveal">
+              <div class="row__logo"><img class="logo logo--square logo--tu-sofia" src="/assets/logos/tu-sofia.png" alt="Université technique de Sofia" width="185" height="200" loading="lazy" decoding="async"></div>
+              <div class="row__main"><h4>Université technique de Sofia</h4><p>Semestre Erasmus+</p></div>
+              <p class="row__dates">2024</p>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="subtitle reveal">Certifications</h3>
+          <ul class="rows">
+            <li class="row row--cert reveal">
+              <div class="row__main"><h4>Python Essentials 1</h4><p>Cisco Networking Academy</p></div>
+            </li>
+            <li class="row row--cert reveal">
+              <div class="row__main"><h4>Python Essentials 2</h4><p>Cisco Networking Academy</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <svg class="wave wave--sand" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
   </section>
 
-  <section class="section section--sand" id="projects" aria-labelledby="projects-title">
+  <section class="section" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
-      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Projets</span></p>
-      <h2 class="title reveal" id="projects-title">Ce que je construis, surtout en hackathon.</h2>
+      <header class="shead"><p class="shead__k"><span class="shead__n">03</span>Projets</p><h2 class="shead__t reveal" id="projects-title">Ce que je construis, surtout en hackathon.</h2></header>
       <p class="intro reveal">Pour les projets d'équipe, ma contribution est indiquée à part.</p>
       
         <article class="project project--featured reveal">
-          <div class="project__media">
-            <img src="/assets/triad-cockpit.webp" alt="Cockpit de TRIAD : quatre affirmations de la DSI sur quatre sont contredites par la configuration réelle, avec la liste des ruptures classées par gravité" width="1600" height="1000" loading="lazy" decoding="async">
-          </div>
+          <div class="project__media"><img src="/assets/triad-cockpit.webp" alt="Cockpit de TRIAD : quatre affirmations de la DSI sur quatre sont contredites par la configuration réelle, avec la liste des ruptures classées par gravité" width="1600" height="1000" loading="lazy" decoding="async"></div>
           <div class="project__body">
             <p class="project__context"><span class="kind kind--team">Projet d'équipe</span><span>Hackathon Deloitte × Google Cloud</span></p>
-            <div class="project__logos"><img class="plogo plogo--wide plogo--deloitte" src="/assets/logos/deloitte.svg" alt="Deloitte" width="892" height="171" loading="lazy" decoding="async"><img class="plogo plogo--wide plogo--google-cloud" src="/assets/logos/google-cloud.svg" alt="Google Cloud" width="123" height="20" loading="lazy" decoding="async"></div>
             <h3 class="project__name">TRIAD</h3>
             <p class="project__tagline">Audit cyber NIS2 contradictoire</p>
-            <p>Quatre agents IA confrontent ce que la DSI dit, ce qu'elle a écrit et ce qui est réellement configuré dans son cloud. Chaque contradiction devient un constat sourcé, rattaché à l'article NIS2 concerné.</p>
+            <p class="project__desc">Quatre agents IA confrontent ce que la DSI dit, ce qu'elle a écrit et ce qui est réellement configuré dans son cloud. Chaque contradiction devient un constat sourcé, rattaché à l'article NIS2 concerné.</p>
             <div class="part"><p class="part__label">Ma partie</p><p>Développement et déploiement sur Google Cloud : quatre agents IA avec Google ADK et Gemini sur Vertex AI, sondes en lecture seule, backend FastAPI sur Cloud Run, infrastructure décrite avec Terraform.</p></div>
             <ul class="tags"><li>Google ADK</li><li>Gemini · Vertex AI</li><li>FastAPI</li><li>Cloud Run</li><li>Terraform</li></ul>
-            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/triad" rel="noopener">Voir le code<span class="sr-only"> : TRIAD</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+            <div class="project__foot"><a class="link" href="https://github.com/BuildRunnerFr/triad" rel="noopener">Voir le code<span class="sr-only"> : TRIAD</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="project__logos"><img class="plogo plogo--wide plogo--deloitte" src="/assets/logos/deloitte.svg" alt="Deloitte" width="892" height="171" loading="lazy" decoding="async"><img class="plogo plogo--wide plogo--google-cloud" src="/assets/logos/google-cloud.svg" alt="Google Cloud" width="123" height="20" loading="lazy" decoding="async"></div></div>
           </div>
         </article>
       <div class="projects">
@@ -184,63 +183,55 @@
           <div class="project__media"><img src="/assets/attest-report.webp" alt="Synthèse d&#x27;un rapport d&#x27;audit généré par Attest pour une banque fictive : sept contrôles testés, six constats" width="1000" height="761" loading="lazy" decoding="async"></div>
           <div class="project__body">
             <p class="project__context"><span class="kind kind--solo">Projet solo</span><span>Hackathon Meta · nov. 2026</span></p>
-            <div class="project__logos"><img class="plogo plogo--wide plogo--meta" src="/assets/logos/meta.svg" alt="Meta" width="948" height="191" loading="lazy" decoding="async"></div>
             <h3 class="project__name">Attest</h3>
             <p class="project__tagline">Auditeur de conformité DORA</p>
-            <p>Un agent IA qui audite les systèmes d'une banque au regard de DORA : il les teste en lecture seule, scelle et masque les preuves, soumet les corrections à validation, reteste, puis rédige le rapport.</p>
+            <p class="project__desc">Un agent IA qui audite les systèmes d'une banque au regard de DORA : il les teste en lecture seule, scelle et masque les preuves, soumet les corrections à validation, reteste, puis rédige le rapport.</p>
             
             <ul class="tags"><li>Python</li><li>Muse Spark</li><li>SAM</li><li>GitHub Actions</li></ul>
-            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/attest" rel="noopener">Voir le code<span class="sr-only"> : Attest</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+            <div class="project__foot"><a class="link" href="https://github.com/BuildRunnerFr/attest" rel="noopener">Voir le code<span class="sr-only"> : Attest</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="project__logos"><img class="plogo plogo--wide plogo--meta" src="/assets/logos/meta.svg" alt="Meta" width="948" height="191" loading="lazy" decoding="async"></div></div>
           </div>
         </article>
         <article class="project reveal">
           
           <div class="project__body">
             <p class="project__context"><span class="kind kind--team">Projet d'équipe</span><span>Paris · 21-22 nov. 2026 · équipe Epi84</span></p>
-            
             <h3 class="project__name">European AI Championship 2026</h3>
             <p class="project__tagline">Trois défis de sécurité de l'IA en 22 heures</p>
-            <p>Ma première expérience de machine learning, en conditions de compétition.</p>
+            <p class="project__desc">Ma première expérience de machine learning, en conditions de compétition.</p>
             <div class="part"><p class="part__label">Ma partie</p><p>La tâche d'unlearning (faire oublier des images à un modèle) et, en binôme, la tâche de watermarking (localiser un tatouage invisible dans des images).</p></div>
             <ul class="tags"><li>Python</li><li>Unlearning</li><li>Watermarking</li></ul>
-            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026" rel="noopener">Voir le code<span class="sr-only"> : European AI Championship 2026</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+            <div class="project__foot"><a class="link" href="https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026" rel="noopener">Voir le code<span class="sr-only"> : European AI Championship 2026</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
           </div>
         </article>
         <article class="project reveal">
           
           <div class="project__body">
             <p class="project__context"><span class="kind kind--personal">Projet personnel</span><span>Application web</span></p>
-            
             <h3 class="project__name">Clair</h3>
             <p class="project__tagline">Suivi financier personnel</p>
-            <p>Comptes bancaires en lecture seule, dépenses classées et assistant en langage naturel.</p>
+            <p class="project__desc">Comptes bancaires en lecture seule, dépenses classées et assistant en langage naturel.</p>
             
             <ul class="tags"><li>Next.js</li><li>TypeScript</li><li>Supabase</li></ul>
-            <p class="project__links"><a class="link" href="https://github.com/BuildRunnerFr/clair" rel="noopener">Voir le code<span class="sr-only"> : Clair</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+            <div class="project__foot"><a class="link" href="https://github.com/BuildRunnerFr/clair" rel="noopener">Voir le code<span class="sr-only"> : Clair</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
           </div>
         </article>
       </div>
       <h3 class="subtitle reveal">Et aussi</h3>
       <ul class="more"><li class="reveal"><span class="more__name">Pipeline de production vidéo automatisé</span><span class="more__stack">Claude API, FFmpeg, Whisper</span></li><li class="reveal"><span class="more__name">Détection d'anomalies sur lignes ADSL/VDSL2</span><span class="more__stack">Python</span></li><li class="reveal"><span class="more__name">Infrastructure réseau sécurisée</span><span class="more__stack">Active Directory, pfSense, Suricata, SIEM, simulations d'attaque avec Caldera</span></li></ul>
     </div>
-    <svg class="wave wave--paper" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
   </section>
 
   <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Compétences</span></p>
-      <h2 class="title reveal" id="skills-title">Les outils que j'utilise.</h2>
-      <div class="groups"><div class="group reveal"><h3 class="group__name">Langages</h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/python.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Python</span></li><li class="chip"><span>SQL</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/c.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>C</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/cplusplus.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>C++</span></li><li class="chip"><span>Java</span></li></ul></div><div class="group reveal"><h3 class="group__name">Cloud et outils</h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/googlecloud.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Google Cloud</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/terraform.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Terraform</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/fastapi.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>FastAPI</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/linux.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Linux</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/git.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Git</span></li></ul></div><div class="group reveal"><h3 class="group__name">Data</h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/pandas.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>pandas</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/numpy.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>NumPy</span></li></ul></div><div class="group reveal"><h3 class="group__name">Sécurité <span class="group__note">SIEM</span></h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/splunk.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Splunk</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/elastic.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Elastic</span></li></ul></div><div class="group reveal"><h3 class="group__name">Langues</h3><ul class="chips"><li class="chip"><span>Français</span><span class="chip__level">natif</span></li><li class="chip"><span>Anglais</span><span class="chip__level">C1</span></li><li class="chip"><span>Espagnol</span><span class="chip__level">B1</span></li></ul></div></div>
+      <header class="shead"><p class="shead__k"><span class="shead__n">04</span>Compétences</p><h2 class="shead__t reveal" id="skills-title">Ma boîte à outils.</h2></header>
+      <div class="filters reveal" role="group" aria-label="Filtrer les outils par domaine"><button type="button" class="filter" data-filter="all" aria-pressed="true">Tout<span>63</span></button><button type="button" class="filter" data-filter="ai" aria-pressed="false">IA et agents<span>6</span></button><button type="button" class="filter" data-filter="data" aria-pressed="false">Data<span>9</span></button><button type="button" class="filter" data-filter="dev" aria-pressed="false">Langages et développement<span>14</span></button><button type="button" class="filter" data-filter="net" aria-pressed="false">Réseaux et télécoms<span>17</span></button><button type="button" class="filter" data-filter="sec" aria-pressed="false">Cybersécurité<span>11</span></button><button type="button" class="filter" data-filter="cloud" aria-pressed="false">Cloud et systèmes<span>6</span></button></div>
+      <div class="groups"><div class="group reveal" data-group="ai"><h3 class="group__name">IA et agents<span class="group__count">6</span></h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/claude.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Claude</span></li><li class="chip"><span>ChatGPT</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/googlegemini.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Gemini · Vertex AI</span></li><li class="chip"><span>Google ADK</span></li><li class="chip"><span>Microsoft Copilot Studio</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/pytorch.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>PyTorch</span></li></ul></div><div class="group reveal" data-group="data"><h3 class="group__name">Data<span class="group__count">9</span></h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/python.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Python</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/pandas.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>pandas</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/numpy.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>NumPy</span></li><li class="chip"><span>SQL</span></li><li class="chip"><span>Alteryx</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/postgresql.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>PostgreSQL</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/mongodb.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>MongoDB</span></li><li class="chip"><span>Statistiques et probabilités</span></li><li class="chip"><span>Traitement du signal</span></li></ul></div><div class="group reveal" data-group="dev"><h3 class="group__name">Langages et développement<span class="group__count">14</span></h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/c.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>C</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/cplusplus.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>C++</span></li><li class="chip"><span>Java</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/typescript.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>TypeScript</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/javascript.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>JavaScript</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/php.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>PHP</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/gnubash.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Bash</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/html5.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>HTML</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/css.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>CSS</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/fastapi.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>FastAPI</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/nextdotjs.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Next.js</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/git.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Git</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/githubactions.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>GitHub Actions</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/gitlab.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>GitLab</span></li></ul></div><div class="group reveal" data-group="net"><h3 class="group__name">Réseaux et télécoms<span class="group__count">17</span></h3><ul class="chips"><li class="chip"><span>TCP/IP</span></li><li class="chip"><span>OSPF</span></li><li class="chip"><span>BGP</span></li><li class="chip"><span>MPLS</span></li><li class="chip"><span>VLAN</span></li><li class="chip"><span>STP</span></li><li class="chip"><span>ACL</span></li><li class="chip"><span>QoS</span></li><li class="chip"><span>DNS</span></li><li class="chip"><span>DHCP</span></li><li class="chip"><span>VPN</span></li><li class="chip"><span>Wi-Fi</span></li><li class="chip"><span>ToIP · SIP</span></li><li class="chip"><span>Fibre optique</span></li><li class="chip"><span>ADSL · VDSL2</span></li><li class="chip"><span>Supervision SNMP</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/wireshark.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Wireshark</span></li></ul></div><div class="group reveal" data-group="sec"><h3 class="group__name">Cybersécurité<span class="group__count">11</span></h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/splunk.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Splunk</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/elastic.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Elastic</span></li><li class="chip"><span>Suricata</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/pfsense.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>pfSense</span></li><li class="chip"><span>Stormshield</span></li><li class="chip"><span>Active Directory</span></li><li class="chip"><span>PKI et cryptographie</span></li><li class="chip"><span>Tests d&#x27;intrusion</span></li><li class="chip"><span>Caldera</span></li><li class="chip"><span>Conformité NIS2 · DORA</span></li><li class="chip"><span>CTF</span></li></ul></div><div class="group reveal" data-group="cloud"><h3 class="group__name">Cloud et systèmes<span class="group__count">6</span></h3><ul class="chips"><li class="chip"><img class="chip__icon" src="/assets/icons/googlecloud.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Google Cloud</span></li><li class="chip"><span>Cloud Run</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/terraform.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Terraform</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/docker.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Docker</span></li><li class="chip"><img class="chip__icon" src="/assets/icons/linux.svg" alt="" width="18" height="18" loading="lazy" decoding="async"><span>Linux</span></li><li class="chip"><span>Virtualisation</span></li></ul></div><div class="group reveal" data-group="lang"><h3 class="group__name">Langues<span class="group__count">3</span></h3><ul class="chips"><li class="chip"><span>Français</span><span class="chip__level">natif</span></li><li class="chip"><span>Anglais</span><span class="chip__level">C1</span></li><li class="chip"><span>Espagnol</span><span class="chip__level">B1</span></li></ul></div></div>
     </div>
-    <svg class="wave wave--forest" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52c120-34 260-44 420-24s250 52 430 44 250-58 400-56 150 22 190 34v40H0z"/></svg>
   </section>
 
-  <section class="section section--forest" id="contact" aria-labelledby="contact-title">
-    <svg class="contact__blob" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c34-4 70 12 82 46s6 78-18 104-66 38-100 26S10 140 8 104 30 36 58 20c14-8 28-10 42-12Z"/></svg>
-    <svg class="contact__pebble" viewBox="0 0 200 200" aria-hidden="true"><path d="M96 14c36-8 72 16 84 50s-2 76-30 98-70 30-102 12S6 118 14 82s46-60 82-68Z"/></svg>
+  <section class="section section--dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap contact">
-      <p class="eyebrow"><svg class="eyebrow__mark" viewBox="0 0 44 12" width="44" height="12" aria-hidden="true"><path d="M2 7c5-6 8-6 12 0s8 6 12 0 8-5 16-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Contact</span></p>
-      <h2 class="title title--xl reveal" id="contact-title">Un stage, un projet, un hackathon ? Écrivons-nous.</h2>
+      <header class="shead"><p class="shead__k"><span class="shead__n">05</span>Contact</p><h2 class="shead__t reveal" id="contact-title">Un stage, un projet, un hackathon ? Écrivons-nous.</h2></header>
       <p class="contact__text reveal">Je réponds volontiers aux recruteurs comme aux personnes qui construisent dans l'IA agentique, le ML ou la data.</p>
       <div class="contact__mail reveal">
         <a class="mail" href="mailto:ethancte@gmail.com"><span class="sr-only">E-mail : </span>ethancte@gmail.com</a>
@@ -248,8 +239,8 @@
         <span class="copy__status" role="status" aria-live="polite"></span>
       </div>
       <ul class="contact__links reveal">
-        <li><a class="link link--light" href="https://www.linkedin.com/in/ethan-blombou" rel="noopener me">LinkedIn<span class="link__handle">in/ethan-blombou</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li><a class="link link--light" href="https://github.com/BuildRunnerFr" rel="noopener me">GitHub<span class="link__handle">BuildRunnerFr</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a class="link" href="https://www.linkedin.com/in/ethan-blombou" rel="noopener me">LinkedIn<span class="link__handle">in/ethan-blombou</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a class="link" href="https://github.com/BuildRunnerFr" rel="noopener me">GitHub<span class="link__handle">BuildRunnerFr</span><svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
       </ul>
     </div>
   </section>
@@ -258,7 +249,7 @@
 
 <footer class="footer">
   <div class="wrap footer__in">
-    <p>© 2026 Ethan Blombou · Site statique, fait main.</p>
+    <p>© 2026 Ethan Blombou</p>
     <p>Les logos et marques cités appartiennent à leurs détenteurs respectifs.</p>
     <p><a href="#home">Haut de page ↑</a></p>
   </div>
