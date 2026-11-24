@@ -249,6 +249,14 @@ a:hover > .arrow { transform: translateX(4px); }
 /* cartes à image : même hauteur de visuel, l'image est cadrée par le haut */
 .projects .project__media { aspect-ratio: 3 / 2; }
 .projects .project__media > img { height: 100%; object-fit: cover; object-position: 50% 0; }
+/* troisième carte : pleine largeur, image à gauche et texte à droite */
+@media (min-width: 760px) {
+  .projects .project:nth-child(3):last-child:has(.project__media) { grid-column: 1 / -1; flex-direction: row; }
+  .projects .project:nth-child(3):last-child:has(.project__media) .project__media { flex: 1.05; aspect-ratio: auto; min-height: 320px; padding: 1.5rem 0 0 1.5rem; }
+  .projects .project:nth-child(3):last-child:has(.project__media) .project__media > img { border-radius: 12px 0 0 0; object-position: 0 0; }
+  .projects .project:nth-child(3):last-child:has(.project__media) .project__body { flex: 1; justify-content: center; }
+  .projects .project:nth-child(3):last-child:has(.project__media) .project__foot { margin-top: 0.6rem; }
+}
 /* carte sans image : pleine largeur, texte sur deux colonnes */
 @media (min-width: 760px) {
   .projects .project:not(:has(.project__media)) { grid-column: 1 / -1; }

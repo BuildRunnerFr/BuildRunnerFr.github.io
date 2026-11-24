@@ -283,7 +283,11 @@
           "TypeScript",
           "Supabase"
         ],
-        "url": "https://github.com/BuildRunnerFr/clair"
+        "url": "https://github.com/BuildRunnerFr/clair",
+        "image": "/assets/clair-dashboard.webp",
+        "image_w": 1142,
+        "image_h": 863,
+        "image_alt": "Tableau de bord de Clair : connexions bancaires, filtres par mois et par catégorie, et courbe du solde avec sa prévision"
       }
     ],
     "more_title": "Et aussi",

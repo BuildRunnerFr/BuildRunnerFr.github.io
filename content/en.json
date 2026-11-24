@@ -283,7 +283,11 @@
           "TypeScript",
           "Supabase"
         ],
-        "url": "https://github.com/BuildRunnerFr/clair"
+        "url": "https://github.com/BuildRunnerFr/clair",
+        "image": "/assets/clair-dashboard.webp",
+        "image_w": 1142,
+        "image_h": 863,
+        "image_alt": "Clair dashboard (interface in French): bank connections, filters by month and category, and the balance curve with its forecast"
       }
     ],
     "more_title": "Also",
