@@ -38,7 +38,10 @@
     "stamp": "Open to internships · Open to collaborations · ",
     "nf_title": "This page does not exist.",
     "nf_text": "The link may be old or mistyped.",
-    "nf_back": "Back to home"
+    "nf_back": "Back to home",
+    "cv": "Download my CV",
+    "cv_short": "CV",
+    "cv_note": "PDF"
   },
   "nav": {
     "home": "Home",
@@ -110,7 +113,11 @@
         "languages",
         "French (native), English C1, Spanish B1"
       ]
-    ]
+    ],
+    "photo": {
+      "alt": "Ethan Blombou listening to a team discussion, holding a laptop",
+      "caption": "Deloitte × Google Cloud hackathon"
+    }
   },
   "experience": {
     "eyebrow": "Experience",
@@ -214,7 +221,11 @@
       "image": "/assets/triad-cockpit.webp",
       "image_w": 1600,
       "image_h": 1000,
-      "image_alt": "TRIAD cockpit (interface in French): four out of four statements from the IT department are contradicted by the real configuration, with findings ranked by severity"
+      "image_alt": "TRIAD cockpit (interface in French): four out of four statements from the IT department are contradicted by the real configuration, with findings ranked by severity",
+      "photo": {
+        "alt": "Ethan Blombou, microphone in hand, presenting the project on a large screen in front of his team",
+        "caption": "Presenting the project, Deloitte × Google Cloud hackathon"
+      }
     },
     "items": [
       {
@@ -254,7 +265,11 @@
           "Unlearning",
           "Watermarking"
         ],
-        "url": "https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026"
+        "url": "https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026",
+        "photo": {
+          "alt": "Large room where teams work on their laptops around white tables",
+          "caption": "European AI Championship 2026, Paris"
+        }
       },
       {
         "name": "Clair",

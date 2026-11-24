@@ -71,6 +71,20 @@ def icon(slug):
     return ""
 
 
+DOWN = '<svg class="dl" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v10M5.500 9l4.500 4.500L14.500 9M4 16.500h12" fill="none" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+CV = "/assets/cv-ethan-blombou.pdf"
+
+
+def photo(stem, sizes_w, w, h, meta, sizes, cls="shot"):
+    """Photo en WebP à deux largeurs, avec légende."""
+    srcset = ", ".join(f"/assets/photos/{stem}-{x}.webp {x}w" for x in sizes_w)
+    return (
+        f'<figure class="{cls}"><img src="/assets/photos/{stem}-{sizes_w[-1]}.webp" srcset="{srcset}" sizes="{sizes}" '
+        f'alt="{escape(meta["alt"])}" width="{w}" height="{h}" loading="lazy" decoding="async">'
+        f'<figcaption>{meta["caption"]}</figcaption></figure>'
+    )
+
+
 ARROW = '<svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
 
@@ -186,7 +200,20 @@ def render(c):
 
     def project(p, featured=False):
         media = ""
-        if p.get("image"):
+        if featured and p.get("photo"):
+            media = (
+                '<div class="project__media project__media--duo">'
+                + photo("triad-presentation", (800, 1400), 1400, 934, p["photo"], "(min-width: 940px) 620px, 100vw")
+                + f'<img class="project__screen" src="{p["image"]}" alt="{escape(p["image_alt"])}" '
+                f'width="{p["image_w"]}" height="{p["image_h"]}" loading="lazy" decoding="async"></div>'
+            )
+        elif p.get("photo"):
+            media = (
+                '<div class="project__media project__media--photo">'
+                + photo("eaic-salle", (640, 1200), 1200, 800, p["photo"], "(min-width: 760px) 560px, 100vw")
+                + "</div>"
+            )
+        elif p.get("image"):
             media = (
                 f'<div class="project__media"><img src="{p["image"]}" alt="{escape(p["image_alt"])}" '
                 f'width="{p["image_w"]}" height="{p["image_h"]}" loading="lazy" decoding="async"></div>'
@@ -311,6 +338,7 @@ def render(c):
         <p class="hero__cta">
           <a class="btn btn--dark" href="#projects">{h["cta_projects"]}{ARROW}</a>
           <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
+          <a class="cv" href="{CV}" download>{DOWN}<span>{ui["cv"]}</span><small>{ui["cv_note"]}</small></a>
         </p>
       </div>
       <figure class="portrait">
@@ -337,7 +365,10 @@ def render(c):
       {shead("01", a["eyebrow"], a["title"], "about-title")}
       <div class="about">
         <div class="prose reveal">{paragraphs}</div>
-        <dl class="facts reveal">{facts}</dl>
+        <div class="about__side">
+          <div class="reveal">{photo("hackathon-ecoute", (520, 960), 960, 1200, a["photo"], "(min-width: 900px) 420px, 100vw", "shot shot--about")}</div>
+          <dl class="facts reveal">{facts}</dl>
+        </div>
       </div>
       <ul class="stats" aria-label="{escape(ui["stats_label"])}">{stats}</ul>
     </div>
@@ -396,6 +427,7 @@ def render(c):
         <span class="copy__status" role="status" aria-live="polite"></span>
       </div>
       <ul class="contact__links reveal">
+        <li><a class="link link--cv" href="{CV}" download>{ui["cv"]}<span class="link__handle">{ui["cv_note"]}</span>{DOWN}</a></li>
         <li><a class="link" href="{LINKEDIN}" rel="noopener me">{ct["linkedin"]}<span class="link__handle">in/ethan-blombou</span>{ARROW}</a></li>
         <li><a class="link" href="{GITHUB}" rel="noopener me">{ct["github"]}<span class="link__handle">BuildRunnerFr</span>{ARROW}</a></li>
       </ul>
