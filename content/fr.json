@@ -33,7 +33,12 @@
     ],
     "route_label": "Mon parcours, des réseaux vers l'IA agentique et la data science",
     "aside": "À côté",
-    "tools": "outils"
+    "tools": "outils",
+    "stats_label": "En chiffres",
+    "stamp": "Ouvert aux stages · Ouvert aux collaborations · ",
+    "nf_title": "Cette page n'existe pas.",
+    "nf_text": "Le lien est peut-être ancien ou mal recopié.",
+    "nf_back": "Retour à l'accueil"
   },
   "nav": {
     "home": "Accueil",
@@ -81,6 +86,29 @@
       [
         "À côté",
         "Échecs (environ 1250 Elo), foot, CTF sur Root-Me, TryHackMe et Hack The Box, finance quantitative et investissement personnel"
+      ]
+    ],
+    "stats": [
+      [
+        "3",
+        "hackathons",
+        "Deloitte × Google Cloud, Meta, European AI Championship"
+      ],
+      [
+        "100",
+        "tech leads",
+        "destinataires de mon reporting hebdomadaire, à l'international",
+        "≈"
+      ],
+      [
+        "2",
+        "certifications",
+        "Cisco Networking Academy : Python Essentials 1 et 2"
+      ],
+      [
+        "3",
+        "langues",
+        "français natif, anglais C1, espagnol B1"
       ]
     ]
   },

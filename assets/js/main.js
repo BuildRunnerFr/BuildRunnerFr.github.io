@@ -92,6 +92,55 @@
     });
   });
 
+  /* Barre de progression (repli quand les animations liées au scroll en CSS manquent) */
+  var bar = document.querySelector('.progress span');
+  var cssScroll = window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()');
+  function setProgress() {
+    if (!bar || cssScroll || reduce) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.setProperty('--sp', max > 0 ? (window.scrollY / max).toFixed(4) : 0);
+  }
+
+  /* Chiffres clés : comptent jusqu'à leur valeur quand ils apparaissent */
+  var counters = document.querySelectorAll('[data-count]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var end = parseInt(el.dataset.count, 10);
+        var start = null;
+        cio.unobserve(el);
+        function step(ts) {
+          if (start === null) start = ts;
+          var k = Math.min(1, (ts - start) / 1100);
+          el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
+          if (k < 1) requestAnimationFrame(step);
+        }
+        el.textContent = '0';
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+
+  /* Cartes de projets : légère inclinaison sous le pointeur */
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.project').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.setProperty('--ry', (x * 3).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', (-y * 3).toFixed(2) + 'deg');
+      });
+      card.addEventListener('pointerleave', function () {
+        card.style.removeProperty('--rx');
+        card.style.removeProperty('--ry');
+      });
+    });
+  }
+
   var ticking = false;
   function onScroll() {
     if (ticking) return;
@@ -99,6 +148,7 @@
     requestAnimationFrame(function () {
       setActive();
       setThread();
+      setProgress();
       ticking = false;
     });
   }

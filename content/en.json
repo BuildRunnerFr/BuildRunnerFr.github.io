@@ -33,7 +33,12 @@
     ],
     "route_label": "My path, from networks to agentic AI and data science",
     "aside": "Off duty",
-    "tools": "tools"
+    "tools": "tools",
+    "stats_label": "In numbers",
+    "stamp": "Open to internships · Open to collaborations · ",
+    "nf_title": "This page does not exist.",
+    "nf_text": "The link may be old or mistyped.",
+    "nf_back": "Back to home"
   },
   "nav": {
     "home": "Home",
@@ -81,6 +86,29 @@
       [
         "Off duty",
         "Chess (around 1250 Elo), football, CTFs on Root-Me, TryHackMe and Hack The Box, quantitative finance and personal investing"
+      ]
+    ],
+    "stats": [
+      [
+        "3",
+        "hackathons",
+        "Deloitte × Google Cloud, Meta, European AI Championship"
+      ],
+      [
+        "100",
+        "tech leads",
+        "receiving my weekly reporting, worldwide",
+        "≈"
+      ],
+      [
+        "2",
+        "certifications",
+        "Cisco Networking Academy: Python Essentials 1 and 2"
+      ],
+      [
+        "3",
+        "languages",
+        "French (native), English C1, Spanish B1"
       ]
     ]
   },

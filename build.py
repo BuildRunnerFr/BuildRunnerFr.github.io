@@ -100,10 +100,17 @@ def code_link(c, p):
     )
 
 
+def words(text):
+    """Chaque mot dans un masque, pour l'apparition mot à mot des titres."""
+    return " ".join(
+        f'<span class="w"><span style="--i:{i}">{w}</span></span>' for i, w in enumerate(text.split(" "))
+    )
+
+
 def shead(n, kicker, title, id_):
     return (
         f'<header class="shead"><p class="shead__k"><span class="shead__n">{n}</span>{kicker}</p>'
-        f'<h2 class="shead__t reveal" id="{id_}">{title}</h2></header>'
+        f'<h2 class="shead__t reveal" id="{id_}" aria-label="{escape(title)}">{words(title)}</h2></header>'
     )
 
 
@@ -131,6 +138,11 @@ def render(c):
         f'<li{" class=is-target" if i >= 2 else ""}>{name}</li>' for i, name in enumerate(ui["route"])
     )
 
+    stats = "".join(
+        f'<li class="stat reveal"><p class="stat__n">{st[3] if len(st) > 3 else ""}<span data-count="{st[0]}">{st[0]}</span></p>'
+        f'<p class="stat__k">{st[1]}</p><p class="stat__d">{st[2]}</p></li>'
+        for st in a["stats"]
+    )
     facts = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"])
 
     xp = ""
@@ -242,7 +254,7 @@ def render(c):
 <title>{c["meta"]["title"]}</title>
 <meta name="description" content="{escape(c["meta"]["description"])}">
 <meta name="author" content="Ethan Blombou">
-<meta name="theme-color" content="#c4492a">
+<meta name="theme-color" content="#b8401f">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="fr" href="{SITE}/">
@@ -278,6 +290,7 @@ def render(c):
     <ul class="nav__links" id="nav-links">{nav_links}</ul>
     {lang_switch}
   </nav>
+  <div class="progress" aria-hidden="true"><span></span></div>
 </header>
 
 <main id="main">
@@ -295,6 +308,12 @@ def render(c):
         </p>
       </div>
       <figure class="portrait">
+        <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="stamp-path" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+          <circle cx="60" cy="60" r="60"/>
+          <text><textPath href="#stamp-path" textLength="286">{ui["stamp"].upper()}</textPath></text>
+          <path class="stamp__arrow" d="M48 72 72 48M54 48h18v18" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         <picture>
           <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 250px, 190px">
           <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
@@ -304,7 +323,7 @@ def render(c):
   </section>
 
   <div class="band" role="img" aria-label="{escape(ui["route_label"])}">
-    <ol class="wrap" aria-hidden="true">{route}</ol>
+    <div class="band__track" aria-hidden="true"><ol>{route}</ol><ol>{route}</ol><ol>{route}</ol><ol>{route}</ol></div>
   </div>
 
   <section class="section" id="about" aria-labelledby="about-title">
@@ -314,6 +333,7 @@ def render(c):
         <div class="prose reveal">{paragraphs}</div>
         <dl class="facts reveal">{facts}</dl>
       </div>
+      <ul class="stats" aria-label="{escape(ui["stats_label"])}">{stats}</ul>
     </div>
   </section>
 
@@ -374,6 +394,7 @@ def render(c):
         <li><a class="link" href="{GITHUB}" rel="noopener me">{ct["github"]}<span class="link__handle">BuildRunnerFr</span>{ARROW}</a></li>
       </ul>
     </div>
+    <p class="signoff" aria-hidden="true">Ethan Blombou</p>
   </section>
 
 </main>
@@ -392,6 +413,31 @@ def render(c):
 """
 
 
+def render_404(c):
+    ui = c["ui"]
+    return f"""<!doctype html>
+<html lang="{c["lang"]}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · Ethan Blombou</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#b8401f">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body class="nf">
+<main class="nf__in">
+  <p class="nf__code" aria-hidden="true">404</p>
+  <h1 class="nf__title">{ui["nf_title"]}</h1>
+  <p class="nf__text">{ui["nf_text"]}</p>
+  <p><a class="btn btn--dark" href="/">{ui["nf_back"]}{ARROW}</a></p>
+</main>
+</body>
+</html>
+"""
+
+
 def main():
     for lang, out in (("fr", "index.html"), ("en", "en/index.html")):
         content = json.loads((ROOT / "content" / f"{lang}.json").read_text(encoding="utf-8"))
@@ -401,6 +447,9 @@ def main():
         target.parent.mkdir(exist_ok=True)
         target.write_text(render(content), encoding="utf-8")
         print("écrit", out)
+        if lang == "fr":
+            (ROOT / "404.html").write_text(render_404(content), encoding="utf-8")
+            print("écrit 404.html")
 
 
 if __name__ == "__main__":
