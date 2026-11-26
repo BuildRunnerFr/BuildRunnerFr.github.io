@@ -61,12 +61,13 @@
         </p>
       </div>
       <figure class="portrait">
-        <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
-          <defs><path id="stamp-path" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
-          <circle cx="60" cy="60" r="60"/>
-          <text><textPath href="#stamp-path" textLength="286">OPEN TO INTERNSHIPS · OPEN TO COLLABORATIONS · </textPath></text>
-          <path class="stamp__arrow" d="M48 72 72 48M54 48h18v18" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <div class="stamp" aria-hidden="true">
+          <svg class="stamp__ring" viewBox="0 0 120 120">
+            <defs><path id="stamp-path" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+            <text><textPath href="#stamp-path" textLength="286">OPEN TO INTERNSHIPS · OPEN TO COLLABORATIONS · </textPath></text>
+          </svg>
+          <svg class="stamp__arrow" viewBox="-3 -3 30 30"><path d="M0 24 24 0M6 0h18v18" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
         <picture>
           <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 250px, 190px">
           <img src="/assets/ethan.jpg" alt="Portrait of Ethan Blombou with a slight smile, arms crossed, wearing a black jumper" width="890" height="1205" fetchpriority="high" decoding="async">
