@@ -16,7 +16,7 @@ SITE = "https://buildrunnerfr.github.io"
 EMAIL = "ethancte@gmail.com"
 LINKEDIN = "https://www.linkedin.com/in/ethan-blombou"
 GITHUB = "https://github.com/BuildRunnerFr"
-SECTIONS = ["home", "about", "experience", "projects", "skills", "contact"]
+SECTIONS = ["home", "about", "experience", "projects", "skills", "life", "contact"]
 
 
 def nbsp_fr(text):
@@ -85,6 +85,18 @@ def photo(stem, sizes_w, w, h, meta, sizes, cls="shot"):
     )
 
 
+PLAY = '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M6 4.500v11l9-5.500z" fill="currentColor"/></svg>'
+
+# dessins au trait des cases « À côté » (formes simples, aucune œuvre existante)
+ART = {
+    "manga": '<svg viewBox="0 0 120 90"><path d="M14 40c0-17 20-30 46-30s46 13 46 30-20 30-46 30c-6 0-12-.700-17-2L24 80l5-18C19.500 56.500 14 48.700 14 40z" fill="var(--card)" stroke="currentColor" stroke-width="3.500" stroke-linejoin="round"/><circle cx="44" cy="40" r="4"/><circle cx="60" cy="40" r="4"/><circle cx="76" cy="40" r="4"/></svg>',
+    "chess": '<span class="board"></span>',
+    "foot": '<svg viewBox="0 0 160 120" preserveAspectRatio="xMaxYMid slice" fill="none" stroke="currentColor" stroke-width="2.200"><path d="M92 -40v200M160 28h-30v64h30M160 44h-12v32h12"/><circle cx="92" cy="60" r="30"/><circle cx="92" cy="60" r="2.600" fill="currentColor" stroke="none"/></svg>',
+    "abroad": '<svg viewBox="0 0 240 70" preserveAspectRatio="xMinYMid meet" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 60C62 -6 178 -6 228 60" stroke-dasharray="0.100 9"/><circle cx="12" cy="60" r="6" fill="currentColor" stroke="none"/><circle cx="228" cy="60" r="6" fill="currentColor" stroke="none"/><path d="M108 3l24 7.500-24 7.500 5.500-7.500z" fill="currentColor" stroke-linejoin="round" stroke-width="2"/></svg>',
+    "ctf": '<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 74V8"/><path d="M18 12h44l-10 15 10 15H18z" fill="var(--clay)"/></svg>',
+    "quant": '<svg viewBox="0 0 200 80" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"><path d="M4 66l28-14 22 8 30-30 24 14 30-26 26 10 32-22" vector-effect="non-scaling-stroke"/></svg>',
+}
+
 ARROW = '<svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 
 
@@ -121,9 +133,9 @@ def words(text):
     )
 
 
-def shead(n, kicker, title, id_):
+def shead(c, n, kicker, title, id_):
     return (
-        f'<header class="shead"><p class="shead__k"><span class="shead__n">{n}</span>{kicker}</p>'
+        f'<header class="shead"><p class="shead__k"><span class="shead__n">{c["ui"]["chapter"]} {n}</span>{kicker}</p>'
         f'<h2 class="shead__t reveal" id="{id_}" aria-label="{escape(title)}">{words(title)}</h2></header>'
     )
 
@@ -133,6 +145,8 @@ def render(c):
     url = SITE + c["path"]
     ui = c["ui"]
     h, a, x, pr, sk, ct = c["hero"], c["about"], c["experience"], c["projects"], c["skills"], c["contact"]
+    lf = c["life"]
+    pn = lf["piano"]
 
     nav_links = "".join(
         f'<li><a href="#{s}" data-nav="{s}">{c["nav"][s]}</a></li>' for s in SECTIONS[1:]
@@ -171,6 +185,17 @@ def render(c):
         if it.get("logo2"):
             logos += logo(it["logo2"], it["org2"])
         bullets = "".join(f"<li>{b}</li>" for b in it["bullets"])
+        shots = "".join(
+            photo(ph["stem"], (640, 1200), ph["w"], ph["h"], ph, "(min-width: 800px) 360px, 100vw", "shot shot--hop")
+            for ph in it.get("photos", [])
+        )
+        shots = f'<div class="hop__photos">{shots}</div>' if shots else ""
+        note = it.get("note")
+        note = (
+            f'<p class="bubble bubble--note"><span class="bubble__label">{note["label"]}</span>{note["text"]}</p>'
+            if note
+            else ""
+        )
         xp += f"""
           <li class="hop reveal">
             <p class="hop__n" aria-hidden="true">{i:02d}</p>
@@ -180,6 +205,8 @@ def render(c):
               <h3 class="hop__role">{it["role"]}</h3>
               <p class="hop__org">{it["org"]}</p>
               <ul class="hop__list">{bullets}</ul>
+              {shots}
+              {note}
             </div>
           </li>"""
 
@@ -203,7 +230,7 @@ def render(c):
         if featured and p.get("photo"):
             media = (
                 '<div class="project__media project__media--duo">'
-                + photo("triad-presentation", (800, 1400), 1400, 934, p["photo"], "(min-width: 940px) 620px, 100vw")
+                + photo("ecoute", (800, 1400), 1400, 934, p["photo"], "(min-width: 940px) 620px, 100vw")
                 + f'<img class="project__screen" src="{p["image"]}" alt="{escape(p["image_alt"])}" '
                 f'width="{p["image_w"]}" height="{p["image_h"]}" loading="lazy" decoding="async"></div>'
             )
@@ -258,6 +285,34 @@ def render(c):
     )
 
     paragraphs = "".join(f"<p>{p}</p>" for p in a["paragraphs"])
+    quote = f"«\u00a0{a['quote']}\u00a0»" if lang == "fr" else f"“{a['quote']}”"
+
+    # clavier : deux octaves, do à do ; les touches noires sont rattachées à la blanche qui les précède
+    keys = ""
+    for i in range(15):
+        step = i % 7
+        midi = 60 + (0, 2, 4, 5, 7, 9, 11)[step] + 12 * (i // 7)
+        name = pn["notes"][step]
+        octave = i // 7 + 1
+        black = ""
+        if step in (0, 1, 3, 4, 5) and i < 14:
+            black = (
+                f'<button type="button" class="pk__b" data-note="{midi + 1}" tabindex="-1" '
+                f'aria-label="{name} {pn["sharp"]} {octave}"></button>'
+            )
+        keys += (
+            f'<span class="pk"><button type="button" class="pk__w" data-note="{midi}" tabindex="{0 if i == 0 else -1}" '
+            f'aria-label="{name} {octave}"><span aria-hidden="true">{name}</span></button>{black}</span>'
+        )
+    cases = "".join(
+        f"""
+        <article class="case case--{p["key"]} reveal">
+          <div class="case__art" aria-hidden="true">{ART.get(p["key"], "")}</div>
+          <h3 class="case__name">{p["name"]}</h3>
+          {f'<p class="case__text">{p["text"]}</p>' if p["text"] else ""}
+        </article>"""
+        for p in lf["panels"]
+    )
 
     jsonld = json.dumps(
         {
@@ -331,7 +386,10 @@ def render(c):
   <section class="hero" id="home">
     <div class="wrap hero__grid">
       <div class="hero__text">
-        <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
+        <div class="hello">
+          <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
+          <p class="bubble bubble--hello">{ui["hello"]}</p>
+        </div>
         <h1 class="hero__name" aria-label="Ethan Blombou">{name_lines}</h1>
         <p class="hero__statement">{h["statement"]}</p>
         <p class="hero__lead">{h["lead"]}</p>
@@ -342,6 +400,7 @@ def render(c):
         </p>
       </div>
       <figure class="portrait">
+        <span class="burst" aria-hidden="true"></span>
         <div class="stamp" aria-hidden="true">
           <svg class="stamp__ring" viewBox="0 0 120 120">
             <defs><path id="stamp-path" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
@@ -363,21 +422,25 @@ def render(c):
 
   <section class="section" id="about" aria-labelledby="about-title">
     <div class="wrap">
-      {shead("01", a["eyebrow"], a["title"], "about-title")}
+      {shead(c, "01", a["eyebrow"], a["title"], "about-title")}
       <div class="about">
-        <div class="prose reveal">{paragraphs}</div>
+        <div class="about__main">
+          <div class="prose reveal">{paragraphs}</div>
+          <blockquote class="bubble bubble--quote reveal"><p>{quote}</p></blockquote>
+        </div>
         <div class="about__side">
-          <div class="reveal">{photo("hackathon-ecoute", (520, 960), 960, 1200, a["photo"], "(min-width: 900px) 420px, 100vw", "shot shot--about")}</div>
-          <dl class="facts reveal">{facts}</dl>
+          <div class="reveal">{photo("presentation", (560, 1000), 1000, 918, a["photo"], "(min-width: 900px) 520px, 100vw", "shot shot--about")}</div>
         </div>
       </div>
+      <dl class="facts reveal">{facts}</dl>
       <ul class="stats" aria-label="{escape(ui["stats_label"])}">{stats}</ul>
     </div>
   </section>
 
   <section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
-      {shead("02", x["eyebrow"], x["title"], "experience-title")}
+      {shead(c, "02", x["eyebrow"], x["title"], "experience-title")}
+      <p class="intro intro--lead reveal">{x["intro"]}</p>
       <div class="path">
         <div class="path__line" aria-hidden="true"><span></span></div>
         <ol class="hops">{xp}
@@ -400,7 +463,7 @@ def render(c):
 
   <section class="section" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
-      {shead("03", pr["eyebrow"], pr["title"], "projects-title")}
+      {shead(c, "03", pr["eyebrow"], pr["title"], "projects-title")}
       <p class="intro reveal">{pr["intro"]}</p>
       {featured}
       <div class="projects">{cards}
@@ -412,15 +475,31 @@ def render(c):
 
   <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      {shead("04", sk["eyebrow"], sk["title"], "skills-title")}
+      {shead(c, "04", sk["eyebrow"], sk["title"], "skills-title")}
       <div class="filters reveal" role="group" aria-label="{escape(ui["filter"])}">{filters}</div>
       <div class="groups">{groups}</div>
     </div>
   </section>
 
+  <section class="section" id="life" aria-labelledby="life-title">
+    <div class="wrap">
+      {shead(c, "05", lf["eyebrow"], lf["title"], "life-title")}
+      <div class="planche">
+        <article class="case case--piano reveal">
+          <div class="case__head">
+            <h3 class="case__name">{pn["name"]}</h3>
+            <p class="case__text">{pn["text"]}</p>
+          </div>
+          <div class="piano" role="group" aria-label="{escape(pn["label"])}">{keys}</div>
+          <p class="piano__more"><button type="button" class="demo" data-demo aria-pressed="false">{PLAY}<span>{pn["demo"]}</span><small>{pn["demo_note"]}</small></button></p>
+        </article>{cases}
+      </div>
+    </div>
+  </section>
+
   <section class="section section--dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap contact">
-      {shead("05", ct["eyebrow"], ct["title"], "contact-title")}
+      {shead(c, "06", ct["eyebrow"], ct["title"], "contact-title")}
       <p class="contact__text reveal">{ct["text"]}</p>
       <div class="contact__mail reveal">
         <a class="mail" href="mailto:{EMAIL}"><span class="sr-only">{ct["email_label"]} : </span>{EMAIL}</a>
@@ -433,6 +512,7 @@ def render(c):
         <li><a class="link" href="{GITHUB}" rel="noopener me">{ct["github"]}<span class="link__handle">BuildRunnerFr</span>{ARROW}</a></li>
       </ul>
     </div>
+    <div class="wrap"><p class="next reveal"><span>{ui["next"]}</span></p></div>
     <p class="signoff" aria-hidden="true">Ethan Blombou</p>
   </section>
 

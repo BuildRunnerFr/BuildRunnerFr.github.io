@@ -32,7 +32,6 @@
       "Data science"
     ],
     "route_label": "My path, from networks to agentic AI and data science",
-    "aside": "Off duty",
     "tools": "tools",
     "stats_label": "In numbers",
     "stamp": "Open to internships · Open to collaborations · ",
@@ -41,7 +40,10 @@
     "nf_back": "Back to home",
     "cv": "Download my CV",
     "cv_short": "CV",
-    "cv_note": "PDF"
+    "cv_note": "PDF",
+    "chapter": "Chapter",
+    "hello": "Hi, I'm",
+    "next": "To be continued…"
   },
   "nav": {
     "home": "Home",
@@ -49,12 +51,13 @@
     "experience": "Experience",
     "projects": "Projects",
     "skills": "Skills",
+    "life": "Off duty",
     "contact": "Contact"
   },
   "hero": {
     "badge": "Open to internships and collaborations",
-    "statement": "I come from cybersecurity and I am heading towards <em>agentic AI</em> and data science.",
-    "lead": "Engineering student at IMT Atlantique and apprentice at Société Générale. I build AI agents that check whether systems are really as secure as people say.",
+    "statement": "I learn so I can build things that are <em>useful to others</em>",
+    "lead": "Engineering student at IMT Atlantique and apprentice at Société Générale. I started in telecom field work, moved through cybersecurity, and now work on agentic AI projects.",
     "cta_projects": "See my projects",
     "cta_contact": "Get in touch",
     "place": "Between Paris and Brest",
@@ -62,12 +65,13 @@
   },
   "about": {
     "eyebrow": "About",
-    "title": "One foot in cyber, the other in AI.",
+    "title": "As curious about people as about technology.",
     "paragraphs": [
-      "I am an engineering student at IMT Atlantique (computer science, networks and telecoms, 2025-2028), working as an apprentice at Société Générale in the Group CIO Office: IT strategy and cyber.",
-      "My common thread: I come from networks and cybersecurity, and I am moving into agentic AI and data science. My favourite projects sit where the two meet: agents that check, cross-reference sources and bring back evidence.",
-      "I take part in a lot of hackathons. It is my way of discovering a field, building something concrete and stepping out of my comfort zone."
+      "I like human contact. I like meeting people, understanding them, and living new experiences, abroad or not.",
+      "I am an engineering student at IMT Atlantique (computer science, networks and telecoms, 2025-2028), working as an apprentice at Société Générale in the Group CIO Office. I come from networks and cybersecurity, and today I work on AI projects.",
+      "I do hackathons to discover things, people and technologies. I always want to learn more, and to create projects that will be useful to others."
     ],
+    "quote": "Enriching my skills to enrich the world.",
     "facts_title": "At a glance",
     "facts": [
       [
@@ -87,8 +91,8 @@
         "French (native), English (C1), Spanish (B1)"
       ],
       [
-        "Off duty",
-        "Chess (around 1250 Elo), football, CTFs on Root-Me, TryHackMe and Hack The Box, quantitative finance and personal investing"
+        "My greatest quality",
+        "Generosity"
       ]
     ],
     "stats": [
@@ -105,8 +109,8 @@
       ],
       [
         "2",
-        "certifications",
-        "Cisco Networking Academy: Python Essentials 1 and 2"
+        "stays abroad",
+        "an Erasmus+ semester in Sofia, an internship in Malaysia"
       ],
       [
         "3",
@@ -115,13 +119,14 @@
       ]
     ],
     "photo": {
-      "alt": "Ethan Blombou listening to a team discussion, holding a laptop",
-      "caption": "Deloitte × Google Cloud hackathon"
+      "alt": "Ethan Blombou, microphone in hand, pointing at a large screen while presenting his team's project",
+      "caption": "Presenting TRIAD, Deloitte × Google Cloud hackathon"
     }
   },
   "experience": {
     "eyebrow": "Experience",
     "title": "From telecom field work to cyber in a bank.",
+    "intro": "A year as a telecom works supervisor at Free, then the Group CIO Office at Société Générale: quite a leap. At first I did not understand much. That is how you grow, junior or not, and it is what makes a career path beautiful.",
     "items": [
       {
         "logo": "societe-generale",
@@ -144,8 +149,13 @@
         "dates": "May to August 2026 · Malaysia",
         "bullets": [
           "Progressive Web App replacing paper field forms for sea turtle conservation.",
-          "Captive portal with a questionnaire for visitors to the island."
-        ]
+          "TurtleScope: a Wi-Fi captive portal, on a Raspberry Pi set up on the island, where visitors check in on arrival. The team sees live who is on site, with statistics for its reports."
+        ],
+        "note": {
+          "label": "Who I met",
+          "text": "My supervisor at SEATRU, a very, very kind person."
+        },
+        "photos": []
       },
       {
         "logo": "free",
@@ -154,7 +164,11 @@
         "dates": "2024-2025",
         "bullets": [
           "Field work, subcontractor coordination, client relations."
-        ]
+        ],
+        "note": {
+          "label": "Who I met",
+          "text": "Really friendly teams."
+        }
       }
     ],
     "edu_title": "Education",
@@ -223,8 +237,8 @@
       "image_h": 1000,
       "image_alt": "TRIAD cockpit (interface in French): four out of four statements from the IT department are contradicted by the real configuration, with findings ranked by severity",
       "photo": {
-        "alt": "Ethan Blombou, microphone in hand, presenting the project on a large screen in front of his team",
-        "caption": "Presenting the project, Deloitte × Google Cloud hackathon"
+        "alt": "Ethan Blombou listening to a team discussion, holding a laptop",
+        "caption": "Deloitte × Google Cloud hackathon"
       }
     },
     "items": [
@@ -613,6 +627,59 @@
         "Spanish",
         "B1"
       ]
+    ]
+  },
+  "life": {
+    "eyebrow": "Off duty",
+    "title": "The rest of my life, in a few panels.",
+    "piano": {
+      "name": "Music and piano",
+      "text": "I love music and the piano. Your turn to play.",
+      "label": "Piano keyboard: click the keys to play",
+      "demo": "Hear an example",
+      "demo_note": "Ode to Joy",
+      "notes": [
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "A",
+        "B"
+      ],
+      "sharp": "sharp"
+    },
+    "panels": [
+      {
+        "key": "manga",
+        "name": "Manga",
+        "text": "I like manga, and it shows a little here: panels, speech bubbles, chapters."
+      },
+      {
+        "key": "chess",
+        "name": "Chess",
+        "text": "Around 1250 Elo."
+      },
+      {
+        "key": "foot",
+        "name": "Football",
+        "text": ""
+      },
+      {
+        "key": "abroad",
+        "name": "Elsewhere",
+        "text": "An Erasmus+ semester in Sofia in 2024, an internship in Malaysia in 2026."
+      },
+      {
+        "key": "ctf",
+        "name": "CTFs",
+        "text": "Root-Me, TryHackMe and Hack The Box."
+      },
+      {
+        "key": "quant",
+        "name": "Quantitative finance",
+        "text": "And personal investing."
+      }
     ]
   },
   "contact": {

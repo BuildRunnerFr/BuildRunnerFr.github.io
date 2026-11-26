@@ -32,7 +32,6 @@
       "Data science"
     ],
     "route_label": "Mon parcours, des réseaux vers l'IA agentique et la data science",
-    "aside": "À côté",
     "tools": "outils",
     "stats_label": "En chiffres",
     "stamp": "Ouvert aux stages · Ouvert aux collaborations · ",
@@ -41,7 +40,10 @@
     "nf_back": "Retour à l'accueil",
     "cv": "Télécharger mon CV",
     "cv_short": "CV",
-    "cv_note": "PDF, en anglais"
+    "cv_note": "PDF, en anglais",
+    "chapter": "Chapitre",
+    "hello": "Salut, moi c'est",
+    "next": "À suivre…"
   },
   "nav": {
     "home": "Accueil",
@@ -49,12 +51,13 @@
     "experience": "Expériences",
     "projects": "Projets",
     "skills": "Compétences",
+    "life": "À côté",
     "contact": "Contact"
   },
   "hero": {
     "badge": "Ouvert aux stages et aux collaborations",
-    "statement": "Je viens de la cybersécurité, je vais vers <em>l'IA agentique</em> et la data science.",
-    "lead": "Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Je construis des agents IA qui vérifient si les systèmes sont vraiment aussi sûrs qu'on le dit.",
+    "statement": "J'apprends pour construire des choses <em>utiles aux autres</em>",
+    "lead": "Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Parti du terrain télécom, passé par la cybersécurité, je travaille aujourd'hui sur des projets d'IA agentique.",
     "cta_projects": "Voir mes projets",
     "cta_contact": "Me contacter",
     "place": "Entre Paris et Brest",
@@ -62,12 +65,13 @@
   },
   "about": {
     "eyebrow": "À propos",
-    "title": "Un pied dans la cyber, l'autre dans l'IA.",
+    "title": "Curieux des gens autant que des technologies.",
     "paragraphs": [
-      "Je suis élève ingénieur à IMT Atlantique (informatique, réseaux et télécoms, 2025-2028), en apprentissage à la Société Générale, au Group CIO Office : stratégie IT et cyber.",
-      "Mon fil rouge : je viens des réseaux et de la cybersécurité, et je vais vers l'IA agentique et la data science. Les projets que je préfère sont à la jonction des deux : des agents qui contrôlent, croisent des sources et rapportent des preuves.",
-      "Je fais beaucoup de hackathons. C'est ma façon de découvrir un domaine, de construire quelque chose de concret et de sortir de ma zone de confort."
+      "J'aime le contact humain. J'aime rencontrer des gens, les comprendre, et vivre des expériences, à l'international ou pas.",
+      "Je suis élève ingénieur à IMT Atlantique (informatique, réseaux et télécoms, 2025-2028), en apprentissage à la Société Générale, au Group CIO Office. Je viens des réseaux et de la cybersécurité, et je travaille aujourd'hui sur des projets d'IA.",
+      "Si je fais des hackathons, c'est pour découvrir des choses, des gens, des technologies. Je veux toujours apprendre plus, et créer des projets qui seront utiles aux autres."
     ],
+    "quote": "Enrichir mes compétences pour enrichir le monde.",
     "facts_title": "En bref",
     "facts": [
       [
@@ -87,8 +91,8 @@
         "Français natif, anglais C1, espagnol B1"
       ],
       [
-        "À côté",
-        "Échecs (environ 1250 Elo), foot, CTF sur Root-Me, TryHackMe et Hack The Box, finance quantitative et investissement personnel"
+        "Ma plus grande qualité",
+        "La générosité"
       ]
     ],
     "stats": [
@@ -105,8 +109,8 @@
       ],
       [
         "2",
-        "certifications",
-        "Cisco Networking Academy : Python Essentials 1 et 2"
+        "séjours à l'étranger",
+        "un semestre Erasmus+ à Sofia, un stage en Malaisie"
       ],
       [
         "3",
@@ -115,13 +119,14 @@
       ]
     ],
     "photo": {
-      "alt": "Ethan Blombou écoute une discussion d'équipe, un ordinateur portable contre lui",
-      "caption": "Hackathon Deloitte × Google Cloud"
+      "alt": "Ethan Blombou, micro en main, montre un grand écran du bras pendant la présentation du projet de son équipe",
+      "caption": "Présentation de TRIAD, hackathon Deloitte × Google Cloud"
     }
   },
   "experience": {
     "eyebrow": "Expériences",
     "title": "Du terrain télécom à la cyber en banque.",
+    "intro": "Un an comme conducteur de travaux télécom chez Free, puis le Group CIO Office de la Société Générale : un vrai grand écart. Au début, je n'y comprenais pas grand-chose. C'est comme ça qu'on se construit, junior ou pas, et c'est ce qui fait la beauté d'un parcours.",
     "items": [
       {
         "logo": "societe-generale",
@@ -144,8 +149,13 @@
         "dates": "Mai à août 2026 · Malaisie",
         "bullets": [
           "Progressive Web App qui remplace les fiches papier de terrain pour la protection des tortues marines.",
-          "Portail captif avec questionnaire pour les visiteurs de l'île."
-        ]
+          "TurtleScope : un portail Wi-Fi captif, sur un Raspberry Pi installé sur l'île, où les visiteurs s'enregistrent à leur arrivée. L'équipe voit en direct qui est présent, avec des statistiques pour ses rapports."
+        ],
+        "note": {
+          "label": "Rencontre",
+          "text": "Mon superviseur à la SEATRU, quelqu'un de très, très gentil."
+        },
+        "photos": []
       },
       {
         "logo": "free",
@@ -154,7 +164,11 @@
         "dates": "2024-2025",
         "bullets": [
           "Terrain, coordination de sous-traitants, relation client."
-        ]
+        ],
+        "note": {
+          "label": "Rencontres",
+          "text": "Des équipes très sympas."
+        }
       }
     ],
     "edu_title": "Formation",
@@ -223,8 +237,8 @@
       "image_h": 1000,
       "image_alt": "Cockpit de TRIAD : quatre affirmations de la DSI sur quatre sont contredites par la configuration réelle, avec la liste des ruptures classées par gravité",
       "photo": {
-        "alt": "Ethan Blombou, micro en main, présente le projet sur un grand écran devant son équipe",
-        "caption": "Présentation du projet, hackathon Deloitte × Google Cloud"
+        "alt": "Ethan Blombou écoute une discussion d'équipe, un ordinateur portable contre lui",
+        "caption": "Hackathon Deloitte × Google Cloud"
       }
     },
     "items": [
@@ -613,6 +627,59 @@
         "Espagnol",
         "B1"
       ]
+    ]
+  },
+  "life": {
+    "eyebrow": "À côté",
+    "title": "Le reste de ma vie, en quelques cases.",
+    "piano": {
+      "name": "Musique et piano",
+      "text": "J'aime la musique et le piano. À vous de jouer.",
+      "label": "Clavier de piano : cliquez sur les touches pour jouer",
+      "demo": "Écouter un exemple",
+      "demo_note": "L'Ode à la joie",
+      "notes": [
+        "Do",
+        "Ré",
+        "Mi",
+        "Fa",
+        "Sol",
+        "La",
+        "Si"
+      ],
+      "sharp": "dièse"
+    },
+    "panels": [
+      {
+        "key": "manga",
+        "name": "Mangas",
+        "text": "J'aime les mangas, et ça se voit un peu ici : des cases, des bulles, des chapitres."
+      },
+      {
+        "key": "chess",
+        "name": "Échecs",
+        "text": "Environ 1250 Elo."
+      },
+      {
+        "key": "foot",
+        "name": "Foot",
+        "text": ""
+      },
+      {
+        "key": "abroad",
+        "name": "Ailleurs",
+        "text": "Un semestre Erasmus+ à Sofia en 2024, un stage en Malaisie en 2026."
+      },
+      {
+        "key": "ctf",
+        "name": "CTF",
+        "text": "Root-Me, TryHackMe et Hack The Box."
+      },
+      {
+        "key": "quant",
+        "name": "Finance quantitative",
+        "text": "Et investissement personnel."
+      }
     ]
   },
   "contact": {
