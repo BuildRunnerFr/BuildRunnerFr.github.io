@@ -25,28 +25,14 @@
     "filter": "Filter tools by field",
     "certs": "Certifications",
     "portfolio": "Portfolio",
-    "route": [
-      "Networks and telecoms",
-      "Cybersecurity",
-      "Agentic AI",
-      "Data science"
-    ],
-    "route_label": "My path, from networks to agentic AI and data science",
     "tools": "tools",
     "stats_label": "In numbers",
-    "stamp": "Open to internships · Open to collaborations · ",
     "nf_title": "This page does not exist.",
     "nf_text": "The link may be old or mistyped.",
     "nf_back": "Back to home",
     "cv": "Download my CV",
     "cv_short": "CV",
     "cv_note": "PDF",
-    "chapter": "Finding",
-    "hello": "Hi, I'm",
-    "next": "To be continued…",
-    "evidence": "Evidence",
-    "dossier": "Ethan Blombou, case file · updated on {date}",
-    "exhibit": "Exhibit 01 · portrait",
     "months": [
       "Jan",
       "Feb",
@@ -62,11 +48,8 @@
       "Dec"
     ],
     "play": "Play my journey",
-    "play_short": "Game",
     "theme": "Switch theme, light or dark",
     "socials": "My profiles",
-    "away": "Away from the keyboard",
-    "sheet": "Fact sheet",
     "in_projects": [
       "{n} project",
       "{n} projects"
@@ -104,6 +87,13 @@
     "status": {
       "done": "Done",
       "live": "Ongoing"
+    },
+    "net": {
+      "idle": "the shortest path, recomputed live",
+      "you": "shortest path to you · {hops} · cost {cost}",
+      "auto": "shortest path · {hops} · cost {cost}",
+      "down": "link down · route recomputed",
+      "hop": "hop|hops"
     }
   },
   "nav": {
@@ -171,7 +161,7 @@
     ],
     "nodes": {
       "start": {
-        "say": "Hi, I'm Ethan. Welcome! Where shall we start?",
+        "say": "Welcome. Where shall we start?",
         "opts": "@menu"
       },
       "again": {
@@ -585,33 +575,7 @@
     "photo": {
       "alt": "Ethan Blombou, microphone in hand, pointing at a large screen while presenting his team's project",
       "caption": "Presenting TRIAD, Deloitte × Google Cloud hackathon"
-    },
-    "away": [
-      [
-        "Piano",
-        "life"
-      ],
-      [
-        "Manga",
-        "life"
-      ],
-      [
-        "Chess",
-        "life"
-      ],
-      [
-        "Football",
-        "life"
-      ],
-      [
-        "CTFs",
-        "life"
-      ],
-      [
-        "Quantitative finance",
-        "life"
-      ]
-    ]
+    }
   },
   "experience": {
     "eyebrow": "Experience",
@@ -1032,7 +996,7 @@
   },
   "skills": {
     "eyebrow": "Skills",
-    "title": "What I use, and where.",
+    "title": "What I work with.",
     "groups": [
       {
         "key": "ai",
@@ -1378,7 +1342,7 @@
   },
   "life": {
     "eyebrow": "Off duty",
-    "title": "The rest of my life, in a few panels.",
+    "title": "The rest of my life, in a few lines.",
     "piano": {
       "name": "Music and piano",
       "text": "On the piano, I play Nuvole Bianche by Ludovico Einaudi. Your turn to play.",
@@ -1400,7 +1364,7 @@
       {
         "key": "manga",
         "name": "Manga",
-        "text": "Vinland Saga, Hunter × Hunter, Parasyte, Tokyo Ghoul. It shows a little here: panels, speech bubbles, chapters."
+        "text": "Vinland Saga, Hunter × Hunter, Parasyte, Tokyo Ghoul."
       },
       {
         "key": "chess",
@@ -1430,7 +1394,7 @@
     ],
     "play": {
       "name": "My journey, as a game",
-      "text": "A conversation with choices, then a map to explore with a mini-Ethan."
+      "text": "A branching chat, then a map to explore."
     }
   },
   "contact": {
@@ -1444,15 +1408,6 @@
   "footer": {
     "note": "Logos and trademarks belong to their respective owners.",
     "made": "Static site, made by hand."
-  },
-  "evidence": {
-    "about": "CV as a PDF, sha256 fingerprint {cv_hash}",
-    "experience": "{photos} field photos, from Free and Malaysia",
-    "projects": "{code} public code repositories",
-    "skills": "{repos} repositories and {langs} languages recorded on GitHub",
-    "stats": "GitHub API, recorded on {synced}",
-    "life": "a piano, to be tried on site",
-    "contact": "one is missing: your message"
   },
   "journey": {
     "eyebrow": "Journey",

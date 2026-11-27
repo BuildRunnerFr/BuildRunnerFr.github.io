@@ -8,7 +8,7 @@ Site statique sans framework, publié par GitHub Pages depuis la branche `main`.
 
 - **L'accueil** (`index.html`, `en/index.html`) : à propos, compétences, parcours, projets, chiffres, à côté, contact.
 - **Une page par projet** (`projets/<nom>/`, `en/projects/<name>/`) : résumé, ma partie, technologies, langages du dépôt, et le README du dépôt quand il est public.
-- **Une version jeu** de l'accueil : une discussion à choix avec Ethan, puis une carte de son parcours. Elle se lance par « Jouer mon parcours » ou `/#jeu` ; le choix est gardé dans le navigateur. Code dans `assets/js/play.js`, répliques dans la clé `play` des contenus.
+- **Une version jeu** de l'accueil, discrète : une discussion à choix avec Ethan, puis une carte de son parcours. Elle se lance par « Jouer mon parcours », en bas de la section « À côté », ou par `/#jeu` ; le choix est gardé dans le navigateur. Code dans `assets/js/play.js`, répliques dans la clé `play` des contenus.
 
 ## Modifier le contenu
 
@@ -41,6 +41,7 @@ python3 tools/github_stats.py && python3 build.py
 - `build.py` : gabarits HTML, petit rendu Markdown pour les README, génération de toutes les pages
 - `content/` : textes français et anglais
 - `assets/css/style.css`, `assets/js/main.js` : styles et interactions (dont le clavier de piano de la section « À côté », synthétisé dans le navigateur, sans fichier son)
+- `assets/js/net.js` : le réseau animé de l'en-tête. Un maillage fixe, et le plus court chemin (Dijkstra, l'algorithme d'OSPF) entre le portrait et le curseur, recalculé en direct ; de temps en temps un lien tombe et la route se recalcule. Décoratif : sans lui la page est complète
 - `assets/photos/` : photos en WebP, deux largeurs par image
 - `assets/logos/` : logos des organisations, fichiers d'origine non modifiés (seuls les PNG ont été réduits en taille)
 - `assets/icons/` : icônes des technologies, issues de Simple Icons

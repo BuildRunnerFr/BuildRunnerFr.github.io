@@ -25,28 +25,14 @@
     "filter": "Filtrer les outils par domaine",
     "certs": "Certifications",
     "portfolio": "Portfolio",
-    "route": [
-      "Réseaux et télécoms",
-      "Cybersécurité",
-      "IA agentique",
-      "Data science"
-    ],
-    "route_label": "Mon parcours, des réseaux vers l'IA agentique et la data science",
     "tools": "outils",
     "stats_label": "En chiffres",
-    "stamp": "Ouvert aux stages · Ouvert aux collaborations · ",
     "nf_title": "Cette page n'existe pas.",
     "nf_text": "Le lien est peut-être ancien ou mal recopié.",
     "nf_back": "Retour à l'accueil",
     "cv": "Télécharger mon CV",
     "cv_short": "CV",
     "cv_note": "PDF, en anglais",
-    "chapter": "Constat",
-    "hello": "Salut, moi c'est",
-    "next": "À suivre…",
-    "evidence": "Pièces",
-    "dossier": "Dossier Ethan Blombou · mis à jour le {date}",
-    "exhibit": "Pièce 01 · portrait",
     "months": [
       "janv.",
       "févr.",
@@ -62,11 +48,8 @@
       "déc."
     ],
     "play": "Jouer mon parcours",
-    "play_short": "Jeu",
     "theme": "Changer de thème, clair ou sombre",
     "socials": "Mes profils",
-    "away": "Loin du clavier",
-    "sheet": "Fiche",
     "in_projects": [
       "{n} projet",
       "{n} projets"
@@ -104,6 +87,13 @@
     "status": {
       "done": "Terminé",
       "live": "En cours"
+    },
+    "net": {
+      "idle": "le plus court chemin, recalculé en direct",
+      "you": "plus court chemin jusqu'à vous · {hops} · coût {cost}",
+      "auto": "plus court chemin · {hops} · coût {cost}",
+      "down": "lien coupé · route recalculée",
+      "hop": "saut|sauts"
     }
   },
   "nav": {
@@ -171,7 +161,7 @@
     ],
     "nodes": {
       "start": {
-        "say": "Salut, moi c'est Ethan. Bienvenue ! On commence par quoi ?",
+        "say": "Bienvenue. On commence par quoi ?",
         "opts": "@menu"
       },
       "again": {
@@ -585,33 +575,7 @@
     "photo": {
       "alt": "Ethan Blombou, micro en main, montre un grand écran du bras pendant la présentation du projet de son équipe",
       "caption": "Présentation de TRIAD, hackathon Deloitte × Google Cloud"
-    },
-    "away": [
-      [
-        "Piano",
-        "life"
-      ],
-      [
-        "Mangas",
-        "life"
-      ],
-      [
-        "Échecs",
-        "life"
-      ],
-      [
-        "Foot",
-        "life"
-      ],
-      [
-        "CTF",
-        "life"
-      ],
-      [
-        "Finance quantitative",
-        "life"
-      ]
-    ]
+    }
   },
   "experience": {
     "eyebrow": "Expériences",
@@ -1032,7 +996,7 @@
   },
   "skills": {
     "eyebrow": "Compétences",
-    "title": "Ce que j'utilise, et où.",
+    "title": "Ce que j'utilise.",
     "groups": [
       {
         "key": "ai",
@@ -1378,7 +1342,7 @@
   },
   "life": {
     "eyebrow": "À côté",
-    "title": "Le reste de ma vie, en quelques cases.",
+    "title": "Le reste de ma vie, en quelques lignes.",
     "piano": {
       "name": "Musique et piano",
       "text": "Au piano, je joue Nuvole Bianche, de Ludovico Einaudi. À vous de jouer.",
@@ -1400,7 +1364,7 @@
       {
         "key": "manga",
         "name": "Mangas",
-        "text": "Vinland Saga, Hunter × Hunter, Parasyte, Tokyo Ghoul. Ça se voit un peu ici : des cases, des bulles, des chapitres."
+        "text": "Vinland Saga, Hunter × Hunter, Parasyte, Tokyo Ghoul."
       },
       {
         "key": "chess",
@@ -1429,8 +1393,8 @@
       }
     ],
     "play": {
-      "name": "Mon parcours, en jeu",
-      "text": "Une discussion à choix, puis une carte à explorer avec un mini-Ethan."
+      "name": "Mon parcours, version jeu",
+      "text": "Une discussion à choix, puis une carte à explorer."
     }
   },
   "contact": {
@@ -1444,15 +1408,6 @@
   "footer": {
     "note": "Les logos et marques cités appartiennent à leurs détenteurs respectifs.",
     "made": "Site statique, fait main."
-  },
-  "evidence": {
-    "about": "CV en PDF, empreinte sha256 {cv_hash}",
-    "experience": "{photos} photos de terrain, chez Free et en Malaisie",
-    "projects": "{code} dépôts de code publics",
-    "skills": "{repos} dépôts et {langs} langages relevés sur GitHub",
-    "stats": "API GitHub, relevé du {synced}",
-    "life": "un piano, à essayer sur place",
-    "contact": "il en manque une, votre message"
   },
   "journey": {
     "eyebrow": "Parcours",
