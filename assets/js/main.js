@@ -60,7 +60,7 @@
     var line = window.innerHeight * 0.4;
     var current = '';
     sections.forEach(function (s) {
-      if (s.getBoundingClientRect().top <= line) current = s.id;
+      if (s.offsetParent !== null && s.getBoundingClientRect().top <= line) current = s.id;
     });
     Object.keys(navLinks).forEach(function (id) {
       if (id === current) navLinks[id].setAttribute('aria-current', 'true');

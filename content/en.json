@@ -63,6 +63,408 @@
     "place": "Between Paris and Brest",
     "photo_alt": "Portrait of Ethan Blombou with a slight smile, arms crossed, wearing a black jumper"
   },
+  "play": {
+    "label": "Meet Ethan, game version",
+    "to_classic": "Classic version",
+    "to_play": "Game version",
+    "hero_play": "Play my journey",
+    "skip": "No time to play?",
+    "say_label": "Show the whole sentence",
+    "topics_label": "Topics covered",
+    "topics": {
+      "path": "Journey",
+      "proj": "Projects",
+      "me": "Off duty",
+      "hire": "Hiring"
+    },
+    "map": {
+      "title": "My journey",
+      "label": "Map of Ethan's journey, in eight stops",
+      "back": "Back to the conversation",
+      "prev": "Previous stop",
+      "next": "Next",
+      "end": "End of the journey",
+      "step": "Stop {n} of {total}",
+      "stop": "Stop {n}: {label}",
+      "bag": "Bag",
+      "hint": "Arrow keys, buttons, or tap a stop."
+    },
+    "menu": [
+      [
+        "The journey",
+        "path"
+      ],
+      [
+        "The projects",
+        "proj"
+      ],
+      [
+        "Outside work",
+        "me"
+      ],
+      [
+        "I'm hiring, get to the point",
+        "hire"
+      ]
+    ],
+    "nodes": {
+      "start": {
+        "say": "Hi, I'm Ethan. Welcome! Where shall we start?",
+        "opts": "@menu"
+      },
+      "again": {
+        "say": "What shall we talk about now?",
+        "opts": "@menu"
+      },
+      "path": {
+        "topic": "path",
+        "say": "I started in the field: a year as a telecom works supervisor at Free. Then the Group CIO Office at Société Générale. Quite a leap.",
+        "opts": [
+          [
+            "Explore the journey on the map",
+            "@map"
+          ],
+          [
+            "Was it easy at first?",
+            "path2"
+          ],
+          [
+            "And abroad?",
+            "abroad"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "path2": {
+        "say": "At first I did not understand much. That is how you grow, junior or not. And it is what makes a career path beautiful.",
+        "opts": [
+          [
+            "Explore the journey on the map",
+            "@map"
+          ],
+          [
+            "And abroad?",
+            "abroad"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "abroad": {
+        "say": "An Erasmus+ semester in Sofia, then an internship in Malaysia at SEATRU: an app for sea turtle conservation. My supervisor, Engku Fadzli, was very, very kind.",
+        "opts": [
+          [
+            "Explore the journey on the map",
+            "@map"
+          ],
+          [
+            "The projects",
+            "proj"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "proj": {
+        "topic": "proj",
+        "say": "I mostly build at hackathons. For example TRIAD: four AI agents that cross-check what an IT department says, what it wrote and what is really configured in its cloud.",
+        "opts": [
+          [
+            "Why hackathons?",
+            "why"
+          ],
+          [
+            "And a solo project?",
+            "solo"
+          ],
+          [
+            "See all projects",
+            "@classic#projects"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "why": {
+        "say": "To discover things, people and technologies. I always want to learn more, and to create projects that will be useful to others.",
+        "opts": [
+          [
+            "And a solo project?",
+            "solo"
+          ],
+          [
+            "See all projects",
+            "@classic#projects"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "solo": {
+        "say": "Attest, at the Meta hackathon: an AI agent that audits a bank's systems against DORA, then writes the report.",
+        "opts": [
+          [
+            "Why hackathons?",
+            "why"
+          ],
+          [
+            "See all projects",
+            "@classic#projects"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "me": {
+        "topic": "me",
+        "say": "I like people, music, the piano, manga, chess and football. My greatest quality: generosity.",
+        "opts": [
+          [
+            "Which manga?",
+            "manga"
+          ],
+          [
+            "Which piece, on the piano?",
+            "piano"
+          ],
+          [
+            "How good at chess?",
+            "chess"
+          ],
+          [
+            "One sentence that sums it up?",
+            "motto"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "manga": {
+        "say": "Vinland Saga, Hunter × Hunter, Parasyte and Tokyo Ghoul.",
+        "opts": [
+          [
+            "Which piece, on the piano?",
+            "piano"
+          ],
+          [
+            "How good at chess?",
+            "chess"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "piano": {
+        "say": "Nuvole Bianche, by Ludovico Einaudi.",
+        "opts": [
+          [
+            "Try the site's keyboard",
+            "@classic#life"
+          ],
+          [
+            "Which manga?",
+            "manga"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "chess": {
+        "say": "Around 1250 Elo. It is the only score I am not optimising. Not yet.",
+        "opts": [
+          [
+            "Which manga?",
+            "manga"
+          ],
+          [
+            "One sentence that sums it up?",
+            "motto"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "motto": {
+        "say": "Enriching my skills to enrich the world.",
+        "opts": [
+          [
+            "Which manga?",
+            "manga"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "hire": {
+        "topic": "hire",
+        "say": "Straight to the point, then: engineering student at IMT Atlantique until 2028, cybersecurity apprentice at Société Générale, and open to internships and collaborations.",
+        "opts": [
+          [
+            "Download the CV",
+            "@cv"
+          ],
+          [
+            "Get in touch",
+            "contact"
+          ],
+          [
+            "See the classic version",
+            "@classic"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      },
+      "contact": {
+        "say": "An internship, a project, a hackathon? Let's talk.",
+        "opts": [
+          [
+            "Email me",
+            "@mail"
+          ],
+          [
+            "LinkedIn",
+            "@linkedin"
+          ],
+          [
+            "GitHub",
+            "@github"
+          ],
+          [
+            "Another topic",
+            "again"
+          ]
+        ]
+      }
+    },
+    "stops": [
+      {
+        "icon": "school",
+        "label": "IUT de Vélizy",
+        "tag": "2022 – 2025 · Vélizy",
+        "title": "IUT de Vélizy",
+        "what": "BUT (bachelor's) in Networks and Telecoms, cybersecurity track.",
+        "say": "Here we go."
+      },
+      {
+        "icon": "plane",
+        "label": "Sofia",
+        "tag": "2024 · Sofia, Bulgaria",
+        "title": "An Erasmus+ semester",
+        "what": "At the Technical University of Sofia.",
+        "say": "I like living new experiences, abroad or not."
+      },
+      {
+        "icon": "antenna",
+        "label": "Free",
+        "tag": "2024 – 2025 · Free",
+        "title": "Telecom works supervisor",
+        "what": "A year as an apprentice in the field: subcontractor coordination, client relations.",
+        "say": "Really friendly teams.",
+        "photos": "free",
+        "more": [
+          [
+            "See the details",
+            "@classic#experience"
+          ]
+        ]
+      },
+      {
+        "icon": "light",
+        "label": "IMT Atlantique",
+        "tag": "2025 – 2028 · Brest",
+        "title": "IMT Atlantique",
+        "what": "Engineering degree: computer science, networks and telecoms.",
+        "say": "Between Paris and Brest."
+      },
+      {
+        "icon": "bank",
+        "label": "Société Générale",
+        "tag": "Since Sept. 2025 · Paris",
+        "title": "Société Générale, Group CIO Office",
+        "what": "Cybersecurity apprentice: a Python pipeline automating a control, reporting to around a hundred tech leads.",
+        "say": "At first I did not understand much. That is how you grow.",
+        "more": [
+          [
+            "See the details",
+            "@classic#experience"
+          ]
+        ]
+      },
+      {
+        "icon": "turtle",
+        "label": "Malaysia",
+        "tag": "May – August 2026 · Malaysia",
+        "title": "SEATRU, the sea turtles",
+        "what": "Software development internship: an app replacing paper field forms, and TurtleScope for visitors to the island.",
+        "say": "My supervisor, Engku Fadzli: a very, very kind person.",
+        "photos": "seatru",
+        "more": [
+          [
+            "See the details",
+            "@classic#experience"
+          ]
+        ]
+      },
+      {
+        "icon": "laptop",
+        "label": "Hackathons",
+        "tag": "2026 · Three hackathons",
+        "title": "TRIAD, Attest, European AI Championship",
+        "what": "Deloitte × Google Cloud, Meta, then three AI-security challenges in 22 hours.",
+        "say": "I do it to discover things, people and technologies.",
+        "more": [
+          [
+            "See the projects",
+            "@classic#projects"
+          ]
+        ]
+      },
+      {
+        "icon": "mail",
+        "label": "What next?",
+        "tag": "To be continued…",
+        "title": "What next?",
+        "what": "Open to internships and collaborations.",
+        "say": "An internship, a project, a hackathon? Let's talk.",
+        "more": [
+          [
+            "Email me",
+            "@mail"
+          ],
+          [
+            "Download the CV",
+            "@cv"
+          ]
+        ]
+      }
+    ]
+  },
   "about": {
     "eyebrow": "About",
     "title": "As curious about people as about technology.",
@@ -153,9 +555,43 @@
         ],
         "note": {
           "label": "Who I met",
-          "text": "My supervisor at SEATRU, a very, very kind person."
+          "text": "My supervisor, Engku Fadzli, a very, very kind person."
         },
-        "photos": []
+        "photos": [
+          {
+            "stem": "malaisie-nid",
+            "sizes": [
+              480,
+              740
+            ],
+            "w": 740,
+            "h": 926,
+            "alt": "Ethan Blombou, wearing the SEATRU sea turtle volunteer programme T-shirt, digging in the sand next to a basket, between marker stakes",
+            "caption": "On the beach with SEATRU"
+          },
+          {
+            "stem": "malaisie-bebes",
+            "sizes": [
+              480,
+              960
+            ],
+            "w": 960,
+            "h": 1202,
+            "alt": "About ten sand-covered baby turtles in a yellow crate",
+            "caption": "Baby turtles"
+          },
+          {
+            "stem": "malaisie-ponte",
+            "sizes": [
+              480,
+              960
+            ],
+            "w": 960,
+            "h": 1200,
+            "alt": "A sea turtle on the sand at night, lit in red; in the foreground, a crate of eggs",
+            "caption": "At night, under red light"
+          }
+        ]
       },
       {
         "logo": "free",
@@ -168,7 +604,31 @@
         "note": {
           "label": "Who I met",
           "text": "Really friendly teams."
-        }
+        },
+        "photos": [
+          {
+            "stem": "free-mesure",
+            "sizes": [
+              480,
+              960
+            ],
+            "w": 960,
+            "h": 1200,
+            "alt": "A hand holding an EXFO optical power meter reading −20.60 dBm in front of a cabinet of green, red and orange optical fibres",
+            "caption": "Optical power measurement"
+          },
+          {
+            "stem": "free-prise",
+            "sizes": [
+              480,
+              960
+            ],
+            "w": 960,
+            "h": 1200,
+            "alt": "A wall-mounted optical outlet connected by a green cord to a black fibre box; reference numbers are blurred",
+            "caption": "Optical outlet and fibre box"
+          }
+        ]
       }
     ],
     "edu_title": "Education",
@@ -634,7 +1094,7 @@
     "title": "The rest of my life, in a few panels.",
     "piano": {
       "name": "Music and piano",
-      "text": "I love music and the piano. Your turn to play.",
+      "text": "On the piano, I play Nuvole Bianche by Ludovico Einaudi. Your turn to play.",
       "label": "Piano keyboard: click the keys to play",
       "demo": "Hear an example",
       "demo_note": "Ode to Joy",
@@ -653,7 +1113,7 @@
       {
         "key": "manga",
         "name": "Manga",
-        "text": "I like manga, and it shows a little here: panels, speech bubbles, chapters."
+        "text": "Vinland Saga, Hunter × Hunter, Parasyte, Tokyo Ghoul. It shows a little here: panels, speech bubbles, chapters."
       },
       {
         "key": "chess",

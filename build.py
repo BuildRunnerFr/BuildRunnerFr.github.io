@@ -148,9 +148,11 @@ def render(c):
     lf = c["life"]
     pn = lf["piano"]
 
-    nav_links = "".join(
-        f'<li><a href="#{s}" data-nav="{s}">{c["nav"][s]}</a></li>' for s in SECTIONS[1:]
-    )
+    pl = c["play"]
+    nav_links = (
+        '<li class="nav__mode"><button type="button" class="mode" data-mode-switch>'
+        f'<span class="mode__classic">{pl["to_classic"]}</span><span class="mode__play">{PLAY}{pl["to_play"]}</span></button></li>'
+    ) + "".join(f'<li><a href="#{s}" data-nav="{s}">{c["nav"][s]}</a></li>' for s in SECTIONS[1:])
     lang_switch = (
         f'<div class="lang" role="group" aria-label="{ui["lang_label"]}">'
         + "".join(
@@ -186,7 +188,7 @@ def render(c):
             logos += logo(it["logo2"], it["org2"])
         bullets = "".join(f"<li>{b}</li>" for b in it["bullets"])
         shots = "".join(
-            photo(ph["stem"], (640, 1200), ph["w"], ph["h"], ph, "(min-width: 800px) 360px, 100vw", "shot shot--hop")
+            photo(ph["stem"], tuple(ph.get("sizes", (480, 960))), ph["w"], ph["h"], ph, "(min-width: 800px) 230px, 46vw", "shot shot--hop")
             for ph in it.get("photos", [])
         )
         shots = f'<div class="hop__photos">{shots}</div>' if shots else ""
@@ -314,6 +316,39 @@ def render(c):
         for p in lf["panels"]
     )
 
+    def portrait(key):
+        return f"""<figure class="portrait portrait--{key}">
+        <span class="burst" aria-hidden="true"></span>
+        <div class="stamp" aria-hidden="true">
+          <svg class="stamp__ring" viewBox="0 0 120 120">
+            <defs><path id="stamp-path-{key}" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+            <text><textPath href="#stamp-path-{key}" textLength="286">{ui["stamp"].upper()}</textPath></text>
+          </svg>
+          <svg class="stamp__arrow" viewBox="-3 -3 30 30"><path d="M0 24 24 0M6 0h18v18" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <picture>
+          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 250px, 190px">
+          <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
+        </picture>
+      </figure>"""
+
+    # données de la version jeu : répliques, étapes de la carte, liens et photos résolus ici
+    shots_by_org = {
+        it["logo"]: [{"src": f'/assets/photos/{ph["stem"]}-480.webp', "alt": ph["alt"]} for ph in it.get("photos", [])]
+        for it in x["items"]
+    }
+    play_data = json.dumps(
+        {
+            "menu": pl["menu"],
+            "nodes": pl["nodes"],
+            "stops": [dict(st, photos=shots_by_org.get(st.get("photos"), [])) for st in pl["stops"]],
+            "map": pl["map"],
+            "links": {"@cv": CV, "@mail": "mailto:" + EMAIL, "@linkedin": LINKEDIN, "@github": GITHUB},
+        },
+        ensure_ascii=False,
+    ).replace("</", "<\\/")
+    topics = "".join(f'<span class="topic" data-topic="{k}">{v}</span>' for k, v in pl["topics"].items())
+
     jsonld = json.dumps(
         {
             "@context": "https://schema.org",
@@ -363,7 +398,7 @@ def render(c):
 <link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(){{var d=document.documentElement,h=location.hash.slice(1),m=null;d.classList.add('js');try{{m=localStorage.getItem('mode')}}catch(e){{}}if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='classic'?'classic':'play')}})()</script>
 <script type="application/ld+json">{jsonld}</script>
 </head>
 <body>
@@ -383,6 +418,80 @@ def render(c):
 
 <main id="main">
 
+  <section class="play" id="play" aria-label="{escape(pl["label"])}">
+    <div class="wrap">
+
+      <div class="scene scene--talk" data-scene="talk">
+        <div class="talk">
+          <div class="talk__text">
+            <p class="talk__top">
+              <span class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</span>
+              <button class="talk__classic" type="button" data-mode-set="classic"><span>{pl["skip"]}</span> {pl["to_classic"]}{ARROW}</button>
+            </p>
+            <div class="talk__id">
+              <img class="talk__face" src="/assets/ethan-400.webp" alt="" width="400" height="542" decoding="async">
+              <h2 class="hero__name talk__name" aria-label="Ethan Blombou">{name_lines}</h2>
+            </div>
+            <p class="talk__you" id="talk-you" hidden></p>
+            <p class="bubble talk__say" id="talk-say" tabindex="0" role="button" aria-label="{escape(pl["say_label"])}"></p>
+            <p class="sr-only" id="talk-live" aria-live="polite"></p>
+            <div class="choices" id="talk-choices"></div>
+            <p class="talk__foot"><span>{pl["topics_label"]} :</span>{topics}</p>
+          </div>
+          {portrait("talk")}
+        </div>
+      </div>
+
+      <div class="scene scene--map" data-scene="map" hidden>
+        <div class="mapbar">
+          <button class="btn btn--line" type="button" data-scene-go="talk">← {pl["map"]["back"]}</button>
+          <h2 class="mapbar__t" id="map-title" tabindex="-1">{pl["map"]["title"]}</h2>
+          <p class="mapbar__hint">{pl["map"]["hint"]}</p>
+          <button class="talk__classic" type="button" data-mode-set="classic">{pl["to_classic"]}{ARROW}</button>
+        </div>
+        <div class="map">
+          <div class="map__board pcard">
+            <svg id="map" viewBox="0 -44 800 534" role="group" aria-label="{escape(pl["map"]["label"])}">
+              <path class="road" id="road" d=""/>
+              <path class="road road--done" id="road-done" d=""/>
+              <g id="stops"></g>
+              <g id="mini" aria-hidden="true">
+                <ellipse cx="0" cy="0" rx="13" ry="4" fill="rgba(28,21,18,0.25)"/>
+                <g>
+                  <rect x="-7.500" y="-11" width="6" height="10" rx="2" fill="#1c1512"/>
+                  <rect x="1.500" y="-11" width="6" height="10" rx="2" fill="#1c1512"/>
+                  <rect x="-11.500" y="-30" width="23" height="21" rx="7" fill="#efe1c8" stroke="#1c1512" stroke-width="2.500"/>
+                  <circle cx="0" cy="-40" r="10.500" fill="#c08a5f" stroke="#1c1512" stroke-width="2.500"/>
+                  <g fill="#1c1512"><circle cx="-8.500" cy="-46" r="5"/><circle cx="-3.500" cy="-50.500" r="5.500"/><circle cx="3.500" cy="-50.500" r="5.500"/><circle cx="8.500" cy="-46" r="5"/><circle cx="0" cy="-47.500" r="6"/><circle cx="-10.500" cy="-41.500" r="3.200"/><circle cx="10.500" cy="-41.500" r="3.200"/></g>
+                  <circle cx="-3.700" cy="-38.500" r="1.400" fill="#1c1512"/><circle cx="3.700" cy="-38.500" r="1.400" fill="#1c1512"/>
+                  <path d="M-3.200 -34.300q3.200 2.600 6.400 0" fill="none" stroke="#1c1512" stroke-width="1.600" stroke-linecap="round"/>
+                </g>
+              </g>
+            </svg>
+            <p class="map__hud" id="map-hud" aria-live="polite"></p>
+          </div>
+          <div class="map__side">
+            <div class="bag pcard"><span class="bag__t">{pl["map"]["bag"]}</span><span class="bag__items" id="bag"></span></div>
+            <article class="map__panel pcard" id="map-panel" aria-live="polite">
+              <p class="map__tag" id="p-tag"></p>
+              <h3 id="p-title"></h3>
+              <p class="map__what" id="p-what"></p>
+              <div class="map__shots" id="p-shots"></div>
+              <p class="bubble" id="p-say"></p>
+              <p class="map__more" id="p-more"></p>
+            </article>
+            <div class="map__ctrl">
+              <button class="btn btn--line" id="map-prev" type="button" aria-label="{escape(pl["map"]["prev"])}">←</button>
+              <button class="btn btn--dark" id="map-next" type="button">{pl["map"]["next"]} →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script type="application/json" id="play-data">{play_data}</script>
+  </section>
+
   <section class="hero" id="home">
     <div class="wrap hero__grid">
       <div class="hero__text">
@@ -394,25 +503,13 @@ def render(c):
         <p class="hero__statement">{h["statement"]}</p>
         <p class="hero__lead">{h["lead"]}</p>
         <p class="hero__cta">
+          <button class="btn btn--play" type="button" data-mode-set="play">{PLAY}{pl["hero_play"]}</button>
           <a class="btn btn--dark" href="#projects">{h["cta_projects"]}{ARROW}</a>
           <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
           <a class="cv" href="{CV}" download>{DOWN}<span>{ui["cv"]}</span><small>{ui["cv_note"]}</small></a>
         </p>
       </div>
-      <figure class="portrait">
-        <span class="burst" aria-hidden="true"></span>
-        <div class="stamp" aria-hidden="true">
-          <svg class="stamp__ring" viewBox="0 0 120 120">
-            <defs><path id="stamp-path" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
-            <text><textPath href="#stamp-path" textLength="286">{ui["stamp"].upper()}</textPath></text>
-          </svg>
-          <svg class="stamp__arrow" viewBox="-3 -3 30 30"><path d="M0 24 24 0M6 0h18v18" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <picture>
-          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 250px, 190px">
-          <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
-        </picture>
-      </figure>
+      {portrait("hero")}
     </div>
   </section>
 
@@ -527,6 +624,7 @@ def render(c):
 </footer>
 
 <script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/play.js" defer></script>
 </body>
 </html>
 """
