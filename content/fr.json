@@ -777,6 +777,49 @@
         "key": "triad"
       },
       {
+        "name": "Attest",
+        "tagline": "Auditeur de conformité DORA",
+        "context": "Hackathon Meta · nov. 2026",
+        "logos": [
+          [
+            "meta",
+            "Meta"
+          ]
+        ],
+        "kind": "solo",
+        "desc": "Un agent IA qui audite les systèmes d'une banque au regard de DORA : il les teste en lecture seule, scelle et masque les preuves, soumet les corrections à validation, reteste, puis rédige le rapport.",
+        "tags": [
+          "Python",
+          "Muse Spark",
+          "SAM",
+          "GitHub Actions"
+        ],
+        "url": "https://github.com/BuildRunnerFr/attest",
+        "period": "Nov. 2026",
+        "highlights": [
+          "Tests en lecture seule",
+          "Preuves scellées et masquées",
+          "Chaîne de preuve par contrôle"
+        ],
+        "slug": "attest",
+        "cats": [
+          "ia",
+          "cyber"
+        ],
+        "status": "done",
+        "repo": "attest",
+        "cover": {
+          "src": "/assets/attest-rapport.webp",
+          "w": 1600,
+          "h": 1156,
+          "alt": "Rapport d'audit généré par Attest pour une banque fictive : opinion « Insuffisant » au constat puis « À améliorer » après remédiation, sept contrôles testés, six constats"
+        },
+        "readme_lang": "en",
+        "key": "attest",
+        "start": "2026-10-30",
+        "end": "2026-11-12"
+      },
+      {
         "name": "European AI Championship 2026",
         "tagline": "Trois défis de sécurité de l'IA en 22 heures",
         "context": "Paris · 21-22 nov. 2026 · équipe Epi84",

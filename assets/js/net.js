@@ -345,7 +345,7 @@
   }
   document.addEventListener('visibilitychange', function () { if (!document.hidden) start(); });
   function recolor() { readColors(); if (W) draw(performance.now()); }
-  if ('MutationObserver' in window) new MutationObserver(recolor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-accent'] });
+  if ('MutationObserver' in window) new MutationObserver(recolor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-paper'] });
   var scheme = window.matchMedia('(prefers-color-scheme: dark)');
   if (scheme.addEventListener) scheme.addEventListener('change', recolor);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { W = 0; resize(); });

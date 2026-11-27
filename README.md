@@ -36,6 +36,10 @@ python3 tools/github_stats.py && python3 build.py
    Les photos d'une expérience apparaissent aussi à son étape sur la carte de la version jeu.
 3. Relancer `python3 build.py`.
 
+## Thème
+
+Le site est sombre pour tout le monde (`THEME_CHOICE = False` dans `build.py`). La version claire existe dans la feuille de style ; passer `THEME_CHOICE` à `True` remet le bouton qui laisse le visiteur choisir. Les décors de fond (quadrillage, points, cercles, petits réseaux, halos) sont en fin de bloc « Sections » de `assets/css/style.css`, un par côté et par section.
+
 ## Ajouter ou modifier un projet
 
 Dans `projects.list` des deux fichiers de contenu. Champs utiles :

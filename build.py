@@ -20,7 +20,9 @@ LINKEDIN = "https://www.linkedin.com/in/ethan-blombou"
 GITHUB = "https://github.com/BuildRunnerFr"
 CV = "/assets/cv-ethan-blombou.pdf"
 SECTIONS = ["about", "skills", "journey", "projects", "stats", "life", "contact"]
-THEME = "#4a3fe0"
+THEME = "#0b0c14"             # couleur de la barre du navigateur sur téléphone (fond du thème sombre)
+THEME_CHOICE = False          # False : thème sombre pour tout le monde, sans bouton ; True : le visiteur choisit
+ICONS = '<link rel="icon" href="/favicon-v3.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
 
 
 # ---------- petits outils ----------
@@ -377,6 +379,8 @@ def shell(c, *, title, description, path, alt_path, body, home, page="home", ext
     if page == "home":
         play_btn = f'<button class="tool tool--play" type="button" data-mode-switch>{c["play"]["to_classic"]}</button>'
     can_play = "true" if page == "home" else "false"
+    theme_js = "t==='light'?'light':'dark'" if THEME_CHOICE else "'dark'"
+    theme_btn = f'<button class="tool tool--theme" type="button" data-theme-toggle aria-label="{escape(ui["theme"])}">{SVG["moon"]}{SVG["sun"]}</button>' if THEME_CHOICE else ""
     script_tags = "".join(f'<script src="/assets/js/{s}.js" defer></script>' for s in scripts)
     return f"""<!doctype html>
 <html lang="{lang}">
@@ -387,7 +391,7 @@ def shell(c, *, title, description, path, alt_path, body, home, page="home", ext
 <meta name="description" content="{escape(description)}">
 <meta name="author" content="Ethan Blombou">
 <meta name="theme-color" content="{THEME}">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark light">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="{lang}" href="{url}">
 <link rel="alternate" hreflang="{alt_lang}" href="{SITE}{alt_path}">
@@ -402,11 +406,11 @@ def shell(c, *, title, description, path, alt_path, body, home, page="home", ext
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Ethan Blombou">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{ICONS}
 <link rel="preload" href="/assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
-<script>(function(){{var d=document.documentElement,h=location.hash.slice(1),m=null,t=null;d.classList.add('js');try{{m=localStorage.getItem('mode');t=localStorage.getItem('theme')}}catch(e){{}}if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='play'&&{can_play}?'play':'classic')}})()</script>
+<script>(function(){{var d=document.documentElement,h=location.hash.slice(1),m=null,t=null;d.classList.add('js');try{{m=localStorage.getItem('mode');t=localStorage.getItem('theme')}}catch(e){{}}d.setAttribute('data-theme',{theme_js});if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='play'&&{can_play}?'play':'classic')}})()</script>
 {extra_head}</head>
 <body class="page--{page}">
 <a class="skip" href="#main">{ui["skip"]}</a>
@@ -419,7 +423,7 @@ def shell(c, *, title, description, path, alt_path, body, home, page="home", ext
       {play_btn}
       <a class="tool tool--cv" href="{CV}" download>{ui["cv_short"]}{SVG["down"]}</a>
       <a class="tool tool--lang" href="{alt_path}" lang="{alt_lang}" hreflang="{alt_lang}" data-lang-link><span aria-hidden="true">{alt_lang.upper()}</span><span class="sr-only">{"English" if alt_lang == "en" else "Français"}</span></a>
-      <button class="tool tool--theme" type="button" data-theme-toggle aria-label="{escape(ui["theme"])}">{SVG["moon"]}{SVG["sun"]}</button>
+      {theme_btn}
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="nav__toggle-bars" aria-hidden="true"></span><span class="sr-only">{ui["menu"]}</span></button>
     </div>
   </nav>
@@ -952,14 +956,14 @@ def project_page(c, gh, p, prev, nxt, alt_path):
 def render_404(c):
     ui = c["ui"]
     return f"""<!doctype html>
-<html lang="{c["lang"]}">
+<html lang="{c["lang"]}" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>404 · Ethan Blombou</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="{THEME}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{ICONS}
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body class="nf">
