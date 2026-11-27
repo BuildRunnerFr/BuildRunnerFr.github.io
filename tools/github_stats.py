@@ -81,6 +81,8 @@ readmes = ROOT / "content" / "readmes"
 readmes.mkdir(exist_ok=True)
 saved = []
 for name in out["public"]:
+    if name == v["login"] or name.endswith(".github.io"):
+        continue
     try:
         text = gh("api", f"repos/{v['login']}/{name}/readme", "-H", "Accept: application/vnd.github.raw")
     except subprocess.CalledProcessError:

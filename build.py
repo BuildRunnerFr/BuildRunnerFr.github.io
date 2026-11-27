@@ -403,8 +403,8 @@ def shell(c, *, title, description, path, alt_path, body, home, page="home", ext
 <meta property="og:image:alt" content="Ethan Blombou">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script>(function(){{var d=document.documentElement,h=location.hash.slice(1),m=null,t=null;d.classList.add('js');try{{m=localStorage.getItem('mode');t=localStorage.getItem('theme')}}catch(e){{}}if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='play'&&{can_play}?'play':'classic')}})()</script>
 {extra_head}</head>
@@ -457,9 +457,11 @@ def project_cover(p, cls, sizes, eager=False):
         load = 'fetchpriority="high"' if eager else 'loading="lazy"'
         files = variants(cv["src"], cv["w"])
         many = f' srcset="{srcset(files)}" sizes="{sizes}"' if len(files) > 1 else ""
-        return f'<img class="{cls}" src="{cv["src"]}"{many} alt="{escape(cv["alt"])}" width="{cv["w"]}" height="{cv["h"]}" {load} decoding="async">'
+        focus = f' style="object-position:{cv["focus"]}"' if cv.get("focus") else ""
+        return f'<img class="{cls}" src="{cv["src"]}"{many} alt="{escape(cv["alt"])}" width="{cv["w"]}" height="{cv["h"]}"{focus} {load} decoding="async">'
     first = p["logos"][0] if p["logos"] else None
-    return f'<span class="{cls} {cls}--blank">{logo(first[0], first[1], "plogo") if first else ""}</span>'
+    words = " · ".join(p["tags"][:3])
+    return f'<span class="{cls} {cls}--blank">{logo(first[0], first[1], "plogo") if first else ""}<small>{escape(words)}</small></span>'
 
 
 def project_url(c, p):
@@ -467,11 +469,11 @@ def project_url(c, p):
 
 
 def project_dates(p, gh):
-    """Début et fin d'un projet : ceux du dépôt GitHub quand il existe, sinon ceux donnés dans le contenu."""
+    """Début et fin d'un projet : ceux donnés dans le contenu, sinon ceux du dépôt GitHub (premier commit, dernier push)."""
+    if p.get("start"):
+        return p["start"], p.get("end", "")
     repo = gh["public"].get(p.get("repo", ""))
-    if repo:
-        return repo["created"], repo["pushed"]
-    return p.get("start", ""), p.get("end", "")
+    return (repo["created"], repo["pushed"]) if repo else ("", "")
 
 
 # ---------- page d'accueil ----------
@@ -479,7 +481,7 @@ def project_dates(p, gh):
 def home(c, gh):
     lang, ui = c["lang"], c["ui"]
     h, a, x, pr, sk, ct, lf, pl, stt, jn = c["hero"], c["about"], c["experience"], c["projects"], c["skills"], c["contact"], c["life"], c["play"], c["stats"], c["journey"]
-    pn, months, nt = lf["piano"], ui["months"], ui["net"]
+    months, nt = ui["months"], ui["net"]
     projects = pr["list"]
     opened_m = int(gh["account_opened"][5:7])
     facts_gh = {
@@ -537,9 +539,12 @@ def home(c, gh):
     skillrows = ""
     for g in sk["groups"]:
         items = "".join(skill(name, slug) for name, slug in g["items"])
-        skillrows += f'<div class="skillrow reveal"><h3>{g["name"]}<span>{len(g["items"])}</span></h3><ul class="skilllist">{items}</ul></div>'
+        skillrows += (
+            f'<div class="skillrow"><h3>{g["name"]}<span>{len(g["items"])}</span></h3>'
+            f'<div class="marquee" data-marquee><ul class="skilllist">{items}</ul></div></div>'
+        )
     spoken = "".join(f"<li><span>{n}</span><small>{lv}</small></li>" for n, lv in sk["languages"])
-    skillrows += f'<div class="skillrow reveal"><h3>{sk["languages_title"]}<span>{len(sk["languages"])}</span></h3><ul class="skilllist">{spoken}</ul></div>'
+    skillrows += f'<div class="skillrow"><h3>{sk["languages_title"]}<span>{len(sk["languages"])}</span></h3><ul class="skilllist">{spoken}</ul></div>'
 
     # parcours : expériences, formation, certifications sur un même fil
     def step(kind, dates, title, org, logos="", extra=""):
@@ -552,23 +557,26 @@ def home(c, gh):
     def xp_entry(it):
         logos = logo(it["logo"], it["org"]) + (logo(it["logo2"], it["org2"]) if it.get("logo2") else "")
         bullets = "".join(f"<li>{b}</li>" for b in it.get("bullets", []))
-        shots = "".join(
-            photo(ph["stem"], ph["w"], ph["h"], ph, "(min-width: 800px) 180px, 24vw", "shot shot--step")
-            for ph in it.get("photos", [])
-        )
         note = it.get("note")
         extra = (
             (f'<ul class="step__list">{bullets}</ul>' if bullets else "")
-            + (f'<div class="step__shots">{shots}</div>' if shots else "")
+            + shots_of(it)
             + (f'<p class="step__note"><span class="label">{note["label"]}</span>{note["text"]}</p>' if note else "")
         )
         return step("xp", it["dates"], it["role"], it["org"], logos, extra)
 
+    def shots_of(it):
+        shots = "".join(
+            photo(ph["stem"], ph["w"], ph["h"], ph, "(min-width: 800px) 180px, 24vw", "shot shot--step") for ph in it.get("photos", [])
+        )
+        return f'<div class="step__shots">{shots}</div>' if shots else ""
+
     def edu_entry(it):
-        return step("edu", it["dates"], it["what"], it["org"], logo(it["logo"], it["org"]))
+        return step("edu", it["dates"], it["what"], it["org"], logo(it["logo"], it["org"]), shots_of(it))
 
     def cert_entry(it):
-        return step("cert", "", it["name"], it["issuer"])
+        # le logo s'affiche dès que son fichier est déposé dans assets/logos/
+        return step("cert", "", it["name"], it["issuer"], logo(it.get("logo", ""), it["issuer"]) if it.get("logo") else "")
 
     steps = (
         xp_entry(x["items"][0]) + edu_entry(x["edu"][0]) + xp_entry(x["items"][1]) + xp_entry(x["items"][2])
@@ -613,6 +621,7 @@ def home(c, gh):
         start, end = project_dates(p, gh)
         if start:
             rows.append({"name": p["name"], "start": start, "end": end, "cat": p["cats"][0], "href": project_url(c, p), "title": f'{p["name"]} · {p["period"]}'})
+    rows += [dict(r, title=r["name"]) for r in stt.get("gantt_extra", [])]
     site_repo = gh["public"].get("BuildRunnerFr.github.io")
     if site_repo:
         rows.append({"name": "Ce site" if lang == "fr" else "This site", "start": site_repo["created"], "end": "", "cat": "web", "title": "buildrunnerfr.github.io"})
@@ -622,19 +631,20 @@ def home(c, gh):
     legend = "".join(f'<li><i class="dot dot--{k}"></i>{label}</li>' for k, label in pr["cats"].items() if k != "all" and any(r["cat"] == k for r in rows))
     legend += f'<li><i class="dot dot--private"></i>{ui["private_repo"]}</li><li><i class="dot dot--live"></i>{ui["status"]["live"]}</li>'
 
-    # à côté
-    keys = ""
-    for i in range(15):
-        note_i = i % 7
-        midi = 60 + (0, 2, 4, 5, 7, 9, 11)[note_i] + 12 * (i // 7)
-        name, octave = pn["notes"][note_i], i // 7 + 1
-        black = ""
-        if note_i in (0, 1, 3, 4, 5) and i < 14:
-            black = f'<button type="button" class="pk__b" data-note="{midi + 1}" tabindex="-1" aria-label="{name} {pn["sharp"]} {octave}"></button>'
-        keys += (
-            f'<span class="pk"><button type="button" class="pk__w" data-note="{midi}" tabindex="{0 if i == 0 else -1}" '
-            f'aria-label="{name} {octave}"><span aria-hidden="true">{name}</span></button>{black}</span>'
+    # à côté : une étagère de mangas en volume, puis les autres centres d'intérêt
+    def book(i, it):
+        art = next((f"/assets/mangas/{it['slug']}.{ext}" for ext in ("webp", "jpg", "png") if (ROOT / "assets" / "mangas" / f"{it['slug']}.{ext}").exists()), "")
+        front = (
+            f'<span class="book__front book__front--art" style="background-image:url({art})"><span class="sr-only">{it["title"]}, {it["author"]}</span></span>'
+            if art else f'<span class="book__front"><b>{it["title"]}</b><small>{it["author"]}</small></span>'
         )
+        return (
+            f'<li class="book book--{i % 4}" style="--i:{i}"><div class="book__box">'
+            f'<span class="book__spine" aria-hidden="true">{it["title"]}</span>{front}</div></li>'
+        )
+
+    sh = lf["shelf"]
+    books = "".join(book(i, it) for i, it in enumerate(sh["items"]))
     hobbies = "".join(
         f'<li class="hobby reveal" style="--i:{i % 3}"><h3>{p["name"]}</h3>{"<p>" + p["text"] + "</p>" if p["text"] else ""}</li>'
         for i, p in enumerate(lf["panels"])
@@ -766,7 +776,7 @@ def home(c, gh):
   <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
       {shead(sk["eyebrow"], sk["title"], "skills-title")}
-      <div class="skills">{skillrows}</div>
+      <div class="skillframe reveal">{skillrows}</div>
     </div>
   </section>
 
@@ -817,12 +827,9 @@ def home(c, gh):
   <section class="section" id="life" aria-labelledby="life-title">
     <div class="wrap">
       {shead(lf["eyebrow"], lf["title"], "life-title")}
-      <article class="pianobox reveal">
-        <div class="pianobox__head">
-          <div><h3>{pn["name"]}</h3><p>{pn["text"]}</p></div>
-          <p class="piano__more"><button type="button" class="demo" data-demo aria-pressed="false">{SVG["play"]}<span>{pn["demo"]}</span><small>{pn["demo_note"]}</small></button></p>
-        </div>
-        <div class="piano" role="group" aria-label="{escape(pn["label"])}">{keys}</div>
+      <article class="shelf reveal">
+        <div class="shelf__head"><h3>{sh["name"]}</h3><p>{sh["text"]}</p></div>
+        <ul class="books" aria-label="{escape(sh["label"])}">{books}</ul>
       </article>
       <ul class="hobbies">{hobbies}</ul>
       <p class="playline reveal"><span><b>{lf["play"]["name"]}.</b> {lf["play"]["text"]}</span><button class="btn btn--ghost btn--small" type="button" data-mode-set="play">{SVG["play"]}{ui["play"]}</button></p>
@@ -850,7 +857,7 @@ def home(c, gh):
 </main>"""
     return shell(
         c, title=c["meta"]["title"], description=c["meta"]["description"], path=c["path"], alt_path=c["other_path"], body=body, home="",
-        extra_head=f'<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>\n<script type="application/ld+json">{jsonld}</script>\n',
+        extra_head=f'<link rel="preload" href="/assets/fonts/poppins-500.woff2" as="font" type="font/woff2" crossorigin>\n<script type="application/ld+json">{jsonld}</script>\n',
         scripts=("main", "net", "play"),
     )
 
@@ -893,6 +900,8 @@ def project_page(c, gh, p, prev, nxt, alt_path):
         )
     langs = f'<div class="side__block"><p class="label">{ui["languages"]}</p>{lang_bar(repo["languages"], c["stats"]["other"], lang)}</div>' if repo and repo["languages"] else ""
     repo_btn = f'<a class="btn btn--dark btn--wide" href="{repo_url}" rel="noopener">{SVG["github"]}{ui["repo"]}</a>' if repo else f'<p class="pp__norepo">{ui["no_repo"]}</p>'
+    if p.get("site"):
+        repo_btn = f'<a class="btn btn--accent btn--wide" href="{p["site"]}" rel="noopener">{ui["site"]}{SVG["arrow"]}</a>' + repo_btn
     logos_block = f'<div class="side__logos">{logos}</div>' if logos else ""
     side = f"""
       <aside class="pp__side">
@@ -933,7 +942,6 @@ def project_page(c, gh, p, prev, nxt, alt_path):
 </main>"""
     return shell(
         c, title=f'{p["name"]} · Ethan Blombou', description=p["desc"], path=project_url(c, p), alt_path=alt_path, body=body, home=home_url, page="project",
-        extra_head='<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>\n',
     )
 
 

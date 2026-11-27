@@ -143,7 +143,7 @@
   /* Une route est « au calme » si aucun de ses nœuds ne tombe sur du texte ou sur le portrait */
   function calm(idx) {
     var r = route(src, idx);
-    if (!r || r.nodes.length < 2) return false;
+    if (!r || r.nodes.length < 2 || r.nodes.length > 11) return false;
     for (var i = 1; i < r.nodes.length; i++) if (!nodes[r.nodes[i]].quiet) return false;
     return true;
   }

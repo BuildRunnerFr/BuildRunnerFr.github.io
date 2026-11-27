@@ -36,6 +36,19 @@ python3 tools/github_stats.py && python3 build.py
    Les photos d'une expérience apparaissent aussi à son étape sur la carte de la version jeu.
 3. Relancer `python3 build.py`.
 
+## Ajouter ou modifier un projet
+
+Dans `projects.list` des deux fichiers de contenu. Champs utiles :
+
+- `start` et `end` (AAAA-MM-JJ) : les dates montrées dans la chronologie. Sans elles, le site prend celles du dépôt GitHub (premier commit, dernier push), qui sous-estiment souvent le temps passé.
+- `site` : l'adresse du projet en ligne ; un bouton « Voir le site » apparaît sur sa page.
+- `cover.focus` : le cadrage de la couverture, par exemple `"50% 42%"`.
+
+## Mangas, logos de certifications
+
+- Étagère de mangas : la liste est dans `life.shelf.items`. Une image déposée dans `assets/mangas/<slug>.webp` (ou `.jpg`, `.png`) remplace la couverture typographique du livre.
+- Certifications : le logo de l'organisme s'affiche dès qu'un fichier `assets/logos/cisco-networking-academy.svg` (ou `.png`, `.webp`) existe.
+
 ## Organisation
 
 - `build.py` : gabarits HTML, petit rendu Markdown pour les README, génération de toutes les pages
@@ -45,6 +58,6 @@ python3 tools/github_stats.py && python3 build.py
 - `assets/photos/` : photos en WebP, plusieurs largeurs par image (`nom-320.webp`, `nom-480.webp`…). Même principe pour les couvertures de projets : `triad-cockpit.webp` et ses réductions `triad-cockpit-800.webp`, `triad-cockpit-1200.webp`
 - `assets/logos/` : logos des organisations, non modifiés. Pour les logos en image, le site sert une copie réduite en WebP sans perte (`.webp`) ; le fichier d'origine reste à côté (`.png`)
 - `assets/icons/` : icônes des technologies, issues de Simple Icons
-- `assets/fonts/` : Bricolage Grotesque, Instrument Sans et IBM Plex Mono (licence OFL). Bricolage est allégée : seule la largeur normale est gardée, les graisses vont de 400 à 800
+- `assets/fonts/` : Space Grotesk (titres), Poppins (texte) et JetBrains Mono (mentions techniques), sous licence OFL
 
 Les logos et marques appartiennent à leurs détenteurs respectifs.

@@ -94,7 +94,8 @@
       "auto": "plus court chemin · {hops} · coût {cost}",
       "down": "lien coupé · route recalculée",
       "hop": "saut|sauts"
-    }
+    },
+    "site": "Voir le site"
   },
   "nav": {
     "home": "Accueil",
@@ -108,7 +109,7 @@
   },
   "hero": {
     "badge": "Ouvert aux stages et aux collaborations",
-    "statement": "J'apprends pour construire des choses <em>utiles aux autres</em>",
+    "statement": "J'apprends pour construire des choses <em>utiles à moi et aux autres</em>",
     "lead": "Élève ingénieur à IMT Atlantique et apprenti à la Société Générale. Parti du terrain télécom, passé par la cybersécurité, je travaille aujourd'hui sur des projets d'IA agentique.",
     "cta_projects": "Voir mes projets",
     "cta_contact": "Me contacter",
@@ -233,10 +234,6 @@
             "why"
           ],
           [
-            "Et un projet en solo ?",
-            "solo"
-          ],
-          [
             "Voir tous les projets",
             "@classic#projects"
           ],
@@ -247,29 +244,8 @@
         ]
       },
       "why": {
-        "say": "Pour découvrir des choses, des gens, des technologies. Je veux toujours apprendre plus, et créer des projets qui seront utiles aux autres.",
+        "say": "Pour découvrir des choses, des gens, des technologies. Je veux toujours apprendre plus, et créer des projets qui seront utiles.",
         "opts": [
-          [
-            "Et un projet en solo ?",
-            "solo"
-          ],
-          [
-            "Voir tous les projets",
-            "@classic#projects"
-          ],
-          [
-            "Autre sujet",
-            "again"
-          ]
-        ]
-      },
-      "solo": {
-        "say": "Attest, au hackathon Meta : un agent IA qui audite les systèmes d'une banque au regard de DORA, puis rédige le rapport.",
-        "opts": [
-          [
-            "Pourquoi des hackathons ?",
-            "why"
-          ],
           [
             "Voir tous les projets",
             "@classic#projects"
@@ -326,10 +302,6 @@
       "piano": {
         "say": "Nuvole Bianche, de Ludovico Einaudi.",
         "opts": [
-          [
-            "Essayer le clavier du site",
-            "@classic#life"
-          ],
           [
             "Quels mangas ?",
             "manga"
@@ -487,7 +459,7 @@
         "icon": "laptop",
         "label": "Hackathons",
         "tag": "2026 · Trois hackathons",
-        "title": "TRIAD, Attest, European AI Championship",
+        "title": "TRIAD, European AI Championship",
         "what": "Deloitte × Google Cloud, Meta, puis trois défis de sécurité de l'IA en 22 heures.",
         "say": "Je fais ça pour découvrir des choses, des gens, des technologies.",
         "more": [
@@ -523,7 +495,7 @@
     "paragraphs": [
       "J'aime le contact humain. J'aime rencontrer des gens, les comprendre, et vivre des expériences, à l'international ou pas.",
       "Je suis élève ingénieur à IMT Atlantique (informatique, réseaux et télécoms, 2025-2028), en apprentissage à la Société Générale, au Group CIO Office. Je viens des réseaux et de la cybersécurité, et je travaille aujourd'hui sur des projets d'IA.",
-      "Si je fais des hackathons, c'est pour découvrir des choses, des gens, des technologies. Je veux toujours apprendre plus, et créer des projets qui seront utiles aux autres."
+      "Si je fais des hackathons, c'est pour découvrir des choses, des gens, des technologies. Je veux toujours apprendre plus, et créer des projets qui seront utiles."
     ],
     "quote": "Enrichir mes compétences pour enrichir le monde.",
     "facts_title": "En bref",
@@ -588,9 +560,9 @@
         "role": "Apprenti cybersécurité, Group CIO Office",
         "dates": "Depuis sept. 2025",
         "bullets": [
-          "Pipeline Python qui automatise le contrôle de séparation des tâches : API REST du GitHub interne, croisement de trois sources avec pandas.",
+          "Séparation des tâches dans la CI/CD : un pipeline Python interroge l'API REST du GitHub interne et croise trois sources avec pandas. Terminé.",
           "Reporting hebdomadaire automatisé vers une centaine de tech leads à l'international.",
-          "Référentiel de contrôle pour un audit fournisseurs mutualisé entre banques européennes.",
+          "Framework de contrôle pour une entité qui regroupe de grandes banques européennes, afin de mutualiser les audits des fournisseurs communs : terminé, utilisé, et prévu pour les prochains audits pilotes.",
           "En cours : un agent IA qui répond en langage naturel en croisant des référentiels."
         ]
       },
@@ -701,17 +673,35 @@
         "logo": "tu-sofia",
         "org": "Université technique de Sofia",
         "what": "Semestre Erasmus+",
-        "dates": "2024"
+        "dates": "2024",
+        "photos": [
+          {
+            "stem": "bulgarie-neige",
+            "w": 960,
+            "h": 1200,
+            "alt": "Ethan Blombou debout dans la neige, de profil, devant des sommets enneigés sous un ciel couvert",
+            "caption": "Dans la neige, en Bulgarie"
+          },
+          {
+            "stem": "bulgarie-ville",
+            "w": 960,
+            "h": 1200,
+            "alt": "Une rue en ville et, au fond, des montagnes enneigées sous un ciel bleu",
+            "caption": "En Bulgarie, les montagnes au bout de la rue"
+          }
+        ]
       }
     ],
     "certs": [
       {
         "name": "Python Essentials 1",
-        "issuer": "Cisco Networking Academy"
+        "issuer": "Cisco Networking Academy",
+        "logo": "cisco-networking-academy"
       },
       {
         "name": "Python Essentials 2",
-        "issuer": "Cisco Networking Academy"
+        "issuer": "Cisco Networking Academy",
+        "logo": "cisco-networking-academy"
       }
     ]
   },
@@ -786,47 +776,6 @@
         "key": "triad"
       },
       {
-        "name": "Attest",
-        "tagline": "Auditeur de conformité DORA",
-        "context": "Hackathon Meta · nov. 2026",
-        "logos": [
-          [
-            "meta",
-            "Meta"
-          ]
-        ],
-        "kind": "solo",
-        "desc": "Un agent IA qui audite les systèmes d'une banque au regard de DORA : il les teste en lecture seule, scelle et masque les preuves, soumet les corrections à validation, reteste, puis rédige le rapport.",
-        "tags": [
-          "Python",
-          "Muse Spark",
-          "SAM",
-          "GitHub Actions"
-        ],
-        "url": "https://github.com/BuildRunnerFr/attest",
-        "period": "Nov. 2026",
-        "highlights": [
-          "Tests en lecture seule",
-          "Preuves scellées et masquées",
-          "Rapport rédigé par l'agent"
-        ],
-        "slug": "attest",
-        "cats": [
-          "ia",
-          "cyber"
-        ],
-        "status": "done",
-        "repo": "attest",
-        "cover": {
-          "src": "/assets/attest-report.webp",
-          "w": 1000,
-          "h": 761,
-          "alt": "Synthèse d'un rapport d'audit généré par Attest pour une banque fictive : sept contrôles testés, six constats"
-        },
-        "readme_lang": "en",
-        "key": "attest"
-      },
-      {
         "name": "European AI Championship 2026",
         "tagline": "Trois défis de sécurité de l'IA en 22 heures",
         "context": "Paris · 21-22 nov. 2026 · équipe Epi84",
@@ -867,14 +816,14 @@
         "context": "Application web",
         "logos": [],
         "kind": "personal",
-        "desc": "Comptes bancaires en lecture seule, dépenses classées et assistant en langage naturel.",
+        "desc": "Comptes bancaires en lecture seule, dépenses classées et assistant en langage naturel. Je l'ai créé d'abord pour gérer mes finances personnelles ; si vous voulez l'utiliser, faites-vous plaisir.",
         "tags": [
           "Next.js",
           "TypeScript",
           "Supabase"
         ],
         "url": "https://github.com/BuildRunnerFr/clair",
-        "period": "Sept. 2026",
+        "period": "Août à sept. 2026",
         "highlights": [
           "Comptes en lecture seule",
           "Dépenses classées",
@@ -897,7 +846,10 @@
           "Budgets et analytics SQL",
           "Préparation Open Banking"
         ],
-        "key": "clair"
+        "key": "clair",
+        "start": "2026-08-14",
+        "end": "2026-09-14",
+        "site": ""
       },
       {
         "name": "TurtleScope",
@@ -939,17 +891,18 @@
           "src": "/assets/photos/malaisie-nid-740.webp",
           "w": 740,
           "h": 926,
-          "alt": "Ethan Blombou, en tee-shirt du programme de volontariat de la SEATRU, creuse le sable entre des piquets de marquage"
+          "alt": "Ethan Blombou, en tee-shirt du programme de volontariat de la SEATRU, creuse le sable entre des piquets de marquage",
+          "focus": "50% 42%"
         },
         "gallery": "seatru",
         "key": "turtlescope"
       },
       {
-        "name": "Contrôle de séparation des tâches",
-        "tagline": "Un pipeline Python, en banque",
+        "name": "Séparation des tâches dans la CI/CD",
+        "tagline": "Un contrôle automatisé, avec GitHub",
         "context": "Société Générale, Group CIO Office",
-        "period": "Depuis sept. 2025",
-        "desc": "Un pipeline Python qui automatise le contrôle de séparation des tâches : il interroge l'API REST du GitHub interne et croise trois sources avec pandas. Le reporting part chaque semaine vers une centaine de tech leads à l'international.",
+        "period": "2025-2026",
+        "desc": "Le contrôle de séparation des tâches (segregation of duties) dans la CI/CD, automatisé : un pipeline Python interroge l'API REST du GitHub interne et croise trois sources avec pandas. Le reporting part chaque semaine vers une centaine de tech leads à l'international. Projet terminé.",
         "highlights": [
           "Trois sources croisées",
           "Environ 100 tech leads destinataires",
@@ -960,10 +913,8 @@
         "cats": [
           "cyber"
         ],
-        "status": "live",
+        "status": "done",
         "kind": "pro",
-        "start": "2025-09-01",
-        "end": "",
         "tags": [
           "Python",
           "pandas",
@@ -976,6 +927,36 @@
           ]
         ],
         "key": "sod"
+      },
+      {
+        "name": "Framework de contrôle fournisseurs",
+        "tagline": "Des audits mutualisés entre banques européennes",
+        "context": "Société Générale, Group CIO Office",
+        "period": "2025-2026",
+        "desc": "Un framework de contrôle créé pour une entité qui regroupe de grandes banques européennes, afin de mutualiser les audits de leurs fournisseurs communs. Il est terminé, utilisé, et servira aux prochains audits pilotes.",
+        "highlights": [
+          "Audits fournisseurs mutualisés",
+          "Grandes banques européennes",
+          "Utilisé pour les audits pilotes"
+        ],
+        "note": "Document interne, non publié.",
+        "slug": "framework-de-controle",
+        "tags": [
+          "Framework de contrôle",
+          "Audit fournisseurs"
+        ],
+        "key": "framework",
+        "cats": [
+          "cyber"
+        ],
+        "status": "done",
+        "kind": "pro",
+        "logos": [
+          [
+            "societe-generale",
+            "Société Générale"
+          ]
+        ]
       }
     ],
     "more_title": "Et aussi",
@@ -1337,35 +1318,21 @@
     "less": "moins",
     "more": "plus",
     "gantt": "Chronologie des projets",
-    "gantt_note": "Du premier commit au dernier push pour les dépôts, des dates de mission pour le reste. Les dépôts privés apparaissent sans leur nom.",
-    "gantt_label": "Chronologie de mes projets, de {start} à {end}"
+    "gantt_note": "Dates des projets quand elles sont connues, sinon du premier commit au dernier push du dépôt. Les dépôts privés apparaissent sans leur nom.",
+    "gantt_label": "Chronologie de mes projets, de {start} à {end}",
+    "gantt_extra": [
+      {
+        "name": "Alternance à la Société Générale",
+        "start": "2025-09-01",
+        "end": "",
+        "cat": "cyber"
+      }
+    ]
   },
   "life": {
     "eyebrow": "À côté",
     "title": "Le reste de ma vie, en quelques lignes.",
-    "piano": {
-      "name": "Musique et piano",
-      "text": "Au piano, je joue Nuvole Bianche, de Ludovico Einaudi. À vous de jouer.",
-      "label": "Clavier de piano : cliquez sur les touches pour jouer",
-      "demo": "Écouter un exemple",
-      "demo_note": "L'Ode à la joie",
-      "notes": [
-        "Do",
-        "Ré",
-        "Mi",
-        "Fa",
-        "Sol",
-        "La",
-        "Si"
-      ],
-      "sharp": "dièse"
-    },
     "panels": [
-      {
-        "key": "manga",
-        "name": "Mangas",
-        "text": "Vinland Saga, Hunter × Hunter, Parasyte, Tokyo Ghoul."
-      },
       {
         "key": "chess",
         "name": "Échecs",
@@ -1377,9 +1344,9 @@
         "text": ""
       },
       {
-        "key": "abroad",
-        "name": "Ailleurs",
-        "text": "Un semestre Erasmus+ à Sofia en 2024, un stage en Malaisie en 2026."
+        "key": "piano",
+        "name": "Piano",
+        "text": "Nuvole Bianche, de Ludovico Einaudi."
       },
       {
         "key": "ctf",
@@ -1395,6 +1362,33 @@
     "play": {
       "name": "Mon parcours, version jeu",
       "text": "Une discussion à choix, puis une carte à explorer."
+    },
+    "shelf": {
+      "name": "Mangas et animés",
+      "text": "Quelques séries que j'ai lues ou vues.",
+      "label": "Étagère : mangas et animés",
+      "items": [
+        {
+          "slug": "vinland-saga",
+          "title": "Vinland Saga",
+          "author": "Makoto Yukimura"
+        },
+        {
+          "slug": "hunter-x-hunter",
+          "title": "Hunter × Hunter",
+          "author": "Yoshihiro Togashi"
+        },
+        {
+          "slug": "parasyte",
+          "title": "Parasyte",
+          "author": "Hitoshi Iwaaki"
+        },
+        {
+          "slug": "tokyo-ghoul",
+          "title": "Tokyo Ghoul",
+          "author": "Sui Ishida"
+        }
+      ]
     }
   },
   "contact": {

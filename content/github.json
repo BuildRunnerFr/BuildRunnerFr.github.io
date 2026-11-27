@@ -4,8 +4,8 @@
  "account_opened": "2026-06-02",
  "repos": 12,
  "public_repos": 6,
- "contributions": 188,
- "active_days": 18,
+ "contributions": 198,
+ "active_days": 19,
  "best_day": {
   "date": "2026-11-20",
   "count": 60
@@ -14,7 +14,7 @@
  "languages": [
   [
    "Python",
-   46.1
+   45.8
   ],
   [
    "TypeScript",
@@ -22,19 +22,19 @@
   ],
   [
    "HTML",
-   7.0
-  ],
-  [
-   "CSS",
-   6.7
+   8.7
   ],
   [
    "JavaScript",
-   5.6
+   5.9
+  ],
+  [
+   "CSS",
+   5.1
   ],
   [
    "other",
-   7.3
+   7.2
   ]
  ],
  "language_repos": {
@@ -147,19 +147,19 @@
    "languages": [
     [
      "HTML",
-     53.7
-    ],
-    [
-     "CSS",
-     26.6
+     70.4
     ],
     [
      "Python",
-     14.5
+     10.8
+    ],
+    [
+     "CSS",
+     10.7
     ],
     [
      "JavaScript",
-     5.1
+     8.1
     ]
    ],
    "branch": "main"
@@ -906,11 +906,11 @@
   ],
   [
    "2026-11-26",
-   0
+   2
   ],
   [
    "2026-11-27",
-   1
+   9
   ]
  ]
 }
