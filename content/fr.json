@@ -932,75 +932,14 @@
           ]
         ],
         "cover": {
-          "src": "/assets/photos/malaisie-nid-740.webp",
-          "w": 740,
-          "h": 926,
-          "alt": "Ethan Blombou, en tee-shirt du programme de volontariat de la SEATRU, creuse le sable entre des piquets de marquage",
-          "focus": "50% 42%"
+          "src": "/assets/photos/malaisie-bebes-960.webp",
+          "w": 960,
+          "h": 1202,
+          "alt": "Une dizaine de bébés tortues couverts de sable dans une caisse jaune",
+          "focus": "50% 55%"
         },
         "gallery": "seatru",
         "key": "turtlescope"
-      },
-      {
-        "name": "Séparation des tâches dans la CI/CD",
-        "tagline": "Un contrôle automatisé, avec GitHub",
-        "context": "Société Générale, Group CIO Office",
-        "period": "2025-2026",
-        "desc": "Le contrôle de séparation des tâches (segregation of duties) dans la CI/CD, automatisé : un pipeline Python interroge l'API REST du GitHub interne et croise trois sources avec pandas. Le reporting part chaque semaine vers une centaine de tech leads à l'international. Projet terminé.",
-        "highlights": [
-          "Trois sources croisées",
-          "Environ 100 tech leads destinataires",
-          "Reporting hebdomadaire automatisé"
-        ],
-        "note": "Code interne à la banque, non publié.",
-        "slug": "separation-des-taches",
-        "cats": [
-          "cyber"
-        ],
-        "status": "done",
-        "kind": "pro",
-        "tags": [
-          "Python",
-          "pandas",
-          "API REST"
-        ],
-        "logos": [
-          [
-            "societe-generale",
-            "Société Générale"
-          ]
-        ],
-        "key": "sod"
-      },
-      {
-        "name": "Framework de contrôle fournisseurs",
-        "tagline": "Des audits mutualisés entre banques européennes",
-        "context": "Société Générale, Group CIO Office",
-        "period": "2025-2026",
-        "desc": "Un framework de contrôle créé pour une entité qui regroupe de grandes banques européennes, afin de mutualiser les audits de leurs fournisseurs communs. Il est terminé, utilisé, et servira aux prochains audits pilotes.",
-        "highlights": [
-          "Audits fournisseurs mutualisés",
-          "Grandes banques européennes",
-          "Utilisé pour les audits pilotes"
-        ],
-        "note": "Document interne, non publié.",
-        "slug": "framework-de-controle",
-        "tags": [
-          "Framework de contrôle",
-          "Audit fournisseurs"
-        ],
-        "key": "framework",
-        "cats": [
-          "cyber"
-        ],
-        "status": "done",
-        "kind": "pro",
-        "logos": [
-          [
-            "societe-generale",
-            "Société Générale"
-          ]
-        ]
       }
     ],
     "more_title": "Et aussi",
@@ -1326,7 +1265,8 @@
         "Espagnol",
         "B1"
       ]
-    ]
+    ],
+    "certs_title": "Certifications"
   },
   "stats": {
     "eyebrow": "En chiffres",
@@ -1363,15 +1303,7 @@
     "more": "plus",
     "gantt": "Chronologie des projets",
     "gantt_note": "Dates des projets quand elles sont connues, sinon du premier commit au dernier push du dépôt. Les dépôts privés apparaissent sans leur nom.",
-    "gantt_label": "Chronologie de mes projets, de {start} à {end}",
-    "gantt_extra": [
-      {
-        "name": "Alternance à la Société Générale",
-        "start": "2025-09-01",
-        "end": "",
-        "cat": "cyber"
-      }
-    ]
+    "gantt_label": "Chronologie de mes projets, de {start} à {end}"
   },
   "life": {
     "eyebrow": "À côté",
@@ -1385,12 +1317,12 @@
       {
         "key": "foot",
         "name": "Foot",
-        "text": ""
+        "text": "Milieu offensif ou buteur."
       },
       {
         "key": "piano",
         "name": "Piano",
-        "text": "Nuvole Bianche, de Ludovico Einaudi."
+        "text": "Nuvole Bianche, de Ludovico Einaudi, et des morceaux de Joe Hisaishi."
       },
       {
         "key": "ctf",
@@ -1547,7 +1479,10 @@
           "title": "Food Wars!",
           "author": "Yuto Tsukuda, Shun Saeki"
         }
-      ]
+      ],
+      "hint": "Glissez pour parcourir",
+      "prev": "Séries précédentes",
+      "next": "Séries suivantes"
     }
   },
   "contact": {
@@ -1568,8 +1503,7 @@
     "tabs": {
       "all": "Tout",
       "xp": "Expériences",
-      "edu": "Formation",
-      "cert": "Certifications"
+      "edu": "Formation"
     },
     "now": "En cours"
   }

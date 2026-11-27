@@ -932,75 +932,14 @@
           ]
         ],
         "cover": {
-          "src": "/assets/photos/malaisie-nid-740.webp",
-          "w": 740,
-          "h": 926,
-          "alt": "Ethan Blombou, wearing the SEATRU volunteer programme T-shirt, digging in the sand between marker stakes",
-          "focus": "50% 42%"
+          "src": "/assets/photos/malaisie-bebes-960.webp",
+          "w": 960,
+          "h": 1202,
+          "alt": "About ten sand-covered baby turtles in a yellow crate",
+          "focus": "50% 55%"
         },
         "gallery": "seatru",
         "key": "turtlescope"
-      },
-      {
-        "name": "Segregation of duties in CI/CD",
-        "tagline": "An automated control, with GitHub",
-        "context": "Société Générale, Group CIO Office",
-        "period": "2025-2026",
-        "desc": "The segregation-of-duties control in CI/CD, automated: a Python pipeline queries the REST API of the internal GitHub and cross-checks three sources with pandas. The reporting goes out every week to around a hundred tech leads worldwide. Project completed.",
-        "highlights": [
-          "Three sources cross-checked",
-          "Around 100 tech leads reached",
-          "Automated weekly reporting"
-        ],
-        "note": "Internal bank code, not published.",
-        "slug": "segregation-of-duties",
-        "cats": [
-          "cyber"
-        ],
-        "status": "done",
-        "kind": "pro",
-        "tags": [
-          "Python",
-          "pandas",
-          "REST API"
-        ],
-        "logos": [
-          [
-            "societe-generale",
-            "Société Générale"
-          ]
-        ],
-        "key": "sod"
-      },
-      {
-        "name": "Supplier control framework",
-        "tagline": "Shared audits between European banks",
-        "context": "Société Générale, Group CIO Office",
-        "period": "2025-2026",
-        "desc": "A control framework created for an entity that brings together major European banks, to pool the audits of their common suppliers. It is finished, in use, and will serve the next pilot audits.",
-        "highlights": [
-          "Shared supplier audits",
-          "Major European banks",
-          "Used for the pilot audits"
-        ],
-        "note": "Internal document, not published.",
-        "slug": "control-framework",
-        "tags": [
-          "Control framework",
-          "Supplier audit"
-        ],
-        "key": "framework",
-        "cats": [
-          "cyber"
-        ],
-        "status": "done",
-        "kind": "pro",
-        "logos": [
-          [
-            "societe-generale",
-            "Société Générale"
-          ]
-        ]
       }
     ],
     "more_title": "Also",
@@ -1326,7 +1265,8 @@
         "Spanish",
         "B1"
       ]
-    ]
+    ],
+    "certs_title": "Certifications"
   },
   "stats": {
     "eyebrow": "In numbers",
@@ -1363,15 +1303,7 @@
     "more": "more",
     "gantt": "Project timeline",
     "gantt_note": "Project dates where known, otherwise from the first commit to the last push of the repository. Private repositories appear without their name.",
-    "gantt_label": "Timeline of my projects, from {start} to {end}",
-    "gantt_extra": [
-      {
-        "name": "Apprenticeship at Société Générale",
-        "start": "2025-09-01",
-        "end": "",
-        "cat": "cyber"
-      }
-    ]
+    "gantt_label": "Timeline of my projects, from {start} to {end}"
   },
   "life": {
     "eyebrow": "Off duty",
@@ -1385,12 +1317,12 @@
       {
         "key": "foot",
         "name": "Football",
-        "text": ""
+        "text": "Attacking midfielder or striker."
       },
       {
         "key": "piano",
         "name": "Piano",
-        "text": "Nuvole Bianche, by Ludovico Einaudi."
+        "text": "Nuvole Bianche by Ludovico Einaudi, and pieces by Joe Hisaishi."
       },
       {
         "key": "ctf",
@@ -1547,7 +1479,10 @@
           "title": "Food Wars!",
           "author": "Yuto Tsukuda, Shun Saeki"
         }
-      ]
+      ],
+      "hint": "Drag to browse",
+      "prev": "Previous series",
+      "next": "Next series"
     }
   },
   "contact": {
@@ -1568,8 +1503,7 @@
     "tabs": {
       "all": "All",
       "xp": "Experience",
-      "edu": "Education",
-      "cert": "Certifications"
+      "edu": "Education"
     },
     "now": "Ongoing"
   }

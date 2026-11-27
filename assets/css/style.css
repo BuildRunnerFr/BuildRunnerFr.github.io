@@ -177,10 +177,18 @@ html:not(.js) .chips { display: none; }
 .tags li { padding: 0.16rem 0.55rem; background: var(--wash); border-radius: 6px; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
 .hl { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .hl li { padding: 0.32rem 0.85rem; background: var(--accent-soft); color: var(--accent-deep); border-radius: 999px; font-size: 0.9rem; font-weight: 500; }
-.logo, .plogo, img.ic { width: auto; object-fit: contain; flex: none; background: var(--plate); padding: var(--plate-pad); border-radius: 5px; box-sizing: content-box; }
+.logo, .plogo, .clogo, img.ic { width: auto; object-fit: contain; flex: none; background: var(--plate); padding: var(--plate-pad); border-radius: 5px; box-sizing: content-box; }
 .logo--wide { height: 16px; } .logo--mid { height: 26px; } .logo--square { height: 28px; } .logo--free { height: 18px; } .logo--iut-velizy { height: 20px; }
 .plogo { height: 17px; } .plogo--google-cloud { height: 15px; } .plogo--seatru, .plogo--umt { height: 34px; }
 img.ic { width: 16px; height: 16px; }
+.clogo { height: 18px; }
+/* logos du parcours : une tuile claire, de taille fixe, au-dessus du titre ; le logo y garde ses couleurs */
+.step__logos { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem; }
+.logotile { display: inline-flex; align-items: center; justify-content: center; height: 48px; min-width: 48px; padding: 0 14px; background: #ffffff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.5); transition: transform 0.35s var(--ease); }
+.logotile .logo { background: none; padding: 0; border-radius: 0; }
+.logotile .logo--wide { height: 18px; } .logotile .logo--mid { height: 30px; } .logotile .logo--square { height: 32px; }
+.logotile .logo--free { height: 20px; } .logotile .logo--iut-velizy { height: 26px; }
+@media (hover: hover) { .step:hover .logotile { transform: translateY(-2px); } }
 
 /* ---------- En-tête ---------- */
 
@@ -314,10 +322,11 @@ html:not(.js) .netcap { display: none; }
 .marquee { min-width: 0; }
 .marquee.is-live { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
 .marquee__track { display: flex; width: max-content; }
-.marquee.is-running .marquee__track { animation: marquee 40s linear infinite; }
 .marquee.is-live .skilllist { flex: none; flex-wrap: nowrap; padding-right: 0.45rem; }
-.marquee--rev .marquee__track { animation-direction: reverse; }
-.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee.is-live { touch-action: pan-y; cursor: grab; -webkit-user-select: none; user-select: none; }
+.marquee.is-dragging { cursor: grabbing; }
+.marquee img { -webkit-user-drag: none; }
+.marquee__track { will-change: transform; }
 @keyframes marquee { to { transform: translateX(var(--shift, -50%)); } }
 
 /* parcours : un fil, qui se colore à mesure qu'on descend */
@@ -341,7 +350,7 @@ html:not(.js) .netcap { display: none; }
   .step__body { grid-column: 3; grid-row: 1; }
 }
 .step h3 { font-family: var(--display); font-weight: 600; font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.2; letter-spacing: -0.02em; }
-.step__org { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; margin-top: 0.5rem; color: var(--muted); }
+.step__org { margin-top: 0.35rem; color: var(--muted); }
 .step__list { display: grid; gap: 0.45rem; max-width: 62ch; margin-top: 1rem; font-size: 0.95rem; line-height: 1.65; color: var(--text); }
 .step__list li { position: relative; padding-left: 1.2rem; }
 .step__list li::before { content: ""; position: absolute; left: 0; top: 0.78em; width: 0.5rem; height: 1px; background: var(--accent); }
@@ -442,7 +451,15 @@ html:not(.js) .netcap { display: none; }
 /* à côté */
 .shelf { display: grid; gap: clamp(1.4rem, 3vw, 2.2rem); }
 .shelf__head h3 { font-family: var(--display); font-weight: 700; font-size: clamp(1.4rem, 2.4vw, 1.75rem); letter-spacing: -0.02em; }
+.shelf__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; }
 .shelf__head p { margin-top: 0.2rem; color: var(--text); }
+.shelf__nav { display: flex; align-items: center; gap: 0.5rem; }
+.shelf__hint { margin-right: 0.4rem; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.round { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; background: transparent; color: var(--ink); border: 1px solid var(--line-2); border-radius: 50%; transition: border-color 0.2s, background-color 0.2s, color 0.2s; }
+.round:hover { border-color: var(--ink); }
+.round:active { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+html:not(.js) .shelf__nav, .shelf:not(:has(.marquee.is-live)) .shelf__nav { display: none; }
+@media (max-width: 599px) { .shelf__hint { display: none; } }
 .shelf__row { padding-top: 1.4rem; border-bottom: 1px solid var(--line-2); }
 .books { --bgap: clamp(1.2rem, 3.4vw, 2.6rem); display: flex; flex-wrap: wrap; align-items: flex-end; gap: 2rem var(--bgap); padding-inline: calc(var(--bgap) / 2); }
 .marquee.is-live .books { flex: none; flex-wrap: nowrap; padding-inline: 0 var(--bgap); }

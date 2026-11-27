@@ -22,7 +22,7 @@ CV = "/assets/cv-ethan-blombou.pdf"
 SECTIONS = ["about", "skills", "journey", "projects", "stats", "life", "contact"]
 THEME = "#0b0c14"             # couleur de la barre du navigateur sur téléphone (fond du thème sombre)
 THEME_CHOICE = False          # False : thème sombre pour tout le monde, sans bouton ; True : le visiteur choisit
-ICONS = '<link rel="icon" href="/favicon-v3.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+ICONS = '<link rel="icon" href="/favicon-v4.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-v4-32.png" sizes="32x32" type="image/png">\n<link rel="apple-touch-icon" href="/apple-touch-icon-v4.png">'
 
 
 # ---------- petits outils ----------
@@ -549,17 +549,19 @@ def home(c, gh):
         )
     spoken = "".join(f"<li><span>{n}</span><small>{lv}</small></li>" for n, lv in sk["languages"])
     skillrows += f'<div class="skillrow"><h3>{sk["languages_title"]}<span>{len(sk["languages"])}</span></h3><ul class="skilllist">{spoken}</ul></div>'
+    certs = "".join(f'<li>{logo(it.get("logo", ""), it["issuer"], "clogo")}<span>{it["name"]}</span><small>{it["issuer"]}</small></li>' for it in x["certs"])
+    skillrows += f'<div class="skillrow"><h3>{sk["certs_title"]}<span>{len(x["certs"])}</span></h3><ul class="skilllist">{certs}</ul></div>'
 
     # parcours : expériences, formation, certifications sur un même fil
     def step(kind, dates, title, org, logos="", extra=""):
-        org_line = f'<p class="step__org">{logos}<span>{org}</span></p>'
+        tiles = f'<div class="step__logos">{logos}</div>' if logos else ""
         return (
             f'<li class="step reveal" data-kind="{kind}"><p class="step__dates">{dates}</p><span class="step__dot" aria-hidden="true"></span>'
-            f'<div class="step__body"><h3>{title}</h3>{org_line}{extra}</div></li>'
+            f'<div class="step__body">{tiles}<h3>{title}</h3><p class="step__org">{org}</p>{extra}</div></li>'
         )
 
     def xp_entry(it):
-        logos = logo(it["logo"], it["org"]) + (logo(it["logo2"], it["org2"]) if it.get("logo2") else "")
+        logos = tile(it["logo"], it["org"]) + (tile(it["logo2"], it["org2"]) if it.get("logo2") else "")
         bullets = "".join(f"<li>{b}</li>" for b in it.get("bullets", []))
         note = it.get("note")
         extra = (
@@ -576,17 +578,17 @@ def home(c, gh):
         return f'<div class="step__shots">{shots}</div>' if shots else ""
 
     def edu_entry(it):
-        return step("edu", it["dates"], it["what"], it["org"], logo(it["logo"], it["org"]), shots_of(it))
+        return step("edu", it["dates"], it["what"], it["org"], tile(it["logo"], it["org"]), shots_of(it))
 
-    def cert_entry(it):
-        # le logo s'affiche dès que son fichier est déposé dans assets/logos/
-        return step("cert", "", it["name"], it["issuer"], logo(it.get("logo", ""), it["issuer"]) if it.get("logo") else "")
+    def tile(stem, name):
+        img = logo(stem, name)
+        return f'<span class="logotile">{img}</span>' if img else ""
 
     steps = (
-        xp_entry(x["items"][0]) + edu_entry(x["edu"][0]) + xp_entry(x["items"][1]) + xp_entry(x["items"][2])
-        + edu_entry(x["edu"][2]) + edu_entry(x["edu"][1]) + "".join(cert_entry(it) for it in x["certs"])
+        xp_entry(x["items"][0]) + xp_entry(x["items"][1]) + edu_entry(x["edu"][0]) + xp_entry(x["items"][2])
+        + edu_entry(x["edu"][2]) + edu_entry(x["edu"][1])
     )
-    counts = {"all": len(x["items"]) + len(x["edu"]) + len(x["certs"]), "xp": len(x["items"]), "edu": len(x["edu"]), "cert": len(x["certs"])}
+    counts = {"all": len(x["items"]) + len(x["edu"]), "xp": len(x["items"]), "edu": len(x["edu"])}
     jtabs = "".join(
         f'<button type="button" class="chipbtn" data-tab="{k}" aria-pressed="{"true" if k == "all" else "false"}">{label}<span>{counts[k]}</span></button>'
         for k, label in jn["tabs"].items()
@@ -836,7 +838,10 @@ def home(c, gh):
     <div class="wrap">
       {shead(lf["eyebrow"], lf["title"], "life-title")}
       <article class="shelf reveal">
-        <div class="shelf__head"><h3>{sh["name"]}</h3><p>{sh["text"]}</p></div>
+        <div class="shelf__head"><div><h3>{sh["name"]}</h3><p>{sh["text"]}</p></div>
+          <div class="shelf__nav"><span class="shelf__hint">{sh["hint"]}</span>
+            <button class="round" type="button" data-nudge="-1" aria-label="{escape(sh["prev"])}">{SVG["back"]}</button>
+            <button class="round" type="button" data-nudge="1" aria-label="{escape(sh["next"])}">{SVG["arrow"]}</button></div></div>
         <div class="shelf__row marquee" data-marquee data-speed="26"><ul class="books" aria-label="{escape(sh["label"])}">{books}</ul></div>
       </article>
       <ul class="hobbies">{hobbies}</ul>
