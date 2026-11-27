@@ -53,7 +53,7 @@
 
   function build() {
     var r = seeded(11);
-    var step = W < 700 ? 64 : 92;
+    var step = W < 700 ? 56 : 92;
     var cols = Math.ceil(W / step) + 1, rows = Math.ceil(H / step) + 1;
     var ox = (W - (cols - 1) * step) / 2, oy = (H - (rows - 1) * step) / 2;
     var i, j;
@@ -65,7 +65,8 @@
     }
     /* Le texte et le portrait sont des zones au coût élevé, comme des liens qu'on préfère éviter : les routes les contournent quand elles le peuvent */
     var hr = hero.getBoundingClientRect();
-    var zones = [[textBlock, 3, 14], [figsBlock, 3, 14], [portrait, 9, 4], [cap, 3, 8]].filter(function (z) { return z[0]; }).map(function (z) {
+    var pad = W < 700 ? 26 : 14;  /* sur téléphone, les marges de côté comptent comme du texte : pas de route dans la gouttière */
+    var zones = [[textBlock, 3, pad], [figsBlock, 3, pad], [portrait, 9, 4], [cap, 3, pad]].filter(function (z) { return z[0]; }).map(function (z) {
       var q = z[0].getBoundingClientRect();
       return [q.left - hr.left - z[2], q.top - hr.top - z[2], q.right - hr.left + z[2], q.bottom - hr.top + z[2], z[1]];
     });
@@ -104,14 +105,14 @@
     var reach = Math.max(W, H) * (W < 700 ? 0.95 : 0.78);
     nodes.forEach(function (nd) {
       var k = Math.max(0, 1 - Math.hypot(nd.x - fx, nd.y - fy) / reach);
-      nd.a = k * k;
+      nd.a = k * k * (W < 700 ? 0.6 : 1);
     });
     dst = -1; path = []; pathLen = 0;
     var first = -1, far = 0;
     nodes.forEach(function (nd, idx) {
       if (!nd.quiet || nd.a < 0.12) return;
       var d = Math.hypot(nd.x - nodes[src].x, nd.y - nodes[src].y);
-      if (d > far && d < Math.max(260, W * 0.5) && calm(idx)) { far = d; first = idx; }
+      if (d > far && d < Math.max(240, W * 0.5) && calm(idx)) { far = d; first = idx; }
     });
     if (first >= 0) go(first, false);
   }
@@ -298,7 +299,7 @@
       lastWander = now;
       for (var t = 0; t < 40; t++) {
         var pick = Math.floor(Math.random() * nodes.length), nd = nodes[pick];
-        if (nd.a > 0.1 && nd.quiet && pick !== dst && Math.hypot(nd.x - nodes[src].x, nd.y - nodes[src].y) > Math.min(W, H) * (W < 700 ? 0.14 : 0.3) && calm(pick)) { go(pick, false); break; }
+        if (nd.a > 0.1 && nd.quiet && pick !== dst && Math.hypot(nd.x - nodes[src].x, nd.y - nodes[src].y) > (W < 700 ? 70 : Math.min(W, H) * 0.3) && calm(pick)) { go(pick, false); break; }
       }
     }
     if (now - lastCut > 6400) { lastCut = now; cut(now); }

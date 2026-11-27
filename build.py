@@ -42,10 +42,19 @@ def walk(node, fn):
 
 
 def image_size(path):
-    """Dimensions intrinsèques d'un PNG ou d'un SVG, pour éviter les sauts de mise en page."""
+    """Dimensions intrinsèques d'un PNG, d'un WebP ou d'un SVG, pour éviter les sauts de mise en page."""
     data = path.read_bytes()
     if path.suffix == ".png":
         return struct.unpack(">II", data[16:24])
+    if path.suffix == ".webp":
+        kind = data[12:16]
+        if kind == b"VP8X":
+            return 1 + int.from_bytes(data[24:27], "little"), 1 + int.from_bytes(data[27:30], "little")
+        if kind == b"VP8L":
+            bits = int.from_bytes(data[21:25], "little")
+            return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+        w, h = struct.unpack("<HH", data[26:30])
+        return w & 0x3FFF, h & 0x3FFF
     head = data[:2000].decode("utf-8", "ignore")
     m = re.search(r'viewBox="([^"]+)"', head)
     if m:
@@ -58,7 +67,7 @@ def image_size(path):
 
 def logo(stem, alt, cls="logo"):
     """Balise <img> d'un logo d'organisation, ou rien si le fichier manque."""
-    for ext in ("svg", "png", "webp"):
+    for ext in ("svg", "webp", "png"):
         path = ROOT / "assets" / "logos" / f"{stem}.{ext}"
         if path.exists():
             w, h = image_size(path)
@@ -77,11 +86,27 @@ def icon(slug):
     return ""
 
 
-def photo(stem, sizes_w, w, h, meta, sizes, cls="shot"):
-    """Photo en WebP à plusieurs largeurs, avec légende."""
-    srcset = ", ".join(f"/assets/photos/{stem}-{x}.webp {x}w" for x in sizes_w)
+def variants(src, own_width=0):
+    """Largeurs disponibles d'une image : « nom.webp » et ses réductions « nom-800.webp » rangées dans le même dossier."""
+    path = ROOT / src.lstrip("/")
+    base = re.sub(r"-\d+$", "", path.stem)
+    found = {}
+    for f in path.parent.glob(f"{base}*{path.suffix}"):
+        m = re.fullmatch(re.escape(base) + r"(?:-(\d+))?", f.stem)
+        if m and (m.group(1) or own_width):
+            found[int(m.group(1)) if m.group(1) else own_width] = "/" + f.relative_to(ROOT).as_posix()
+    return sorted(found.items())
+
+
+def srcset(files):
+    return ", ".join(f"{path} {w}w" for w, path in files)
+
+
+def photo(stem, w, h, meta, sizes, cls="shot"):
+    """Photo en WebP à plusieurs largeurs, avec légende. `sizes` dit au navigateur la largeur d'affichage, pour qu'il choisisse le bon fichier."""
+    files = variants(f"/assets/photos/{stem}.webp")
     return (
-        f'<figure class="{cls}"><img src="/assets/photos/{stem}-{sizes_w[-1]}.webp" srcset="{srcset}" sizes="{sizes}" '
+        f'<figure class="{cls}"><img src="{files[-1][1]}" srcset="{srcset(files)}" sizes="{sizes}" '
         f'alt="{escape(meta["alt"])}" width="{w}" height="{h}" loading="lazy" decoding="async">'
         f'<figcaption>{meta["caption"]}</figcaption></figure>'
     )
@@ -305,8 +330,16 @@ def gantt(rows, months, today_label):
     while d < end:
         # un mois sur deux est nommé, sauf tout près de la marque « aujourd'hui »
         show = (d.month % 2 == 1 or d == start) and pos(d.isoformat()) < pos(today.isoformat()) - 6
-        label = months[d.month - 1] + (f" {d.year}" if d.month == 1 or d == start else "")
-        ticks.append(f'<span class="gantt__tick{"" if show else " gantt__tick--minor"}" style="left:{pos(d.isoformat()):.2f}%"><i>{label if show else ""}</i></span>')
+        with_year = d.month == 1 or d == start
+        label = months[d.month - 1] + (f" {d.year}" if with_year else "")
+        short = months[d.month - 1] + (f" {d.year % 100}" if with_year else "")
+        kind = "" if show else " gantt__tick--minor"
+        if show and (d.month % 4 == 1 or d == start):
+            kind += " gantt__tick--main"
+        if pos(d.isoformat()) > pos(today.isoformat()) - 24:
+            kind += " gantt__tick--late"
+        both = f'<i><span class="wide">{label}</span><span class="narrow">{short}</span></i>' if show else ""
+        ticks.append(f'<span class="gantt__tick{kind}" style="left:{pos(d.isoformat()):.2f}%">{both}</span>')
         d = date(d.year + (1 if d.month == 12 else 0), d.month % 12 + 1, 1)
     lines = []
     for n, r in enumerate(sorted(rows, key=lambda r: r["start"])):
@@ -418,11 +451,13 @@ def live_tag(c, p):
     return f'<span class="live"><i></i>{c["ui"]["status"]["live"]}</span>' if p["status"] == "live" else ""
 
 
-def project_cover(p, cls, eager=False):
+def project_cover(p, cls, sizes, eager=False):
     cv = p.get("cover")
     if cv:
         load = 'fetchpriority="high"' if eager else 'loading="lazy"'
-        return f'<img class="{cls}" src="{cv["src"]}" alt="{escape(cv["alt"])}" width="{cv["w"]}" height="{cv["h"]}" {load} decoding="async">'
+        files = variants(cv["src"], cv["w"])
+        many = f' srcset="{srcset(files)}" sizes="{sizes}"' if len(files) > 1 else ""
+        return f'<img class="{cls}" src="{cv["src"]}"{many} alt="{escape(cv["alt"])}" width="{cv["w"]}" height="{cv["h"]}" {load} decoding="async">'
     first = p["logos"][0] if p["logos"] else None
     return f'<span class="{cls} {cls}--blank">{logo(first[0], first[1], "plogo") if first else ""}</span>'
 
@@ -457,7 +492,7 @@ def home(c, gh):
     def portrait(key, caption=""):
         return f"""<figure class="portrait portrait--{key}">
         <picture>
-          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 340px, 230px">
+          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 340px, 110px">
           <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
         </picture>{caption}
       </figure>"""
@@ -518,7 +553,7 @@ def home(c, gh):
         logos = logo(it["logo"], it["org"]) + (logo(it["logo2"], it["org2"]) if it.get("logo2") else "")
         bullets = "".join(f"<li>{b}</li>" for b in it.get("bullets", []))
         shots = "".join(
-            photo(ph["stem"], tuple(ph.get("sizes", (480, 960))), ph["w"], ph["h"], ph, "(min-width: 800px) 200px, 30vw", "shot shot--step")
+            photo(ph["stem"], ph["w"], ph["h"], ph, "(min-width: 800px) 180px, 24vw", "shot shot--step")
             for ph in it.get("photos", [])
         )
         note = it.get("note")
@@ -552,7 +587,7 @@ def home(c, gh):
         return f"""
         <li class="pc reveal" data-cats="{" ".join(p["cats"])}" style="--i:{i % 2}">
           <a class="pc__link" href="{project_url(c, p)}">
-            <div class="pc__cover" style="view-transition-name:cover-{p["key"]}">{project_cover(p, "pc__img")}</div>
+            <div class="pc__cover" style="view-transition-name:cover-{p["key"]}">{project_cover(p, "pc__img", "(min-width: 760px) 520px, 62vw")}</div>
             <p class="pc__meta"><i class="dot dot--{p["cats"][0]}"></i>{cat}<span>{ui["kinds"][p["kind"]]}</span>{live_tag(c, p)}<span class="pc__period">{p["period"]}</span></p>
             <h3 class="pc__name">{p["name"]}</h3>
             <p class="pc__tagline">{p["tagline"]}</p>
@@ -721,7 +756,7 @@ def home(c, gh):
           <blockquote class="quote reveal"><p>{quote}</p></blockquote>
         </div>
         <aside class="about__side">
-          <div class="reveal">{photo("presentation", (560, 1000), 1000, 918, a["photo"], "(min-width: 900px) 440px, 100vw", "shot shot--about")}</div>
+          <div class="reveal">{photo("presentation", 1000, 918, a["photo"], "(min-width: 900px) 440px, 64vw", "shot shot--about")}</div>
           <dl class="facts reveal" aria-label="{escape(a["facts_title"])}">{facts}</dl>
         </aside>
       </div>
@@ -844,11 +879,11 @@ def project_page(c, gh, p, prev, nxt, alt_path):
     gallery = ""
     if p.get("photo"):
         ph = p["photo"]
-        gallery = '<div class="pp__gallery reveal">' + photo(ph["stem"], tuple(ph["sizes"]), ph["w"], ph["h"], ph, "(min-width: 900px) 640px, 100vw", "shot") + "</div>"
+        gallery = '<div class="pp__gallery reveal">' + photo(ph["stem"], ph["w"], ph["h"], ph, "(min-width: 960px) 700px, 66vw", "shot") + "</div>"
     if p.get("gallery"):
         org = next(it for it in c["experience"]["items"] if it["logo"] == p["gallery"])
         gallery = '<div class="pp__gallery pp__gallery--3 reveal">' + "".join(
-            photo(ph["stem"], tuple(ph.get("sizes", (480, 960))), ph["w"], ph["h"], ph, "(min-width: 900px) 220px, 46vw", "shot shot--step") for ph in org.get("photos", [])
+            photo(ph["stem"], ph["w"], ph["h"], ph, "(min-width: 900px) 200px, 26vw", "shot shot--step") for ph in org.get("photos", [])
         ) + "</div>"
     readme = ""
     if readme_html:
@@ -878,7 +913,7 @@ def project_page(c, gh, p, prev, nxt, alt_path):
   <span id="top-of-page"></span>
   <div class="wrap">
     <a class="back" href="{home_url}#projects">{SVG["back"]}{ui["all_projects"]}</a>
-    <div class="pp__cover" style="view-transition-name:cover-{p["key"]}">{project_cover(p, "pp__img", True)}</div>
+    <div class="pp__cover" style="view-transition-name:cover-{p["key"]}">{project_cover(p, "pp__img", "(min-width: 1180px) 1080px, (min-width: 700px) 94vw, 66vw", True)}</div>
     <p class="pp__meta"><i class="dot dot--{p["cats"][0]}"></i>{cat}<span>{ui["kinds"][p["kind"]]}</span>{live_tag(c, p)}<span>{ui["min_read"].format(n=minutes)}</span></p>
     <h1 class="pp__title">{p["name"]}</h1>
     <p class="pp__tagline">{p["tagline"]}</p>
