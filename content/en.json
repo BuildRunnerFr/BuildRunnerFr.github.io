@@ -84,7 +84,7 @@
     "repo": "View on GitHub",
     "context": "Context",
     "readme": "The repository README",
-    "readme_note": "Recorded from GitHub on {date}.",
+    "readme_note": "Recorded from GitHub on {date}. Images and diagrams are on the repository.",
     "readme_en": "",
     "readme_fr": "This README is written in French.",
     "no_repo": "No public repository",

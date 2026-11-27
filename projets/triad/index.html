@@ -62,7 +62,7 @@
         <div class="callout reveal"><p class="label">Ma partie</p><p>Développement et déploiement sur Google Cloud : quatre agents IA avec Google ADK et Gemini sur Vertex AI, sondes en lecture seule, backend FastAPI sur Cloud Run, infrastructure décrite avec Terraform.</p></div>
         <div class="pp__gallery reveal"><figure class="shot"><img src="/assets/photos/ecoute-1400.webp" srcset="/assets/photos/ecoute-800.webp 800w, /assets/photos/ecoute-1400.webp 1400w" sizes="(min-width: 900px) 640px, 100vw" alt="Ethan Blombou écoute une discussion d&#x27;équipe, un ordinateur portable contre lui" width="1400" height="934" loading="lazy" decoding="async"><figcaption>Hackathon Deloitte × Google Cloud</figcaption></figure></div>
         
-        <section class="pp__readme reveal"><h2>Le README du dépôt</h2><p class="monoline">Relevé sur GitHub le 27 nov. 2026.</p><div class="md" lang=fr><h4>Ce qu'on dit. Ce qu'on écrit. Ce qui est vrai.</h4>
+        <section class="pp__readme reveal"><h2>Le README du dépôt</h2><p class="monoline">Relevé sur GitHub le 27 nov. 2026. Les images et les schémas se voient sur le dépôt.</p><div class="md" lang=fr><h4>Ce qu'on dit. Ce qu'on écrit. Ce qui est vrai.</h4>
 <p><strong>L'audit cyber NIS2 contradictoire : quatre agents IA confrontent les déclarations de la DSI, sa documentation et la configuration réelle de son cloud, puis scellent les preuves.</strong></p>
 <p><em>Hackathon Deloitte × Google Cloud</em></p>
 <h3>Le problème</h3>
@@ -76,15 +76,6 @@
 <p>Livrables scellés · 12 livrables (rapport, pré-notification ANSSI, brief COMEX, Terraform de remédiation…) verrouillés jusqu'à la signature du consultant ; le sceau guilloché est tracé à partir de l'empreinte du registre.</p>
 <h3>Comment ça marche</h3>
 <p>Quatre agents <a href="https://google.github.io/adk-docs/" rel="noopener">Google ADK</a> propulsés par Gemini, chacun avec les seuls outils dont il a besoin.</p>
-<pre><code>flowchart LR
-    RAW[&quot;Dossier client&lt;br/&gt;(.md, .txt, .pdf)&quot;] --&gt; D[&quot;1 · Douanier&lt;br/&gt;masque les données personnelles&lt;br/&gt;bloque les injections de prompt&quot;]
-    D --&gt;|suspect| Q[&quot;Quarantaine&quot;]
-    D --&gt;|nettoyé| A[&quot;2 · Analyste conformité&lt;br/&gt;exigences NIS2&lt;br/&gt;+ 5 sondes GCP en lecture seule&quot;]
-    GCP[(&quot;Google Cloud&lt;br/&gt;configuration réelle&quot;)] -.-&gt; A
-    A --&gt; C[&quot;3 · Contre-auditeur&lt;br/&gt;vérifie chaque citation&lt;br/&gt;fixe la gravité&quot;]
-    C --&gt; G[&quot;4 · Garde du corps&lt;br/&gt;synthèse + chaîne SHA-256&quot;]
-    G --&gt;|&quot;403 tant que non signé&quot;| H([&quot;Consultant&lt;br/&gt;signe&quot;])
-    H --&gt; EXP[&quot;12 livrables&lt;br/&gt;+ dossier de preuve .zip&quot;]</code></pre>
 <div class="md__table"><table><thead><tr><th>Agent</th><th>Outils autorisés</th><th>Fichiers bruts</th><th>Écriture GCP</th></tr></thead><tbody><tr><td><strong>Douanier</strong></td><td><code>read_raw_file</code>, <code>redact_pii</code>, <code>scan_injection</code>, <code>quarantine_file</code>, <code>emit_sanitized_doc</code></td><td>oui (seul)</td><td>non</td></tr><tr><td><strong>Analyste conformité</strong></td><td><code>read_sanitized_doc</code>, <code>get_nis2_requirements</code>, 5 sondes <code>gcp_check_*</code></td><td>non</td><td>non</td></tr><tr><td><strong>Contre-auditeur</strong></td><td><code>verify_quote</code>, <code>read_sanitized_doc</code>, <code>get_nis2_requirements</code></td><td>non</td><td>non</td></tr><tr><td><strong>Garde du corps</strong></td><td><code>assemble_synthesis</code>, <code>verify_chain</code></td><td>non</td><td>non</td></tr></tbody></table></div>
 <p>Tout appel hors de cette liste est intercepté avant exécution, journalisé comme violation dans le registre et arrête le pipeline.</p>
 <h3>Garanties</h3>

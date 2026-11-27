@@ -84,7 +84,7 @@
     "repo": "Voir sur GitHub",
     "context": "Contexte",
     "readme": "Le README du dépôt",
-    "readme_note": "Relevé sur GitHub le {date}.",
+    "readme_note": "Relevé sur GitHub le {date}. Les images et les schémas se voient sur le dépôt.",
     "readme_en": "Ce README est rédigé en anglais.",
     "readme_fr": "",
     "no_repo": "Pas de dépôt public",

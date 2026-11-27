@@ -106,7 +106,8 @@ html:not(.js) .tool--play, html:not(.js) .tool--theme, html:not(.js) [data-mode-
   html:not(.js) .nav { flex-wrap: wrap; padding-block: 0.5rem; }
   html:not(.js) .nav__links { order: 3; width: 100%; overflow-x: auto; }
 }
-@media (max-width: 479px) { .tool--cv .i, .tool--play .when-classic .i { display: none; } .nav__tools { gap: 0.25rem; } .tool { padding: 0 0.55rem; } html[data-mode="play"] .tool--play { display: none; } }
+@media (max-width: 479px) { .tool--cv .i, .tool--play .when-classic .i { display: none; } .nav { gap: 0.4rem; } .nav__brand { min-width: 0; gap: 0.4rem; font-size: 1rem; } .nav__tools { gap: 0.2rem; } .tool { min-width: 36px; height: 36px; padding: 0 0.5rem; font-size: 0.8rem; } .nav__toggle { flex: none; width: 36px; height: 36px; } html[data-mode="play"] .tool--play { display: none; } }
+@media (max-width: 359px) { .nav__seal { display: none; } .tool--theme { display: none; } }
 .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; pointer-events: none; }
 .progress__bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(var(--sp, 0)); }
 
@@ -474,9 +475,9 @@ html:not(.js) .piano, html:not(.js) .piano__more, .piano[hidden], .piano[hidden]
 .pp__meta { margin-top: 1.6rem; }
 .pp__title { margin-top: 0.7rem; font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 6.4vw, 4.4rem); line-height: 0.96; letter-spacing: -0.04em; text-wrap: balance; }
 .pp__tagline { margin-top: 0.7rem; font-size: clamp(1.1rem, 1.8vw, 1.3rem); font-weight: 600; color: var(--accent-deep); }
-.pp__grid { display: grid; gap: 2.2rem clamp(2rem, 5vw, 4rem); margin-top: 1.8rem; }
+.pp__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.2rem clamp(2rem, 5vw, 4rem); margin-top: 1.8rem; }
 @media (min-width: 960px) { .pp__grid { grid-template-columns: minmax(0, 1fr) 19rem; align-items: start; } .pp__side { position: sticky; top: calc(var(--nav-h) + 1.5rem); } }
-.pp__main { min-width: 0; display: grid; gap: 1.5rem; }
+.pp__main { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
 .pp__sum { font-size: clamp(1.1rem, 1.6vw, 1.25rem); line-height: 1.5; max-width: 64ch; }
 .callout { padding: 1rem 1.2rem 1.1rem; background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 14px 14px 0; }
 .callout .label { margin-bottom: 0.3rem; }
@@ -484,7 +485,7 @@ html:not(.js) .piano, html:not(.js) .piano__more, .piano[hidden], .piano[hidden]
 .pp__gallery .shot { aspect-ratio: 3 / 2; }
 .pp__gallery--3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; max-width: 620px; }
 .pp__gallery--3 .shot { aspect-ratio: 4 / 5; }
-.pp__side { display: grid; gap: 0.9rem; align-content: start; }
+.pp__side { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.9rem; align-content: start; }
 .pp__norepo { padding: 0.8rem 1rem; border: 1px dashed var(--line-2); border-radius: 14px; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); text-align: center; }
 .side { background: var(--card); border: 1px solid var(--line); border-radius: 20px; }
 .side__row, .side__block { padding: 1rem 1.15rem; border-top: 1px solid var(--line); }
@@ -495,7 +496,7 @@ html:not(.js) .piano, html:not(.js) .piano__more, .piano[hidden], .piano[hidden]
 .pp__readme { margin-top: 1rem; padding-top: 2rem; border-top: 1px solid var(--line); }
 .pp__readme > h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.5rem, 2.6vw, 2rem); letter-spacing: -0.03em; }
 .pp__readme > .monoline { margin-top: 0.4rem; }
-.md { margin-top: 1.4rem; max-width: 70ch; }
+.md { margin-top: 1.4rem; max-width: 70ch; overflow-wrap: break-word; }
 .md > * + * { margin-top: 1rem; }
 .md h3 { margin-top: 2.2rem; padding-bottom: 0.45rem; border-bottom: 1px solid var(--line); font-family: var(--display); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.2; }
 .md h3::before { content: ""; display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.55rem; border-radius: 50%; background: var(--accent); vertical-align: 0.12em; }

@@ -142,29 +142,39 @@ SKIP_SECTIONS = re.compile(r"quickstart|démarrage|repository|organisation du d�
 LIST_ITEM = re.compile(r"(\s*)([-*]|\d+\.)\s+(.*)")
 
 
+MD_TOKEN = re.compile(r"\[((?:`[^`]*`|[^\]`])+)\]\(([^)]+)\)|`([^`]+)`")
+
+
+def md_emph(text):
+    s = escape(text, quote=False)
+    s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
+    return re.sub(r"(?<![\w*])\*([^*\n]+)\*(?![\w*])", r"<em>\1</em>", s)
+
+
 def md_inline(text, base):
     text = re.sub(r"\[!\[[^\]]*\]\([^)]*\)\]\([^)]*\)", "", text)  # badges
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)  # images
     text = re.sub(r"</?[a-zA-Z][^>]*>", " ", text)  # balises HTML
-    out = []
-    for part in re.split(r"(`[^`]+`)", text):
-        if part.startswith("`") and part.endswith("`") and len(part) > 2:
-            out.append(f"<code>{escape(part[1:-1])}</code>")
+    out, pos = [], 0
+    for m in MD_TOKEN.finditer(text):
+        out.append(md_emph(text[pos:m.start()]))
+        pos = m.end()
+        if m.group(3) is not None:  # code en ligne
+            out.append(f"<code>{escape(m.group(3))}</code>")
             continue
-        s = escape(part, quote=False)
-
-        def link(m):
-            label, url = m.group(1), m.group(2).split(" ")[0]
-            if url.startswith("#"):
-                return label
-            if not re.match(r"https?://", url):
-                url = f"{base}/{url.lstrip('./')}"
-            return f'<a href="{escape(url)}" rel="noopener">{label}</a>'
-
-        s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, s)
-        s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
-        s = re.sub(r"(?<![\w*])\*([^*\n]+)\*(?![\w*])", r"<em>\1</em>", s)
-        out.append(s)
+        # lien, dont le libellé peut lui-même contenir du code : [`fichier.py`](chemin/fichier.py)
+        label = "".join(
+            f"<code>{escape(part[1:-1])}</code>" if len(part) > 2 and part.startswith("`") and part.endswith("`") else md_emph(part)
+            for part in re.split(r"(`[^`]+`)", m.group(1))
+        )
+        url = m.group(2).split(" ")[0]
+        if url.startswith("#"):
+            out.append(label)
+            continue
+        if not re.match(r"https?://", url):
+            url = f"{base}/{url.lstrip('./')}"
+        out.append(f'<a href="{escape(url)}" rel="noopener">{label}</a>')
+    out.append(md_emph(text[pos:]))
     return re.sub(r"\s{2,}", " ", "".join(out)).strip()
 
 
@@ -189,13 +199,14 @@ def md(text, base, keep=None):
         s = line.strip()
         if s.startswith("```"):
             flush()
-            code = []
+            code, diagram = [], s[3:].strip().lower() == "mermaid"
             i += 1
             while i < len(lines) and not lines[i].strip().startswith("```"):
                 code.append(lines[i])
                 i += 1
             i += 1
-            if not skipping:
+            # un schéma Mermaid ne se lit pas en code : il reste à voir sur le dépôt
+            if not skipping and not diagram:
                 html.append("<pre><code>" + escape("\n".join(code)) + "</code></pre>")
             continue
         m = re.match(r"(#{1,5})\s+(.*)", s)
