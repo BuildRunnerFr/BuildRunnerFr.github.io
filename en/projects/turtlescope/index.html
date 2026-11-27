@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TurtleScope · Ethan Blombou</title>
+<meta name="description" content="Visitors to the island check in on arrival through a Wi-Fi captive portal, on a Raspberry Pi set up on site. The team sees live who is present, with statistics for its reports.">
+<meta name="author" content="Ethan Blombou">
+<meta name="theme-color" content="#0b8457">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://buildrunnerfr.github.io/en/projects/turtlescope/">
+<link rel="alternate" hreflang="en" href="https://buildrunnerfr.github.io/en/projects/turtlescope/">
+<link rel="alternate" hreflang="fr" href="https://buildrunnerfr.github.io/projets/turtlescope/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Ethan Blombou">
+<meta property="og:title" content="TurtleScope · Ethan Blombou">
+<meta property="og:description" content="Visitors to the island check in on arrival through a Wi-Fi captive portal, on a Raspberry Pi set up on site. The team sees live who is present, with statistics for its reports.">
+<meta property="og:url" content="https://buildrunnerfr.github.io/en/projects/turtlescope/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://buildrunnerfr.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Blombou">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+<script>(function(){var d=document.documentElement,h=location.hash.slice(1),m=null,t=null;d.classList.add('js');try{m=localStorage.getItem('mode');t=localStorage.getItem('theme')}catch(e){}if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='play'&&false?'play':'classic')})()</script>
+<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body class="page--project">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="nav wrap" aria-label="Main navigation">
+    <a class="nav__brand" href="/en/#home"><span class="nav__seal" aria-hidden="true"></span>Ethan Blombou</a>
+    <ul class="nav__links" id="nav-links"><li><a href="/en/#about" data-nav="about">About</a></li><li><a href="/en/#skills" data-nav="skills">Skills</a></li><li><a href="/en/#journey" data-nav="journey">Journey</a></li><li><a href="/en/#projects" data-nav="projects">Projects</a></li><li><a href="/en/#stats" data-nav="stats">Numbers</a></li><li><a href="/en/#life" data-nav="life">Off duty</a></li><li><a href="/en/#contact" data-nav="contact">Contact</a></li></ul>
+    <div class="nav__tools">
+      
+      <a class="tool tool--cv" href="/assets/cv-ethan-blombou.pdf" download>CV<svg class="i i--down" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v10M5.5 9l4.5 4.5L14.5 9M4 16.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="tool tool--lang" href="/projets/turtlescope/" lang="fr" hreflang="fr" data-lang-link><span aria-hidden="true">FR</span><span class="sr-only">Français</span></a>
+      <button class="tool tool--theme" type="button" data-theme-toggle aria-label="Switch theme, light or dark"><svg class="i i--moon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="i i--sun" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.3 4.3l1.4 1.4M14.3 14.3l1.4 1.4M4.3 15.7l1.4-1.4M14.3 5.7l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="nav__toggle-bars" aria-hidden="true"></span><span class="sr-only">Menu</span></button>
+    </div>
+  </nav>
+  <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+</header>
+
+<main id="main" class="pp">
+  <span id="top-of-page"></span>
+  <div class="wrap">
+    <a class="back" href="/en/#projects"><svg class="i i--back" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16 10H5M9.5 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>All projects</a>
+    <div class="pp__cover"><img class="pp__img" src="/assets/photos/malaisie-nid-740.webp" alt="Ethan Blombou, wearing the SEATRU volunteer programme T-shirt, digging in the sand between marker stakes" width="740" height="926" fetchpriority="high" decoding="async"><span class="status status--done"><svg class="i" viewBox="0 0 20 20" width="12" height="12" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Done</span></div>
+    <p class="pp__meta"><i class="dot dot--web"></i>Web<span>Internship</span><span>1 min read</span></p>
+    <h1 class="pp__title">TurtleScope</h1>
+    <p class="pp__tagline">Registering the visitors of an island</p>
+    <div class="pp__grid">
+      <div class="pp__main">
+        <p class="pp__sum">Visitors to the island check in on arrival through a Wi-Fi captive portal, on a Raspberry Pi set up on site. The team sees live who is present, with statistics for its reports.</p>
+        <ul class="hl hl--big"><li>Wi-Fi captive portal</li><li>Raspberry Pi on the island</li><li>Live attendance</li></ul>
+        
+        <div class="pp__gallery pp__gallery--3 reveal"><figure class="shot shot--step"><img src="/assets/photos/malaisie-nid-740.webp" srcset="/assets/photos/malaisie-nid-480.webp 480w, /assets/photos/malaisie-nid-740.webp 740w" sizes="(min-width: 900px) 220px, 46vw" alt="Ethan Blombou, wearing the SEATRU sea turtle volunteer programme T-shirt, digging in the sand next to a basket, between marker stakes" width="740" height="926" loading="lazy" decoding="async"><figcaption>On the beach with SEATRU</figcaption></figure><figure class="shot shot--step"><img src="/assets/photos/malaisie-bebes-960.webp" srcset="/assets/photos/malaisie-bebes-480.webp 480w, /assets/photos/malaisie-bebes-960.webp 960w" sizes="(min-width: 900px) 220px, 46vw" alt="About ten sand-covered baby turtles in a yellow crate" width="960" height="1202" loading="lazy" decoding="async"><figcaption>Baby turtles</figcaption></figure><figure class="shot shot--step"><img src="/assets/photos/malaisie-ponte-960.webp" srcset="/assets/photos/malaisie-ponte-480.webp 480w, /assets/photos/malaisie-ponte-960.webp 960w" sizes="(min-width: 900px) 220px, 46vw" alt="A sea turtle on the sand at night, lit in red; in the foreground, a crate of eggs" width="960" height="1200" loading="lazy" decoding="async"><figcaption>At night, under red light</figcaption></figure></div>
+        <p class="pp__note reveal">The reference repository belongs to SEATRU and remains private.</p>
+        
+      </div>
+      <aside class="pp__side">
+        <p class="pp__norepo">No public repository</p>
+        <div class="side">
+          <div class="side__row"><span class="label">Period</span><span>May to August 2026</span></div>
+          <div class="side__block"><p class="label">Context</p><p>Internship at SEATRU, Universiti Malaysia Terengganu</p><div class="side__logos"><img class="plogo plogo--square plogo--seatru" src="/assets/logos/seatru.png" alt="SEATRU" width="192" height="191" loading="lazy" decoding="async"><img class="plogo plogo--mid plogo--umt" src="/assets/logos/umt.png" alt="Universiti Malaysia Terengganu" width="420" height="309" loading="lazy" decoding="async"></div></div>
+          <div class="side__block"><p class="label">Technologies</p><ul class="tags"><li>PHP</li><li>MongoDB</li><li>Raspberry Pi</li><li>Captive portal</li></ul></div>
+          
+        </div>
+      </aside>
+    </div>
+    <nav class="pp__nav" aria-label="All projects"><a class="pp__neigh pp__neigh--prev" href="/en/projects/clair/"><span class="label">Previous project</span><strong>Clair</strong></a><a class="pp__neigh pp__neigh--next" href="/en/projects/segregation-of-duties/"><span class="label">Next project</span><strong>Segregation-of-duties control</strong></a></nav>
+    <p class="pp__cta"><a class="btn btn--accent" href="/en/#contact">A question about this project? Let's talk.<svg class="i i--arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <p>© 2026 Ethan Blombou</p>
+    <p>Logos and trademarks belong to their respective owners.</p>
+    <p><a href="#top-of-page">Back to top ↑</a></p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

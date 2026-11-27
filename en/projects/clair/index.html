@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clair · Ethan Blombou</title>
+<meta name="description" content="Read-only bank accounts, categorised spending and a natural-language assistant.">
+<meta name="author" content="Ethan Blombou">
+<meta name="theme-color" content="#0b8457">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://buildrunnerfr.github.io/en/projects/clair/">
+<link rel="alternate" hreflang="en" href="https://buildrunnerfr.github.io/en/projects/clair/">
+<link rel="alternate" hreflang="fr" href="https://buildrunnerfr.github.io/projets/clair/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Ethan Blombou">
+<meta property="og:title" content="Clair · Ethan Blombou">
+<meta property="og:description" content="Read-only bank accounts, categorised spending and a natural-language assistant.">
+<meta property="og:url" content="https://buildrunnerfr.github.io/en/projects/clair/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://buildrunnerfr.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Blombou">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+<script>(function(){var d=document.documentElement,h=location.hash.slice(1),m=null,t=null;d.classList.add('js');try{m=localStorage.getItem('mode');t=localStorage.getItem('theme')}catch(e){}if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='play'&&false?'play':'classic')})()</script>
+<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body class="page--project">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <nav class="nav wrap" aria-label="Main navigation">
+    <a class="nav__brand" href="/en/#home"><span class="nav__seal" aria-hidden="true"></span>Ethan Blombou</a>
+    <ul class="nav__links" id="nav-links"><li><a href="/en/#about" data-nav="about">About</a></li><li><a href="/en/#skills" data-nav="skills">Skills</a></li><li><a href="/en/#journey" data-nav="journey">Journey</a></li><li><a href="/en/#projects" data-nav="projects">Projects</a></li><li><a href="/en/#stats" data-nav="stats">Numbers</a></li><li><a href="/en/#life" data-nav="life">Off duty</a></li><li><a href="/en/#contact" data-nav="contact">Contact</a></li></ul>
+    <div class="nav__tools">
+      
+      <a class="tool tool--cv" href="/assets/cv-ethan-blombou.pdf" download>CV<svg class="i i--down" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v10M5.5 9l4.5 4.5L14.5 9M4 16.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="tool tool--lang" href="/projets/clair/" lang="fr" hreflang="fr" data-lang-link><span aria-hidden="true">FR</span><span class="sr-only">Français</span></a>
+      <button class="tool tool--theme" type="button" data-theme-toggle aria-label="Switch theme, light or dark"><svg class="i i--moon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="i i--sun" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.3 4.3l1.4 1.4M14.3 14.3l1.4 1.4M4.3 15.7l1.4-1.4M14.3 5.7l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="nav__toggle-bars" aria-hidden="true"></span><span class="sr-only">Menu</span></button>
+    </div>
+  </nav>
+  <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+</header>
+
+<main id="main" class="pp">
+  <span id="top-of-page"></span>
+  <div class="wrap">
+    <a class="back" href="/en/#projects"><svg class="i i--back" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16 10H5M9.5 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>All projects</a>
+    <div class="pp__cover"><img class="pp__img" src="/assets/clair-dashboard.webp" alt="Clair dashboard (interface in French): bank connections, filters by month and category, and the balance curve with its forecast" width="1142" height="863" fetchpriority="high" decoding="async"><span class="status status--done"><svg class="i" viewBox="0 0 20 20" width="12" height="12" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Done</span></div>
+    <p class="pp__meta"><i class="dot dot--web"></i>Web<span>Personal project</span><span>2 min read</span></p>
+    <h1 class="pp__title">Clair</h1>
+    <p class="pp__tagline">Personal finance tracker</p>
+    <div class="pp__grid">
+      <div class="pp__main">
+        <p class="pp__sum">Read-only bank accounts, categorised spending and a natural-language assistant.</p>
+        <ul class="hl hl--big"><li>Read-only bank accounts</li><li>Categorised spending</li><li>Natural-language assistant</li></ul>
+        
+        
+        
+        <section class="pp__readme reveal"><h2>The repository README</h2><p class="monoline">Recorded from GitHub on 27 Nov 2026. This README is written in French.</p><div class="md" lang=fr><h3>Fonctionnement</h3>
+<ul><li>Le client Supabase SSR stocke la session dans des cookies et <code>proxy.ts</code> rafraîchit/valide les claims.</li><li>Les pages <code>/dashboard</code> exigent une identité vérifiée côté serveur.</li><li>L’action d’import vérifie de nouveau l’utilisateur, crée/upsert ses comptes mock puis synchronise ses transactions.</li><li>La contrainte PostgreSQL <code>(user_id, account_id, provider_transaction_id)</code> et l’upsert rendent l’import idempotent.</li><li>Le repository Supabase utilise la publishable key avec la session de l’utilisateur : il ne contourne jamais RLS.</li><li>Le dashboard appelle des RPC PostgreSQL <code>SECURITY INVOKER</code> pour les totaux, catégories, budgets, commerçants et transactions récentes. Aucun montant n’est agrégé dans le navigateur.</li><li>Le tableau de bord peut restituer les montants dans la devise de base du profil avec les taux historiques disponibles.</li><li>Les budgets sont uniques par utilisateur, catégorie et devise. La colonne historique <code>categories.monthly_budget</code> reste présente pour compatibilité mais n’est plus utilisée.</li></ul>
+<h3>Budgets et analytics SQL</h3>
+<p>Après la migration 003, la page <code>/budgets</code> permet de définir, modifier et supprimer les limites mensuelles. Le formulaire « Ajouter un budget » propose un catalogue de catégories de référence même en l’absence de transaction. Les dépenses du mois, le reste et le pourcentage consommé sont calculés par <code>finance_budget_status</code>.</p>
+<p>Les RPC disponibles sont :</p>
+<ul><li><code>finance_monthly_summary</code></li><li><code>finance_spending_by_category</code></li><li><code>finance_budget_status</code></li><li><code>finance_top_merchants</code></li><li><code>finance_spending_between</code></li><li><code>finance_recent_transactions</code></li></ul>
+<p>Elles ne prennent jamais de <code>user_id</code>; l’identité provient exclusivement de <code>auth.uid()</code>. Leur exécution est retirée à <code>public</code> et <code>anon</code>, puis accordée à <code>authenticated</code>.</p>
+<h3>Préparation Open Banking</h3>
+<p>La migration 004 ajoute l’intégration TrueLayer Sandbox et son stockage privé chiffré. La migration 005 ajoute la découverte dynamique des devises et le verrou de synchronisation. Sur un projet V3 déjà migré, exécuter successivement <code>004_truelayer_sandbox.sql</code> puis <code>005_dynamic_currencies_sync_lock.sql</code>, compléter les variables serveur de <code>.env.example</code>, puis consulter <code>docs/TRUELAYER_SANDBOX.md</code>. Le mode Live exige les garde-fous de <code>lib/banking/truelayer/config-schema.ts</code> et la configuration décrite dans <code>docs/OPEN_BANKING.md</code>.</p>
+<p>Les devises disponibles proviennent de l’union SQL des comptes, transactions et budgets du seul utilisateur connecté. Le choix explicite est conservé dans un cookie non sensible <code>finance_currency</code>; à défaut, la devise ayant l’activité transactionnelle la plus récente est sélectionnée. Les montants d’origine conservent leur code ISO ; la restitution dans la devise de base utilise le système de conversion historique.</p>
+<p>La migration 006 ajoute la provenance des catégories et enrichit <code>merchant_rules</code>. Ajouter <code>OPENAI_API_KEY</code> dans l’environnement serveur pour activer la catégorisation automatique; <code>OPENAI_CATEGORIZATION_MODEL</code> vaut <code>gpt-5.6-luna</code> par défaut. Sans clé, les règles locales continuent de fonctionner et la synchronisation bancaire reste opérationnelle. Le jeu de référence réseau se lance séparément avec <code>npm run test:ai-eval</code>. Voir <code>docs/AI_CATEGORIZATION.md</code>.</p></div></section>
+      </div>
+      <aside class="pp__side">
+        <a class="btn btn--dark btn--wide" href="https://github.com/BuildRunnerFr/clair" rel="noopener"><svg class="i" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>View on GitHub</a>
+        <div class="side">
+          <div class="side__row"><span class="label">Period</span><span>Sept 2026</span></div>
+          <div class="side__block"><p class="label">Context</p><p>Web application</p></div>
+          <div class="side__block"><p class="label">Technologies</p><ul class="tags"><li>Next.js</li><li>TypeScript</li><li>Supabase</li></ul></div>
+          <div class="side__block"><p class="label">Repository languages</p><div class="langs__bar" aria-hidden="true"><span class="langs__seg langs__seg--0" style="flex-grow:83.3"></span><span class="langs__seg langs__seg--1" style="flex-grow:12.0"></span><span class="langs__seg langs__seg--2" style="flex-grow:4.0"></span></div><ul class="langs__list"><li><i class="langs__dot langs__seg--0"></i>TypeScript<span>83.3 %</span></li><li><i class="langs__dot langs__seg--1"></i>CSS<span>12.0 %</span></li><li><i class="langs__dot langs__seg--2"></i>PLpgSQL<span>4.0 %</span></li></ul></div>
+        </div>
+      </aside>
+    </div>
+    <nav class="pp__nav" aria-label="All projects"><a class="pp__neigh pp__neigh--prev" href="/en/projects/european-ai-championship/"><span class="label">Previous project</span><strong>European AI Championship 2026</strong></a><a class="pp__neigh pp__neigh--next" href="/en/projects/turtlescope/"><span class="label">Next project</span><strong>TurtleScope</strong></a></nav>
+    <p class="pp__cta"><a class="btn btn--accent" href="/en/#contact">A question about this project? Let's talk.<svg class="i i--arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <p>© 2026 Ethan Blombou</p>
+    <p>Logos and trademarks belong to their respective owners.</p>
+    <p><a href="#top-of-page">Back to top ↑</a></p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url><loc>https://buildrunnerfr.github.io/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://buildrunnerfr.github.io/"/><xhtml:link rel="alternate" hreflang="en" href="https://buildrunnerfr.github.io/en/"/></url>
-  <url><loc>https://buildrunnerfr.github.io/en/</loc><xhtml:link rel="alternate" hreflang="fr" href="https://buildrunnerfr.github.io/"/><xhtml:link rel="alternate" hreflang="en" href="https://buildrunnerfr.github.io/en/"/></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://buildrunnerfr.github.io/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/projets/triad/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/projets/attest/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/projets/european-ai-championship/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/projets/clair/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/projets/turtlescope/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/projets/separation-des-taches/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/en/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/en/projects/triad/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/en/projects/attest/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/en/projects/european-ai-championship/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/en/projects/clair/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/en/projects/turtlescope/</loc></url>
+  <url><loc>https://buildrunnerfr.github.io/en/projects/segregation-of-duties/</loc></url>
 </urlset>

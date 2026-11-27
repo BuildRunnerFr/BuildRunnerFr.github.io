@@ -4,30 +4,25 @@ Site personnel d'Ethan Blombou : <https://buildrunnerfr.github.io> (français) e
 
 Site statique sans framework, publié par GitHub Pages depuis la branche `main`.
 
-## Deux versions dans la même page
+## Ce que contient le site
 
-- **Version jeu** (par défaut) : une discussion à choix avec Ethan, puis une carte de son parcours à explorer. Répliques et étapes sont dans la clé `play` de `content/fr.json` et `content/en.json` ; le code est dans `assets/js/play.js`.
-- **Version classique** : le site à faire défiler. On y passe par le bouton du menu, par les liens du menu, ou en arrivant sur une section (`/#projects`). Sans JavaScript, c'est elle qui s'affiche.
-
-Le choix du visiteur est gardé dans son navigateur. `/#jeu` force la version jeu.
+- **L'accueil** (`index.html`, `en/index.html`) : à propos, compétences, parcours, projets, chiffres, à côté, contact.
+- **Une page par projet** (`projets/<nom>/`, `en/projects/<name>/`) : résumé, ma partie, technologies, langages du dépôt, et le README du dépôt quand il est public.
+- **Une version jeu** de l'accueil : une discussion à choix avec Ethan, puis une carte de son parcours. Elle se lance par « Jouer mon parcours » ou `/#jeu` ; le choix est gardé dans le navigateur. Code dans `assets/js/play.js`, répliques dans la clé `play` des contenus.
 
 ## Modifier le contenu
 
-Les textes sont dans `content/fr.json` et `content/en.json`. Les pages `index.html` et `en/index.html` sont générées :
+Les textes sont dans `content/fr.json` et `content/en.json` (les projets dans `projects.list`). Tout le reste est généré :
 
 ```bash
 python3 build.py
 ```
 
-Aucune dépendance : Python 3 standard. Pour prévisualiser :
+Aucune dépendance : Python 3 standard. Pour prévisualiser : `python3 -m http.server 4173`.
 
-```bash
-python3 -m http.server 4173
-```
+## Mettre à jour les données GitHub
 
-## Mettre à jour les chiffres GitHub
-
-La section « En chiffres » lit `content/github.json`, un relevé daté. Pour le refaire (il faut l'outil `gh`, connecté au compte) :
+Les chiffres, les dates et langages des dépôts (`content/github.json`) et les README affichés sur les pages de projet (`content/readmes/`) sont un relevé daté. Pour le refaire (il faut l'outil `gh`, connecté au compte) :
 
 ```bash
 python3 tools/github_stats.py && python3 build.py
@@ -43,7 +38,7 @@ python3 tools/github_stats.py && python3 build.py
 
 ## Organisation
 
-- `build.py` : gabarit HTML et génération des deux pages
+- `build.py` : gabarits HTML, petit rendu Markdown pour les README, génération de toutes les pages
 - `content/` : textes français et anglais
 - `assets/css/style.css`, `assets/js/main.js` : styles et interactions (dont le clavier de piano de la section « À côté », synthétisé dans le navigateur, sans fichier son)
 - `assets/photos/` : photos en WebP, deux largeurs par image

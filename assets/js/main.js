@@ -93,12 +93,12 @@
   });
 
   /* Barre de progression (repli quand les animations liées au scroll en CSS manquent) */
-  var bar = document.querySelector('.progress span');
-  var cssScroll = window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()');
+  var bar = document.querySelector('.progress');
   function setProgress() {
-    if (!bar || cssScroll || reduce) return;
+    if (!bar) return;
     var max = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.setProperty('--sp', max > 0 ? (window.scrollY / max).toFixed(4) : 0);
+    bar.style.setProperty('--sp', max > 0 ? Math.min(1, window.scrollY / max).toFixed(4) : 0);
+    document.documentElement.classList.toggle('is-scrolled', window.scrollY > 120);
   }
 
   /* Chiffres clés : comptent jusqu'à leur valeur quand ils apparaissent */
@@ -171,6 +171,37 @@
   window.addEventListener('resize', onScroll);
   setActive();
   setThread();
+  setProgress();
+
+  /* Filtres : onglets du parcours, catégories des projets */
+  function chipGroup(buttons, apply) {
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+        apply(btn);
+      });
+    });
+  }
+  var steps = document.querySelectorAll('.step[data-kind]');
+  chipGroup(Array.prototype.slice.call(document.querySelectorAll('.chipbtn[data-tab]')), function (btn) {
+    var kind = btn.dataset.tab;
+    steps.forEach(function (st) { st.hidden = kind !== 'all' && st.dataset.kind !== kind; st.classList.add('is-in'); });
+  });
+  var cards = document.querySelectorAll('.pc[data-cats]');
+  chipGroup(Array.prototype.slice.call(document.querySelectorAll('.chipbtn[data-cat]')), function (btn) {
+    var cat = btn.dataset.cat;
+    cards.forEach(function (card) { card.hidden = cat !== 'all' && card.dataset.cats.split(' ').indexOf(cat) < 0; card.classList.add('is-in'); });
+  });
+
+  /* Thème clair ou sombre, retenu d'une visite à l'autre */
+  var themeBtn = document.querySelector('[data-theme-toggle]');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) { /* le choix vaut pour cette visite */ }
+    });
+  }
 
   /* Copier l'adresse e-mail */
   var copy = document.querySelector('.copy');

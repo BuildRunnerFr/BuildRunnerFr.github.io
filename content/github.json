@@ -37,6 +37,160 @@
    7.3
   ]
  ],
+ "language_repos": {
+  "Python": 7,
+  "TypeScript": 4,
+  "CSS": 6,
+  "PLpgSQL": 2,
+  "HTML": 5,
+  "JavaScript": 5,
+  "PHP": 1,
+  "Dockerfile": 2,
+  "Shell": 3,
+  "HCL": 1,
+  "Makefile": 1
+ },
+ "public": {
+  "clair": {
+   "created": "2026-09-14",
+   "pushed": "2026-09-14",
+   "languages": [
+    [
+     "TypeScript",
+     83.3
+    ],
+    [
+     "CSS",
+     12.0
+    ],
+    [
+     "PLpgSQL",
+     4.0
+    ]
+   ],
+   "branch": "main"
+  },
+  "attest": {
+   "created": "2026-11-02",
+   "pushed": "2026-11-12",
+   "languages": [
+    [
+     "Python",
+     97.9
+    ],
+    [
+     "Shell",
+     2.1
+    ]
+   ],
+   "branch": "main"
+  },
+  "triad": {
+   "created": "2026-11-19",
+   "pushed": "2026-11-20",
+   "languages": [
+    [
+     "TypeScript",
+     59.9
+    ],
+    [
+     "Python",
+     30.5
+    ],
+    [
+     "HCL",
+     3.2
+    ],
+    [
+     "Shell",
+     2.8
+    ],
+    [
+     "HTML",
+     1.8
+    ],
+    [
+     "Makefile",
+     0.9
+    ],
+    [
+     "CSS",
+     0.7
+    ]
+   ],
+   "branch": "main"
+  },
+  "epi84-european-ai-championship-2026": {
+   "created": "2026-11-22",
+   "pushed": "2026-11-26",
+   "languages": [
+    [
+     "Python",
+     89.3
+    ],
+    [
+     "Shell",
+     10.7
+    ]
+   ],
+   "branch": "main"
+  },
+  "BuildRunnerFr": {
+   "created": "2026-11-24",
+   "pushed": "2026-11-24",
+   "languages": [],
+   "branch": "main"
+  },
+  "BuildRunnerFr.github.io": {
+   "created": "2026-11-24",
+   "pushed": "2026-11-27",
+   "languages": [
+    [
+     "HTML",
+     53.7
+    ],
+    [
+     "CSS",
+     26.6
+    ],
+    [
+     "Python",
+     14.5
+    ],
+    [
+     "JavaScript",
+     5.1
+    ]
+   ],
+   "branch": "main"
+  }
+ },
+ "private": [
+  [
+   "2026-06-27",
+   "2026-09-07"
+  ],
+  [
+   "2026-07-29",
+   "2026-07-29"
+  ],
+  [
+   "2026-09-02",
+   "2026-09-14"
+  ],
+  [
+   "2026-09-16",
+   "2026-09-16"
+  ],
+  [
+   "2026-11-15",
+   "2026-11-15"
+  ],
+  [
+   "2026-11-23",
+   "2026-11-24"
+  ]
+ ],
  "days": [
   [
    "2026-06-01",

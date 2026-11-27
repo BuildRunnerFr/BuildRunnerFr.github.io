@@ -60,14 +60,59 @@
       "Oct",
       "Nov",
       "Dec"
-    ]
+    ],
+    "play": "Play my journey",
+    "play_short": "Game",
+    "theme": "Switch theme, light or dark",
+    "socials": "My profiles",
+    "away": "Away from the keyboard",
+    "sheet": "Fact sheet",
+    "in_projects": [
+      "{n} project",
+      "{n} projects"
+    ],
+    "in_repos": [
+      "{n} repo",
+      "{n} repos"
+    ],
+    "see_project": "See the project",
+    "all_projects": "All projects",
+    "back": "Back to home",
+    "period": "Period",
+    "stack": "Technologies",
+    "languages": "Repository languages",
+    "repo": "View on GitHub",
+    "context": "Context",
+    "readme": "The repository README",
+    "readme_note": "Recorded from GitHub on {date}.",
+    "readme_en": "",
+    "readme_fr": "This README is written in French.",
+    "no_repo": "No public repository",
+    "next_project": "Next project",
+    "prev_project": "Previous project",
+    "min_read": "{n} min read",
+    "today": "today",
+    "private_repo": "private repo",
+    "contact_cta": "A question about this project? Let's talk.",
+    "kinds": {
+      "team": "Team project",
+      "solo": "Solo project",
+      "personal": "Personal project",
+      "intern": "Internship",
+      "pro": "At work"
+    },
+    "status": {
+      "done": "Done",
+      "live": "Ongoing"
+    }
   },
   "nav": {
     "home": "Home",
     "about": "About",
-    "experience": "Experience",
-    "projects": "Projects",
     "skills": "Skills",
+    "journey": "Journey",
+    "projects": "Projects",
+    "stats": "Numbers",
     "life": "Off duty",
     "contact": "Contact"
   },
@@ -407,7 +452,7 @@
         "more": [
           [
             "See the details",
-            "@classic#experience"
+            "@classic#journey"
           ]
         ]
       },
@@ -429,7 +474,7 @@
         "more": [
           [
             "See the details",
-            "@classic#experience"
+            "@classic#journey"
           ]
         ]
       },
@@ -444,7 +489,7 @@
         "more": [
           [
             "See the details",
-            "@classic#experience"
+            "@classic#journey"
           ]
         ]
       },
@@ -540,7 +585,33 @@
     "photo": {
       "alt": "Ethan Blombou, microphone in hand, pointing at a large screen while presenting his team's project",
       "caption": "Presenting TRIAD, Deloitte × Google Cloud hackathon"
-    }
+    },
+    "away": [
+      [
+        "Piano",
+        "life"
+      ],
+      [
+        "Manga",
+        "life"
+      ],
+      [
+        "Chess",
+        "life"
+      ],
+      [
+        "Football",
+        "life"
+      ],
+      [
+        "CTFs",
+        "life"
+      ],
+      [
+        "Quantitative finance",
+        "life"
+      ]
+    ]
   },
   "experience": {
     "eyebrow": "Experience",
@@ -684,41 +755,72 @@
     "eyebrow": "Projects",
     "title": "What I build, mostly at hackathons.",
     "intro": "For team projects, my own contribution is stated separately.",
-    "featured": {
-      "name": "TRIAD",
-      "tagline": "Adversarial NIS2 cyber audit",
-      "context": "Deloitte × Google Cloud hackathon",
-      "logos": [
-        [
-          "deloitte",
-          "Deloitte"
-        ],
-        [
-          "google-cloud",
-          "Google Cloud"
-        ]
-      ],
-      "kind": "team",
-      "desc": "Four AI agents cross-check what the IT department says, what it wrote and what is actually configured in its cloud. Every contradiction becomes a sourced finding tied to the relevant NIS2 article.",
-      "part": "Development and deployment on Google Cloud: four AI agents with Google ADK and Gemini on Vertex AI, read-only probes, FastAPI backend on Cloud Run, infrastructure described with Terraform.",
-      "tags": [
-        "Google ADK",
-        "Gemini · Vertex AI",
-        "FastAPI",
-        "Cloud Run",
-        "Terraform"
-      ],
-      "url": "https://github.com/BuildRunnerFr/triad",
-      "image": "/assets/triad-cockpit.webp",
-      "image_w": 1600,
-      "image_h": 1000,
-      "image_alt": "TRIAD cockpit (interface in French): four out of four statements from the IT department are contradicted by the real configuration, with findings ranked by severity",
-      "photo": {
-        "alt": "Ethan Blombou listening to a team discussion, holding a laptop",
-        "caption": "Deloitte × Google Cloud hackathon"
-      }
+    "cats": {
+      "all": "All",
+      "ia": "AI and agents",
+      "cyber": "Cybersecurity",
+      "web": "Web",
+      "network": "Networks"
     },
-    "items": [
+    "list": [
+      {
+        "name": "TRIAD",
+        "tagline": "Adversarial NIS2 cyber audit",
+        "context": "Deloitte × Google Cloud hackathon",
+        "logos": [
+          [
+            "deloitte",
+            "Deloitte"
+          ],
+          [
+            "google-cloud",
+            "Google Cloud"
+          ]
+        ],
+        "kind": "team",
+        "desc": "Four AI agents cross-check what the IT department says, what it wrote and what is actually configured in its cloud. Every contradiction becomes a sourced finding tied to the relevant NIS2 article.",
+        "part": "Development and deployment on Google Cloud: four AI agents with Google ADK and Gemini on Vertex AI, read-only probes, FastAPI backend on Cloud Run, infrastructure described with Terraform.",
+        "tags": [
+          "Google ADK",
+          "Gemini · Vertex AI",
+          "FastAPI",
+          "Cloud Run",
+          "Terraform"
+        ],
+        "url": "https://github.com/BuildRunnerFr/triad",
+        "period": "Nov 2026",
+        "highlights": [
+          "Four AI agents",
+          "Findings tied to NIS2 articles",
+          "Read-only probes"
+        ],
+        "slug": "triad",
+        "cats": [
+          "ia",
+          "cyber"
+        ],
+        "status": "done",
+        "repo": "triad",
+        "featured": true,
+        "cover": {
+          "src": "/assets/triad-cockpit.webp",
+          "w": 1600,
+          "h": 1000,
+          "alt": "TRIAD cockpit (interface in French): four out of four statements from the IT department are contradicted by the real configuration, with findings ranked by severity"
+        },
+        "photo": {
+          "stem": "ecoute",
+          "sizes": [
+            800,
+            1400
+          ],
+          "w": 1400,
+          "h": 934,
+          "alt": "Ethan Blombou listening to a team discussion, holding a laptop",
+          "caption": "Deloitte × Google Cloud hackathon"
+        },
+        "key": "triad"
+      },
       {
         "name": "Attest",
         "tagline": "DORA compliance auditor",
@@ -738,10 +840,27 @@
           "GitHub Actions"
         ],
         "url": "https://github.com/BuildRunnerFr/attest",
-        "image": "/assets/attest-report.webp",
-        "image_w": 1000,
-        "image_h": 761,
-        "image_alt": "Executive summary of an audit report generated by Attest for a fictitious bank: seven controls tested, six findings"
+        "period": "Nov 2026",
+        "highlights": [
+          "Read-only tests",
+          "Sealed and masked evidence",
+          "Report written by the agent"
+        ],
+        "slug": "attest",
+        "cats": [
+          "ia",
+          "cyber"
+        ],
+        "status": "done",
+        "repo": "attest",
+        "cover": {
+          "src": "/assets/attest-report.webp",
+          "w": 1000,
+          "h": 761,
+          "alt": "Executive summary of an audit report generated by Attest for a fictitious bank: seven controls tested, six findings"
+        },
+        "readme_lang": "en",
+        "key": "attest"
       },
       {
         "name": "European AI Championship 2026",
@@ -757,10 +876,26 @@
           "Watermarking"
         ],
         "url": "https://github.com/BuildRunnerFr/epi84-european-ai-championship-2026",
-        "photo": {
-          "alt": "Large room where teams work on their laptops around white tables",
-          "caption": "European AI Championship 2026, Paris"
-        }
+        "period": "21-22 Nov 2026",
+        "highlights": [
+          "Watermark: 0.762 on the public leaderboard",
+          "Unlearning: 0.324 on the public leaderboard",
+          "22 hours, one 4-GPU node"
+        ],
+        "slug": "european-ai-championship",
+        "cats": [
+          "ia",
+          "cyber"
+        ],
+        "status": "done",
+        "repo": "epi84-european-ai-championship-2026",
+        "cover": {
+          "src": "/assets/photos/eaic-salle-1200.webp",
+          "w": 1200,
+          "h": 800,
+          "alt": "Large room where teams work on their laptops around white tables"
+        },
+        "key": "eaic"
       },
       {
         "name": "Clair",
@@ -775,10 +910,108 @@
           "Supabase"
         ],
         "url": "https://github.com/BuildRunnerFr/clair",
-        "image": "/assets/clair-dashboard.webp",
-        "image_w": 1142,
-        "image_h": 863,
-        "image_alt": "Clair dashboard (interface in French): bank connections, filters by month and category, and the balance curve with its forecast"
+        "period": "Sept 2026",
+        "highlights": [
+          "Read-only bank accounts",
+          "Categorised spending",
+          "Natural-language assistant"
+        ],
+        "slug": "clair",
+        "cats": [
+          "web"
+        ],
+        "status": "done",
+        "repo": "clair",
+        "cover": {
+          "src": "/assets/clair-dashboard.webp",
+          "w": 1142,
+          "h": 863,
+          "alt": "Clair dashboard (interface in French): bank connections, filters by month and category, and the balance curve with its forecast"
+        },
+        "readme_keep": [
+          "Fonctionnement",
+          "Budgets et analytics SQL",
+          "Préparation Open Banking"
+        ],
+        "key": "clair"
+      },
+      {
+        "name": "TurtleScope",
+        "tagline": "Registering the visitors of an island",
+        "context": "Internship at SEATRU, Universiti Malaysia Terengganu",
+        "period": "May to August 2026",
+        "desc": "Visitors to the island check in on arrival through a Wi-Fi captive portal, on a Raspberry Pi set up on site. The team sees live who is present, with statistics for its reports.",
+        "highlights": [
+          "Wi-Fi captive portal",
+          "Raspberry Pi on the island",
+          "Live attendance"
+        ],
+        "note": "The reference repository belongs to SEATRU and remains private.",
+        "slug": "turtlescope",
+        "cats": [
+          "web"
+        ],
+        "status": "done",
+        "kind": "intern",
+        "start": "2026-05-01",
+        "end": "2026-08-31",
+        "tags": [
+          "PHP",
+          "MongoDB",
+          "Raspberry Pi",
+          "Captive portal"
+        ],
+        "logos": [
+          [
+            "seatru",
+            "SEATRU"
+          ],
+          [
+            "umt",
+            "Universiti Malaysia Terengganu"
+          ]
+        ],
+        "cover": {
+          "src": "/assets/photos/malaisie-nid-740.webp",
+          "w": 740,
+          "h": 926,
+          "alt": "Ethan Blombou, wearing the SEATRU volunteer programme T-shirt, digging in the sand between marker stakes"
+        },
+        "gallery": "seatru",
+        "key": "turtlescope"
+      },
+      {
+        "name": "Segregation-of-duties control",
+        "tagline": "A Python pipeline, in a bank",
+        "context": "Société Générale, Group CIO Office",
+        "period": "Since Sept. 2025",
+        "desc": "A Python pipeline automating the segregation-of-duties control: it queries the REST API of the internal GitHub and cross-checks three sources with pandas. The reporting goes out every week to around a hundred tech leads worldwide.",
+        "highlights": [
+          "Three sources cross-checked",
+          "Around 100 tech leads reached",
+          "Automated weekly reporting"
+        ],
+        "note": "Internal bank code, not published.",
+        "slug": "segregation-of-duties",
+        "cats": [
+          "cyber"
+        ],
+        "status": "live",
+        "kind": "pro",
+        "start": "2025-09-01",
+        "end": "",
+        "tags": [
+          "Python",
+          "pandas",
+          "REST API"
+        ],
+        "logos": [
+          [
+            "societe-generale",
+            "Société Générale"
+          ]
+        ],
+        "key": "sod"
       }
     ],
     "more_title": "Also",
@@ -799,7 +1032,7 @@
   },
   "skills": {
     "eyebrow": "Skills",
-    "title": "My toolbox.",
+    "title": "What I use, and where.",
     "groups": [
       {
         "key": "ai",
@@ -1138,7 +1371,10 @@
     "languages_note": "Averaged per repository, private ones included.",
     "other": "other",
     "less": "less",
-    "more": "more"
+    "more": "more",
+    "gantt": "Project timeline",
+    "gantt_note": "From first commit to last push for repositories, and assignment dates for the rest. Private repositories appear without their name.",
+    "gantt_label": "Timeline of my projects, from {start} to {end}"
   },
   "life": {
     "eyebrow": "Off duty",
@@ -1191,7 +1427,11 @@
         "name": "Quantitative finance",
         "text": "And personal investing."
       }
-    ]
+    ],
+    "play": {
+      "name": "My journey, as a game",
+      "text": "A conversation with choices, then a map to explore with a mini-Ethan."
+    }
   },
   "contact": {
     "eyebrow": "Contact",
@@ -1213,5 +1453,16 @@
     "stats": "GitHub API, recorded on {synced}",
     "life": "a piano, to be tried on site",
     "contact": "one is missing: your message"
+  },
+  "journey": {
+    "eyebrow": "Journey",
+    "title": "From telecom field work to cyber in a bank.",
+    "tabs": {
+      "all": "All",
+      "xp": "Experience",
+      "edu": "Education",
+      "cert": "Certifications"
+    },
+    "now": "Ongoing"
   }
 }

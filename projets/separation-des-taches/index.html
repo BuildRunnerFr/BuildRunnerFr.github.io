@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contrôle de séparation des tâches · Ethan Blombou</title>
+<meta name="description" content="Un pipeline Python qui automatise le contrôle de séparation des tâches : il interroge l&#x27;API REST du GitHub interne et croise trois sources avec pandas. Le reporting part chaque semaine vers une centaine de tech leads à l&#x27;international.">
+<meta name="author" content="Ethan Blombou">
+<meta name="theme-color" content="#0b8457">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://buildrunnerfr.github.io/projets/separation-des-taches/">
+<link rel="alternate" hreflang="fr" href="https://buildrunnerfr.github.io/projets/separation-des-taches/">
+<link rel="alternate" hreflang="en" href="https://buildrunnerfr.github.io/en/projects/segregation-of-duties/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Ethan Blombou">
+<meta property="og:title" content="Contrôle de séparation des tâches · Ethan Blombou">
+<meta property="og:description" content="Un pipeline Python qui automatise le contrôle de séparation des tâches : il interroge l&#x27;API REST du GitHub interne et croise trois sources avec pandas. Le reporting part chaque semaine vers une centaine de tech leads à l&#x27;international.">
+<meta property="og:url" content="https://buildrunnerfr.github.io/projets/separation-des-taches/">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://buildrunnerfr.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ethan Blombou">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+<script>(function(){var d=document.documentElement,h=location.hash.slice(1),m=null,t=null;d.classList.add('js');try{m=localStorage.getItem('mode');t=localStorage.getItem('theme')}catch(e){}if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='play'&&false?'play':'classic')})()</script>
+<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body class="page--project">
+<a class="skip" href="#main">Aller au contenu</a>
+
+<header class="top">
+  <nav class="nav wrap" aria-label="Navigation principale">
+    <a class="nav__brand" href="/#home"><span class="nav__seal" aria-hidden="true"></span>Ethan Blombou</a>
+    <ul class="nav__links" id="nav-links"><li><a href="/#about" data-nav="about">À propos</a></li><li><a href="/#skills" data-nav="skills">Compétences</a></li><li><a href="/#journey" data-nav="journey">Parcours</a></li><li><a href="/#projects" data-nav="projects">Projets</a></li><li><a href="/#stats" data-nav="stats">Chiffres</a></li><li><a href="/#life" data-nav="life">À côté</a></li><li><a href="/#contact" data-nav="contact">Contact</a></li></ul>
+    <div class="nav__tools">
+      
+      <a class="tool tool--cv" href="/assets/cv-ethan-blombou.pdf" download>CV<svg class="i i--down" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v10M5.5 9l4.5 4.5L14.5 9M4 16.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="tool tool--lang" href="/en/projects/segregation-of-duties/" lang="en" hreflang="en" data-lang-link><span aria-hidden="true">EN</span><span class="sr-only">English</span></a>
+      <button class="tool tool--theme" type="button" data-theme-toggle aria-label="Changer de thème, clair ou sombre"><svg class="i i--moon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="i i--sun" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.3 4.3l1.4 1.4M14.3 14.3l1.4 1.4M4.3 15.7l1.4-1.4M14.3 5.7l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="nav__toggle-bars" aria-hidden="true"></span><span class="sr-only">Menu</span></button>
+    </div>
+  </nav>
+  <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
+</header>
+
+<main id="main" class="pp">
+  <span id="top-of-page"></span>
+  <div class="wrap">
+    <a class="back" href="/#projects"><svg class="i i--back" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16 10H5M9.5 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Tous les projets</a>
+    <div class="pp__cover"><span class="pp__img pp__img--blank"><img class="plogo plogo--wide plogo--societe-generale" src="/assets/logos/societe-generale.svg" alt="Société Générale" width="145" height="28" loading="lazy" decoding="async"></span><span class="status status--live"><i></i>En cours</span></div>
+    <p class="pp__meta"><i class="dot dot--cyber"></i>Cybersécurité<span>En entreprise</span><span>1 min de lecture</span></p>
+    <h1 class="pp__title">Contrôle de séparation des tâches</h1>
+    <p class="pp__tagline">Un pipeline Python, en banque</p>
+    <div class="pp__grid">
+      <div class="pp__main">
+        <p class="pp__sum">Un pipeline Python qui automatise le contrôle de séparation des tâches : il interroge l'API REST du GitHub interne et croise trois sources avec pandas. Le reporting part chaque semaine vers une centaine de tech leads à l'international.</p>
+        <ul class="hl hl--big"><li>Trois sources croisées</li><li>Environ 100 tech leads destinataires</li><li>Reporting hebdomadaire automatisé</li></ul>
+        
+        
+        <p class="pp__note reveal">Code interne à la banque, non publié.</p>
+        
+      </div>
+      <aside class="pp__side">
+        <p class="pp__norepo">Pas de dépôt public</p>
+        <div class="side">
+          <div class="side__row"><span class="label">Période</span><span>Depuis sept. 2025</span></div>
+          <div class="side__block"><p class="label">Contexte</p><p>Société Générale, Group CIO Office</p><div class="side__logos"><img class="plogo plogo--wide plogo--societe-generale" src="/assets/logos/societe-generale.svg" alt="Société Générale" width="145" height="28" loading="lazy" decoding="async"></div></div>
+          <div class="side__block"><p class="label">Technologies</p><ul class="tags"><li>Python</li><li>pandas</li><li>API REST</li></ul></div>
+          
+        </div>
+      </aside>
+    </div>
+    <nav class="pp__nav" aria-label="Tous les projets"><a class="pp__neigh pp__neigh--prev" href="/projets/turtlescope/"><span class="label">Projet précédent</span><strong>TurtleScope</strong></a><a class="pp__neigh pp__neigh--next" href="/projets/triad/"><span class="label">Projet suivant</span><strong>TRIAD</strong></a></nav>
+    <p class="pp__cta"><a class="btn btn--accent" href="/#contact">Une question sur ce projet ? Écrivons-nous.<svg class="i i--arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <p>© 2026 Ethan Blombou</p>
+    <p>Les logos et marques cités appartiennent à leurs détenteurs respectifs.</p>
+    <p><a href="#top-of-page">Haut de page ↑</a></p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

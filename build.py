@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Génère index.html (français) et en/index.html (anglais).
+"""Génère le site : la page d'accueil (français, anglais) et une page par projet.
 
-Les textes sont dans content/fr.json et content/en.json.
+Les textes sont dans content/fr.json et content/en.json, les chiffres et les README dans
+content/github.json et content/readmes/ (relevés par tools/github_stats.py).
 Après une modification :  python3 build.py
 Aucune dépendance : bibliothèque standard uniquement.
 """
@@ -18,8 +19,12 @@ SITE = "https://buildrunnerfr.github.io"
 EMAIL = "ethancte@gmail.com"
 LINKEDIN = "https://www.linkedin.com/in/ethan-blombou"
 GITHUB = "https://github.com/BuildRunnerFr"
-SECTIONS = ["home", "about", "experience", "projects", "skills", "life", "contact"]
+CV = "/assets/cv-ethan-blombou.pdf"
+SECTIONS = ["about", "skills", "journey", "projects", "stats", "life", "contact"]
+THEME = "#0b8457"
 
+
+# ---------- petits outils ----------
 
 def nbsp_fr(text):
     """Espaces insécables de la typographie française."""
@@ -69,77 +74,17 @@ def logo(stem, alt, cls="logo"):
 
 def icon(slug):
     if slug and (ROOT / "assets" / "icons" / f"{slug}.svg").exists():
-        return f'<img class="chip__icon" src="/assets/icons/{slug}.svg" alt="" width="18" height="18" loading="lazy" decoding="async">'
+        return f'<img class="ic" src="/assets/icons/{slug}.svg" alt="" width="18" height="18" loading="lazy" decoding="async">'
     return ""
 
 
-DOWN = '<svg class="dl" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v10M5.500 9l4.500 4.500L14.500 9M4 16.500h12" fill="none" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-CV = "/assets/cv-ethan-blombou.pdf"
-
-
 def photo(stem, sizes_w, w, h, meta, sizes, cls="shot"):
-    """Photo en WebP à deux largeurs, avec légende."""
+    """Photo en WebP à plusieurs largeurs, avec légende."""
     srcset = ", ".join(f"/assets/photos/{stem}-{x}.webp {x}w" for x in sizes_w)
     return (
         f'<figure class="{cls}"><img src="/assets/photos/{stem}-{sizes_w[-1]}.webp" srcset="{srcset}" sizes="{sizes}" '
         f'alt="{escape(meta["alt"])}" width="{w}" height="{h}" loading="lazy" decoding="async">'
         f'<figcaption>{meta["caption"]}</figcaption></figure>'
-    )
-
-
-PLAY = '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M6 4.500v11l9-5.500z" fill="currentColor"/></svg>'
-
-# dessins au trait des cases « À côté » (formes simples, aucune œuvre existante)
-ART = {
-    "manga": '<svg viewBox="0 0 120 90"><path d="M14 40c0-17 20-30 46-30s46 13 46 30-20 30-46 30c-6 0-12-.700-17-2L24 80l5-18C19.500 56.500 14 48.700 14 40z" fill="var(--card)" stroke="currentColor" stroke-width="3.500" stroke-linejoin="round"/><circle cx="44" cy="40" r="4"/><circle cx="60" cy="40" r="4"/><circle cx="76" cy="40" r="4"/></svg>',
-    "chess": '<span class="board"></span>',
-    "foot": '<svg viewBox="0 0 160 120" preserveAspectRatio="xMaxYMid slice" fill="none" stroke="currentColor" stroke-width="2.200"><path d="M92 -40v200M160 28h-30v64h30M160 44h-12v32h12"/><circle cx="92" cy="60" r="30"/><circle cx="92" cy="60" r="2.600" fill="currentColor" stroke="none"/></svg>',
-    "abroad": '<svg viewBox="0 0 240 70" preserveAspectRatio="xMinYMid meet" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 60C62 -6 178 -6 228 60" stroke-dasharray="0.100 9"/><circle cx="12" cy="60" r="6" fill="currentColor" stroke="none"/><circle cx="228" cy="60" r="6" fill="currentColor" stroke="none"/><path d="M108 3l24 7.500-24 7.500 5.500-7.500z" fill="currentColor" stroke-linejoin="round" stroke-width="2"/></svg>',
-    "ctf": '<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 74V8"/><path d="M18 12h44l-10 15 10 15H18z" fill="var(--accent)"/></svg>',
-    "quant": '<svg viewBox="0 0 200 80" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"><path d="M4 66l28-14 22 8 30-30 24 14 30-26 26 10 32-22" vector-effect="non-scaling-stroke"/></svg>',
-}
-
-ARROW = '<svg class="arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-
-
-def tags(items):
-    return '<ul class="tags">' + "".join(f"<li>{escape(t)}</li>" for t in items) + "</ul>"
-
-
-def kind_badge(c, kind):
-    return f'<span class="kind kind--{kind}">{c["ui"][kind]}</span>'
-
-
-def project_logos(c, items):
-    out = "".join(logo(stem, name, "plogo") for stem, name in items)
-    return f'<div class="project__logos">{out}</div>' if out else ""
-
-
-def part_block(c, text):
-    if not text:
-        return ""
-    return f'<div class="part"><p class="part__label">{c["ui"]["my_part"]}</p><p>{text}</p></div>'
-
-
-def code_link(c, p):
-    return (
-        f'<a class="link" href="{p["url"]}" rel="noopener">'
-        f'{c["ui"]["code"]}<span class="sr-only"> : {escape(p["name"])}</span>{ARROW}</a>'
-    )
-
-
-def words(text):
-    """Chaque mot dans un masque, pour l'apparition mot à mot des titres."""
-    return " ".join(
-        f'<span class="w"><span style="--i:{i}">{w}</span></span>' for i, w in enumerate(text.split(" "))
-    )
-
-
-def shead(c, n, kicker, title, id_, evidence=""):
-    ev = f'<p class="shead__ev reveal"><b>{c["ui"]["evidence"]}</b><span>{evidence}</span></p>' if evidence else ""
-    return (
-        f'<header class="shead"><p class="shead__k"><span class="shead__n">{c["ui"]["chapter"]} {n}</span>{kicker}</p>'
-        f'<h2 class="shead__t reveal" id="{id_}" aria-label="{escape(title)}">{words(title)}</h2>{ev}</header>'
     )
 
 
@@ -153,6 +98,184 @@ def day_label(iso, months, year=True):
     y, m, d = (int(x) for x in iso.split("-"))
     return f"{d} {months[m - 1]}" + (f" {y}" if year else "")
 
+
+def plural(forms, n):
+    return forms[0 if n < 2 else 1].format(n=n)
+
+
+SVG = {
+    "arrow": '<svg class="i i--arrow" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4 10h11M10.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "back": '<svg class="i i--back" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16 10H5M9.5 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "down": '<svg class="i i--down" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v10M5.5 9l4.5 4.5L14.5 9M4 16.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "play": '<svg class="i" viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M6 4.5v11l9-5.5z" fill="currentColor"/></svg>',
+    "check": '<svg class="i" viewBox="0 0 20 20" width="12" height="12" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    "moon": '<svg class="i i--moon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+    "sun": '<svg class="i i--sun" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.3 4.3l1.4 1.4M14.3 14.3l1.4 1.4M4.3 15.7l1.4-1.4M14.3 5.7l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+    "github": '<svg class="i" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>',
+    "linkedin": '<svg class="i" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>',
+}
+
+# dessins au trait des cases « À côté » (formes simples, aucune œuvre existante)
+ART = {
+    "manga": '<svg viewBox="0 0 120 90"><path d="M14 40c0-17 20-30 46-30s46 13 46 30-20 30-46 30c-6 0-12-.7-17-2L24 80l5-18C19.5 56.5 14 48.7 14 40z" fill="var(--card)" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/><circle cx="44" cy="40" r="4"/><circle cx="60" cy="40" r="4"/><circle cx="76" cy="40" r="4"/></svg>',
+    "chess": '<span class="board"></span>',
+    "foot": '<svg viewBox="0 0 160 120" preserveAspectRatio="xMaxYMid slice" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M92 -40v200M160 28h-30v64h30M160 44h-12v32h12"/><circle cx="92" cy="60" r="30"/><circle cx="92" cy="60" r="2.6" fill="currentColor" stroke="none"/></svg>',
+    "abroad": '<svg viewBox="0 0 240 70" preserveAspectRatio="xMinYMid meet" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 60C62 -6 178 -6 228 60" stroke-dasharray="0.1 9"/><circle cx="12" cy="60" r="6" fill="currentColor" stroke="none"/><circle cx="228" cy="60" r="6" fill="currentColor" stroke="none"/><path d="M108 3l24 7.5-24 7.5 5.5-7.5z" fill="currentColor" stroke-linejoin="round" stroke-width="2"/></svg>',
+    "ctf": '<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 74V8"/><path d="M18 12h44l-10 15 10 15H18z" fill="var(--accent)"/></svg>',
+    "quant": '<svg viewBox="0 0 200 80" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 66l28-14 22 8 30-30 24 14 30-26 26 10 32-22" vector-effect="non-scaling-stroke"/></svg>',
+}
+
+MINI = (
+    '<ellipse cx="0" cy="0" rx="13" ry="4" fill="rgba(16,20,31,0.22)"/><g>'
+    '<rect x="-7.5" y="-11" width="6" height="10" rx="2" fill="#1c1512"/><rect x="1.5" y="-11" width="6" height="10" rx="2" fill="#1c1512"/>'
+    '<rect x="-11.5" y="-30" width="23" height="21" rx="7" fill="#efe1c8" stroke="#1c1512" stroke-width="2.5"/>'
+    '<circle cx="0" cy="-40" r="10.5" fill="#c08a5f" stroke="#1c1512" stroke-width="2.5"/>'
+    '<g fill="#1c1512"><circle cx="-8.5" cy="-46" r="5"/><circle cx="-3.5" cy="-50.5" r="5.5"/><circle cx="3.5" cy="-50.5" r="5.5"/><circle cx="8.5" cy="-46" r="5"/><circle cx="0" cy="-47.5" r="6"/><circle cx="-10.5" cy="-41.5" r="3.2"/><circle cx="10.5" cy="-41.5" r="3.2"/></g>'
+    '<circle cx="-3.7" cy="-38.5" r="1.4" fill="#1c1512"/><circle cx="3.7" cy="-38.5" r="1.4" fill="#1c1512"/>'
+    '<path d="M-3.2 -34.3q3.2 2.6 6.4 0" fill="none" stroke="#1c1512" stroke-width="1.6" stroke-linecap="round"/></g>'
+)
+
+
+# ---------- Markdown (README des dépôts) ----------
+
+SKIP_SECTIONS = re.compile(r"quickstart|démarrage|repository|organisation du dépôt|prérequis|configuration|variables|lancer|déploiement|install", re.I)
+LIST_ITEM = re.compile(r"(\s*)([-*]|\d+\.)\s+(.*)")
+
+
+def md_inline(text, base):
+    text = re.sub(r"\[!\[[^\]]*\]\([^)]*\)\]\([^)]*\)", "", text)  # badges
+    text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", text)  # images
+    text = re.sub(r"</?[a-zA-Z][^>]*>", " ", text)  # balises HTML
+    out = []
+    for part in re.split(r"(`[^`]+`)", text):
+        if part.startswith("`") and part.endswith("`") and len(part) > 2:
+            out.append(f"<code>{escape(part[1:-1])}</code>")
+            continue
+        s = escape(part, quote=False)
+
+        def link(m):
+            label, url = m.group(1), m.group(2).split(" ")[0]
+            if url.startswith("#"):
+                return label
+            if not re.match(r"https?://", url):
+                url = f"{base}/{url.lstrip('./')}"
+            return f'<a href="{escape(url)}" rel="noopener">{label}</a>'
+
+        s = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", link, s)
+        s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
+        s = re.sub(r"(?<![\w*])\*([^*\n]+)\*(?![\w*])", r"<em>\1</em>", s)
+        out.append(s)
+    return re.sub(r"\s{2,}", " ", "".join(out)).strip()
+
+
+def md(text, base, keep=None):
+    """Petit rendu Markdown : titres, paragraphes, listes, tableaux, code, citations. Les images sont laissées de côté."""
+    text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
+    lines = text.split("\n")
+    html, para, i, skipping, seen_h2 = [], [], 0, False, False
+
+    def flush():
+        if para:
+            body = md_inline(" ".join(para), base)
+            if body:
+                html.append(f"<p>{body}</p>")
+            para.clear()
+
+    def cells(row):
+        return [cell.strip() for cell in row.strip().strip("|").split("|")]
+
+    while i < len(lines):
+        line = lines[i]
+        s = line.strip()
+        if s.startswith("```"):
+            flush()
+            code = []
+            i += 1
+            while i < len(lines) and not lines[i].strip().startswith("```"):
+                code.append(lines[i])
+                i += 1
+            i += 1
+            if not skipping:
+                html.append("<pre><code>" + escape("\n".join(code)) + "</code></pre>")
+            continue
+        m = re.match(r"(#{1,5})\s+(.*)", s)
+        if m:
+            flush()
+            level, title = len(m.group(1)), re.sub(r"\s*#+$", "", m.group(2))
+            if level == 2:
+                seen_h2 = True
+                skipping = (title not in keep) if keep else bool(SKIP_SECTIONS.search(title))
+            if level >= 2 and not skipping:
+                html.append(f"<h{level + 1}>{md_inline(title, base)}</h{level + 1}>")
+            i += 1
+            continue
+        if skipping or (keep and not seen_h2):
+            i += 1
+            continue
+        if not s or re.fullmatch(r"-{3,}|\*{3,}", s):
+            flush()
+            i += 1
+            continue
+        if s.startswith("|") and i + 1 < len(lines) and re.match(r"\s*\|?[\s:|-]+\|[\s:|-]*$", lines[i + 1]):
+            flush()
+            head = cells(s)
+            i += 2
+            rows = []
+            while i < len(lines) and lines[i].strip().startswith("|"):
+                rows.append(cells(lines[i]))
+                i += 1
+            thead = "".join(f"<th>{md_inline(cell, base)}</th>" for cell in head)
+            tbody = "".join("<tr>" + "".join(f"<td>{md_inline(cell, base)}</td>" for cell in r) + "</tr>" for r in rows)
+            html.append(f'<div class="md__table"><table><thead><tr>{thead}</tr></thead><tbody>{tbody}</tbody></table></div>')
+            continue
+        if s.startswith(">"):
+            flush()
+            quote = []
+            while i < len(lines) and lines[i].strip().startswith(">"):
+                quote.append(lines[i].strip().lstrip(">").strip())
+                i += 1
+            html.append(f"<blockquote><p>{md_inline(' '.join(quote), base)}</p></blockquote>")
+            continue
+        m = LIST_ITEM.match(line)
+        if m:
+            flush()
+            tag = "ol" if m.group(2)[0].isdigit() else "ul"
+            items = []
+            while i < len(lines):
+                mm = LIST_ITEM.match(lines[i])
+                if mm:
+                    items.append([len(mm.group(1)), mm.group(3)])
+                elif lines[i].strip() and lines[i].startswith(" ") and items:
+                    items[-1][1] += " " + lines[i].strip()
+                else:
+                    break
+                i += 1
+            out, open_sub = [f"<{tag}>"], False
+            for indent, body in items:
+                if indent >= 2 and not open_sub and len(out) > 1:
+                    out[-1] = out[-1].removesuffix("</li>")
+                    out.append("<ul>")
+                    open_sub = True
+                elif indent < 2 and open_sub:
+                    out.append("</ul></li>")
+                    open_sub = False
+                out.append(f"<li>{md_inline(body, base)}</li>")
+            if open_sub:
+                out.append("</ul></li>")
+            out.append(f"</{tag}>")
+            html.append("".join(out))
+            continue
+        if re.fullmatch(r"(\s*</?[a-zA-Z][^>]*>\s*)+", line):
+            flush()
+            i += 1
+            continue
+        para.append(s)
+        i += 1
+    flush()
+    return "\n".join(html)
+
+
+# ---------- graphiques ----------
 
 def heatmap(days, months):
     """Calendrier d'activité : une colonne par semaine, une case par jour."""
@@ -174,284 +297,80 @@ def heatmap(days, months):
     return f'<svg viewBox="0 0 {w} {h}" width="{w}" height="{h}" aria-hidden="true">{"".join(labels)}{"".join(rects)}</svg>'
 
 
+def gantt(rows, months, today_label):
+    """Chronologie : une ligne par projet, placée en pourcentage entre le premier et le dernier mois."""
+    today = date.today()
+    start = min(date.fromisoformat(r["start"]) for r in rows).replace(day=1)
+    end = date(today.year + (1 if today.month == 12 else 0), today.month % 12 + 1, 1)
+    span = (end - start).days
 
-def render(c):
-    lang = c["lang"]
-    url = SITE + c["path"]
-    ui = c["ui"]
-    h, a, x, pr, sk, ct = c["hero"], c["about"], c["experience"], c["projects"], c["skills"], c["contact"]
-    lf = c["life"]
-    pn = lf["piano"]
-    months = ui["months"]
-    gh = json.loads((ROOT / "content" / "github.json").read_text(encoding="utf-8"))
-    cv_hash = fingerprint(ROOT / "assets" / "cv-ethan-blombou.pdf")
-    facts_gh = {
-        "repos": gh["repos"], "public": gh["public_repos"], "contributions": gh["contributions"], "langs": gh["languages_count"],
-        "best": gh["best_day"]["count"], "best_date": day_label(gh["best_day"]["date"], months), "active": gh["active_days"],
-        "opened": f'{("juin" if lang == "fr" else "June") if gh["account_opened"][5:7] == "06" else months[int(gh["account_opened"][5:7]) - 1]} {gh["account_opened"][:4]}',
-        "synced": day_label(gh["synced"], months),
-    }
-    ev = {
-        k: v.format(
-            cv_hash=cv_hash, photos=sum(len(it.get("photos", [])) for it in x["items"]),
-            code=sum(1 for p in [pr["featured"]] + pr["items"] if p.get("url")), **facts_gh,
+    def pos(iso):
+        return max(0.0, min(100.0, (date.fromisoformat(iso) - start).days / span * 100))
+
+    ticks, d = [], start
+    while d < end:
+        # un mois sur deux est nommé, sauf tout près de la marque « aujourd'hui »
+        show = (d.month % 2 == 1 or d == start) and pos(d.isoformat()) < pos(today.isoformat()) - 6
+        label = months[d.month - 1] + (f" {d.year}" if d.month == 1 or d == start else "")
+        ticks.append(f'<span class="gantt__tick{"" if show else " gantt__tick--minor"}" style="left:{pos(d.isoformat()):.2f}%"><i>{label if show else ""}</i></span>')
+        d = date(d.year + (1 if d.month == 12 else 0), d.month % 12 + 1, 1)
+    lines = []
+    for n, r in enumerate(sorted(rows, key=lambda r: r["start"])):
+        a = pos(r["start"])
+        b = pos(r["end"] or today.isoformat())
+        name = f'<a href="{r["href"]}">{r["name"]}</a>' if r.get("href") else r["name"]
+        lines.append(
+            f'<li class="gantt__row gantt__row--{r["cat"]}{" is-live" if not r["end"] else ""}" style="--i:{n}"><span class="gantt__name">{name}</span>'
+            f'<span class="gantt__track"><span class="gantt__bar" style="left:{a:.2f}%;width:max(8px, {b - a:.2f}%)" title="{escape(r["title"])}"></span></span></li>'
         )
-        for k, v in c["evidence"].items()
-    }
-    ev["about"] = f'<a href="{CV}" download>{ev["about"]}</a>'
-    stt = c["stats"]
-    tiles = "".join(
-        f'<li class="tile reveal"><p class="tile__n">{n.format(**facts_gh)}</p><p class="tile__k">{k}</p><p class="tile__d">{d.format(**facts_gh)}</p></li>'
-        for n, k, d in stt["tiles"]
-    )
-    lang_bar = "".join(f'<span class="langs__seg langs__seg--{i}" style="flex-grow:{pct}"></span>' for i, (_, pct) in enumerate(gh["languages"]))
-    lang_list = "".join(
-        f'<li><i class="langs__dot langs__seg--{i}"></i>{stt["other"] if name == "other" else escape(name)}<span>{str(pct).replace(".", "," if lang == "fr" else ".")} %</span></li>'
-        for i, (name, pct) in enumerate(gh["languages"])
+    now = f'<span class="gantt__now" style="left:{pos(today.isoformat()):.2f}%"><i>{today_label}</i></span>'
+    return (
+        f'<div class="gantt__in"><div class="gantt__scale" aria-hidden="true"><span class="gantt__name"></span><span class="gantt__track">{"".join(ticks)}{now}</span></div>'
+        f'<ul class="gantt__rows">{"".join(lines)}</ul></div>'
     )
 
-    pl = c["play"]
-    nav_links = (
-        '<li class="nav__mode"><button type="button" class="mode" data-mode-switch>'
-        f'<span class="mode__classic">{pl["to_classic"]}</span><span class="mode__play">{PLAY}{pl["to_play"]}</span></button></li>'
-    ) + "".join(f'<li><a href="#{s}" data-nav="{s}">{c["nav"][s]}</a></li>' for s in SECTIONS[1:])
-    lang_switch = (
-        f'<div class="lang" role="group" aria-label="{ui["lang_label"]}">'
-        + "".join(
-            f'<a href="{c["path"] if l == lang else c["other_path"]}" lang="{l}" hreflang="{l}" data-lang-link'
-            + (' aria-current="true"' if l == lang else "")
-            + f'><span aria-hidden="true">{l.upper()}</span><span class="sr-only">{"Français" if l == "fr" else "English"}</span></a>'
-            for l in ("fr", "en")
+
+def lang_bar(languages, other_label, lang):
+    bar = "".join(f'<span class="langs__seg langs__seg--{i}" style="flex-grow:{pct}"></span>' for i, (_, pct) in enumerate(languages[:6]))
+    items = "".join(
+        f'<li><i class="langs__dot langs__seg--{i}"></i>{other_label if name == "other" else escape(name)}<span>{str(pct).replace(".", "," if lang == "fr" else ".")} %</span></li>'
+        for i, (name, pct) in enumerate(languages[:6])
+    )
+    return f'<div class="langs__bar" aria-hidden="true">{bar}</div><ul class="langs__list">{items}</ul>'
+
+
+# ---------- gabarit commun ----------
+
+def shell(c, *, title, description, path, alt_path, body, home, page="home", extra_head="", scripts=("main",)):
+    lang, ui = c["lang"], c["ui"]
+    url = SITE + path
+    alt_lang = "en" if lang == "fr" else "fr"
+    nav_links = "".join(f'<li><a href="{home}#{s}" data-nav="{s}">{c["nav"][s]}</a></li>' for s in SECTIONS)
+    play_btn = ""
+    if page == "home":
+        play_btn = (
+            '<button class="tool tool--play" type="button" data-mode-switch>'
+            f'<span class="when-classic">{SVG["play"]}{ui["play_short"]}</span><span class="when-play">{c["play"]["to_classic"]}</span></button>'
         )
-        + "</div>"
-    )
-
-    route = "".join(
-        f'<li{" class=is-target" if i >= 2 else ""}>{name}</li>' for i, name in enumerate(ui["route"])
-    )
-
-    name_lines = " ".join(
-        '<span class="line" aria-hidden="true"><span>'
-        + "".join(f'<span class="l">{ch}</span>' for ch in word)
-        + "</span></span>"
-        for word in ("Ethan", "Blombou")
-    )
-    stats = "".join(
-        f'<li class="stat reveal"><p class="stat__n">{st[3] if len(st) > 3 else ""}<span data-count="{st[0]}">{st[0]}</span></p>'
-        f'<p class="stat__k">{st[1]}</p><p class="stat__d">{st[2]}</p></li>'
-        for st in a["stats"]
-    )
-    facts = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"])
-
-    xp = ""
-    for i, it in enumerate(x["items"], 1):
-        logos = logo(it["logo"], it["org"])
-        if it.get("logo2"):
-            logos += logo(it["logo2"], it["org2"])
-        bullets = "".join(f"<li>{b}</li>" for b in it["bullets"])
-        shots = "".join(
-            photo(ph["stem"], tuple(ph.get("sizes", (480, 960))), ph["w"], ph["h"], ph, "(min-width: 800px) 230px, 46vw", "shot shot--hop")
-            for ph in it.get("photos", [])
-        )
-        shots = f'<div class="hop__photos">{shots}</div>' if shots else ""
-        note = it.get("note")
-        note = (
-            f'<p class="bubble bubble--note"><span class="bubble__label">{note["label"]}</span>{note["text"]}</p>'
-            if note
-            else ""
-        )
-        xp += f"""
-          <li class="hop reveal">
-            <p class="hop__n" aria-hidden="true">{i:02d}</p>
-            <p class="hop__dates">{it["dates"]}</p>
-            <div class="hop__body">
-              <div class="hop__logos">{logos}</div>
-              <h3 class="hop__role">{it["role"]}</h3>
-              <p class="hop__org">{it["org"]}</p>
-              <ul class="hop__list">{bullets}</ul>
-              {shots}
-              {note}
-            </div>
-          </li>"""
-
-    edu = ""
-    for it in x["edu"]:
-        edu += f"""
-            <li class="row reveal">
-              <div class="row__logo">{logo(it["logo"], it["org"])}</div>
-              <div class="row__main"><h4>{it["org"]}</h4><p>{it["what"]}</p></div>
-              <p class="row__dates">{it["dates"]}</p>
-            </li>"""
-    certs = ""
-    for it in x["certs"]:
-        certs += f"""
-            <li class="row row--cert reveal">
-              <div class="row__main"><h4>{it["name"]}</h4><p>{it["issuer"]}</p></div>
-            </li>"""
-
-    def project(p, featured=False):
-        media = ""
-        if featured and p.get("photo"):
-            media = (
-                '<div class="project__media project__media--duo">'
-                + photo("ecoute", (800, 1400), 1400, 934, p["photo"], "(min-width: 940px) 620px, 100vw")
-                + f'<img class="project__screen" src="{p["image"]}" alt="{escape(p["image_alt"])}" '
-                f'width="{p["image_w"]}" height="{p["image_h"]}" loading="lazy" decoding="async"></div>'
-            )
-        elif p.get("photo"):
-            media = (
-                '<div class="project__media project__media--photo">'
-                + photo("eaic-salle", (640, 1200), 1200, 800, p["photo"], "(min-width: 760px) 560px, 100vw")
-                + "</div>"
-            )
-        elif p.get("image"):
-            media = (
-                f'<div class="project__media"><img src="{p["image"]}" alt="{escape(p["image_alt"])}" '
-                f'width="{p["image_w"]}" height="{p["image_h"]}" loading="lazy" decoding="async"></div>'
-            )
-        return f"""
-        <article class="project{" project--featured" if featured else ""} reveal">
-          {media}
-          <div class="project__body">
-            <p class="project__context">{kind_badge(c, p["kind"])}<span>{p["context"]}</span></p>
-            <h3 class="project__name">{p["name"]}</h3>
-            <p class="project__tagline">{p["tagline"]}</p>
-            <p class="project__desc">{p["desc"]}</p>
-            {part_block(c, p.get("part"))}
-            {tags(p["tags"])}
-            <div class="project__foot">{code_link(c, p)}{project_logos(c, p["logos"])}</div>
-          </div>
-        </article>"""
-
-    featured = project(pr["featured"], True)
-    cards = "".join(project(p) for p in pr["items"])
-    more = "".join(
-        f'<li class="reveal"><span class="more__name">{n}</span><span class="more__stack">{s}</span></li>'
-        for n, s in pr["more"]
-    )
-
-    total = sum(len(g["items"]) for g in sk["groups"])
-    filters = f'<button type="button" class="filter" data-filter="all" aria-pressed="true">{ui["all"]}<span>{total}</span></button>'
-    groups = ""
-    for g in sk["groups"]:
-        filters += f'<button type="button" class="filter" data-filter="{g["key"]}" aria-pressed="false">{g["name"]}<span>{len(g["items"])}</span></button>'
-        chips = "".join(f'<li class="chip">{icon(slug)}<span>{escape(name)}</span></li>' for name, slug in g["items"])
-        groups += (
-            f'<div class="group reveal" data-group="{g["key"]}"><h3 class="group__name">{g["name"]}'
-            f'<span class="group__count">{len(g["items"])}</span></h3><ul class="chips">{chips}</ul></div>'
-        )
-    langs = "".join(
-        f'<li class="chip"><span>{n}</span><span class="chip__level">{lv}</span></li>' for n, lv in sk["languages"]
-    )
-    groups += (
-        f'<div class="group reveal" data-group="lang"><h3 class="group__name">{sk["languages_title"]}'
-        f'<span class="group__count">{len(sk["languages"])}</span></h3><ul class="chips">{langs}</ul></div>'
-    )
-
-    paragraphs = "".join(f"<p>{p}</p>" for p in a["paragraphs"])
-    quote = f"«\u00a0{a['quote']}\u00a0»" if lang == "fr" else f"“{a['quote']}”"
-
-    # clavier : deux octaves, do à do ; les touches noires sont rattachées à la blanche qui les précède
-    keys = ""
-    for i in range(15):
-        step = i % 7
-        midi = 60 + (0, 2, 4, 5, 7, 9, 11)[step] + 12 * (i // 7)
-        name = pn["notes"][step]
-        octave = i // 7 + 1
-        black = ""
-        if step in (0, 1, 3, 4, 5) and i < 14:
-            black = (
-                f'<button type="button" class="pk__b" data-note="{midi + 1}" tabindex="-1" '
-                f'aria-label="{name} {pn["sharp"]} {octave}"></button>'
-            )
-        keys += (
-            f'<span class="pk"><button type="button" class="pk__w" data-note="{midi}" tabindex="{0 if i == 0 else -1}" '
-            f'aria-label="{name} {octave}"><span aria-hidden="true">{name}</span></button>{black}</span>'
-        )
-    cases = "".join(
-        f"""
-        <article class="case case--{p["key"]} reveal">
-          <div class="case__art" aria-hidden="true">{ART.get(p["key"], "")}</div>
-          <h3 class="case__name">{p["name"]}</h3>
-          {f'<p class="case__text">{p["text"]}</p>' if p["text"] else ""}
-        </article>"""
-        for p in lf["panels"]
-    )
-
-    portrait_hash = fingerprint(ROOT / "assets" / "ethan.jpg")
-
-    def portrait(key):
-        return f"""<figure class="portrait portrait--{key}">
-        <span class="burst" aria-hidden="true"></span>
-        <div class="stamp" aria-hidden="true">
-          <svg class="stamp__ring" viewBox="0 0 120 120">
-            <defs><path id="stamp-path-{key}" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
-            <text><textPath href="#stamp-path-{key}" textLength="286">{ui["stamp"].upper()}</textPath></text>
-          </svg>
-          <svg class="stamp__arrow" viewBox="-3 -3 30 30"><path d="M0 24 24 0M6 0h18v18" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <picture>
-          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 250px, 190px">
-          <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
-        </picture>
-        <figcaption class="portrait__tag">{ui["exhibit"]}<span>sha256 {portrait_hash}</span></figcaption>
-      </figure>"""
-
-    # données de la version jeu : répliques, étapes de la carte, liens et photos résolus ici
-    shots_by_org = {
-        it["logo"]: [{"src": f'/assets/photos/{ph["stem"]}-480.webp', "alt": ph["alt"]} for ph in it.get("photos", [])]
-        for it in x["items"]
-    }
-    play_data = json.dumps(
-        {
-            "menu": pl["menu"],
-            "nodes": pl["nodes"],
-            "stops": [dict(st, photos=shots_by_org.get(st.get("photos"), [])) for st in pl["stops"]],
-            "map": pl["map"],
-            "links": {"@cv": CV, "@mail": "mailto:" + EMAIL, "@linkedin": LINKEDIN, "@github": GITHUB},
-        },
-        ensure_ascii=False,
-    ).replace("</", "<\\/")
-    topics = "".join(f'<span class="topic" data-topic="{k}">{v}</span>' for k, v in pl["topics"].items())
-
-    jsonld = json.dumps(
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Ethan Blombou",
-            "url": SITE + "/",
-            "image": SITE + "/assets/ethan.jpg",
-            "email": "mailto:" + EMAIL,
-            "jobTitle": x["items"][0]["role"],
-            "worksFor": {"@type": "Organization", "name": "Société Générale"},
-            "alumniOf": [
-                {"@type": "CollegeOrUniversity", "name": "IMT Atlantique"},
-                {"@type": "CollegeOrUniversity", "name": "IUT de Vélizy"},
-            ],
-            "knowsLanguage": ["fr", "en", "es"],
-            "sameAs": [LINKEDIN, GITHUB],
-        },
-        ensure_ascii=False,
-    )
-
+    can_play = "true" if page == "home" else "false"
+    script_tags = "".join(f'<script src="/assets/js/{s}.js" defer></script>' for s in scripts)
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{c["meta"]["title"]}</title>
-<meta name="description" content="{escape(c["meta"]["description"])}">
+<title>{title}</title>
+<meta name="description" content="{escape(description)}">
 <meta name="author" content="Ethan Blombou">
-<meta name="theme-color" content="#b8401f">
-<meta name="color-scheme" content="light">
+<meta name="theme-color" content="{THEME}">
+<meta name="color-scheme" content="light dark">
 <link rel="canonical" href="{url}">
-<link rel="alternate" hreflang="fr" href="{SITE}/">
-<link rel="alternate" hreflang="en" href="{SITE}/en/">
-<link rel="alternate" hreflang="x-default" href="{SITE}/">
-<meta property="og:type" content="profile">
+<link rel="alternate" hreflang="{lang}" href="{url}">
+<link rel="alternate" hreflang="{alt_lang}" href="{SITE}{alt_path}">
+<meta property="og:type" content="{'profile' if page == 'home' else 'article'}">
 <meta property="og:site_name" content="Ethan Blombou">
-<meta property="og:title" content="{escape(c["meta"]["title"])}">
-<meta property="og:description" content="{escape(c["meta"]["description"])}">
+<meta property="og:title" content="{escape(title)}">
+<meta property="og:description" content="{escape(description)}">
 <meta property="og:url" content="{url}">
 <meta property="og:locale" content="{c["og_locale"]}">
 <meta property="og:image" content="{SITE}/assets/og.jpg">
@@ -462,41 +381,305 @@ def render(c):
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
-<script>(function(){{var d=document.documentElement,h=location.hash.slice(1),m=null;d.classList.add('js');try{{m=localStorage.getItem('mode')}}catch(e){{}}if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='classic'?'classic':'play')}})()</script>
-<script type="application/ld+json">{jsonld}</script>
-</head>
-<body>
+<script>(function(){{var d=document.documentElement,h=location.hash.slice(1),m=null,t=null;d.classList.add('js');try{{m=localStorage.getItem('mode');t=localStorage.getItem('theme')}}catch(e){{}}if(t==='dark'||t==='light')d.setAttribute('data-theme',t);if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='play'&&{can_play}?'play':'classic')}})()</script>
+{extra_head}</head>
+<body class="page--{page}">
 <a class="skip" href="#main">{ui["skip"]}</a>
 
 <header class="top">
-  <nav class="nav" aria-label="{ui["nav_label"]}">
-    <a class="nav__brand" href="#home"><span class="nav__mark" aria-hidden="true">EB</span>Ethan Blombou</a>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links">
-      <span class="nav__toggle-bars" aria-hidden="true"></span><span>{ui["menu"]}</span>
-    </button>
+  <nav class="nav wrap" aria-label="{ui["nav_label"]}">
+    <a class="nav__brand" href="{home}#home"><span class="nav__seal" aria-hidden="true"></span>Ethan Blombou</a>
     <ul class="nav__links" id="nav-links">{nav_links}</ul>
-    {lang_switch}
+    <div class="nav__tools">
+      {play_btn}
+      <a class="tool tool--cv" href="{CV}" download>{ui["cv_short"]}{SVG["down"]}</a>
+      <a class="tool tool--lang" href="{alt_path}" lang="{alt_lang}" hreflang="{alt_lang}" data-lang-link><span aria-hidden="true">{alt_lang.upper()}</span><span class="sr-only">{"English" if alt_lang == "en" else "Français"}</span></a>
+      <button class="tool tool--theme" type="button" data-theme-toggle aria-label="{escape(ui["theme"])}">{SVG["moon"]}{SVG["sun"]}</button>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links"><span class="nav__toggle-bars" aria-hidden="true"></span><span class="sr-only">{ui["menu"]}</span></button>
+    </div>
   </nav>
-  <div class="progress" aria-hidden="true"><span></span></div>
+  <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
 </header>
 
-<main id="main">
+{body}
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <p>© 2026 Ethan Blombou</p>
+    <p>{c["footer"]["note"]}</p>
+    <p><a href="#top-of-page">{ui["top"]} ↑</a></p>
+  </div>
+</footer>
+
+{script_tags}
+</body>
+</html>
+"""
+
+
+def shead(c, n, kicker, title, id_, evidence=""):
+    ev = f'<p class="shead__ev reveal"><b>{c["ui"]["evidence"]}</b><span>{evidence}</span></p>' if evidence else ""
+    return (
+        f'<header class="shead"><p class="shead__k reveal"><span class="shead__n">{c["ui"]["chapter"]} {n}</span>{kicker}</p>'
+        f'<h2 class="shead__t reveal" id="{id_}">{title}</h2>{ev}</header>'
+    )
+
+
+def status_pill(c, st):
+    mark = SVG["check"] if st == "done" else "<i></i>"
+    return f'<span class="status status--{st}">{mark}{c["ui"]["status"][st]}</span>'
+
+
+def project_cover(p, cls, eager=False):
+    cv = p.get("cover")
+    if cv:
+        load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+        return f'<img class="{cls}" src="{cv["src"]}" alt="{escape(cv["alt"])}" width="{cv["w"]}" height="{cv["h"]}" {load} decoding="async">'
+    first = p["logos"][0] if p["logos"] else None
+    return f'<span class="{cls} {cls}--blank">{logo(first[0], first[1], "plogo") if first else ""}</span>'
+
+
+def project_url(c, p):
+    return ("/projets/" if c["lang"] == "fr" else "/en/projects/") + p["slug"] + "/"
+
+
+def project_dates(p, gh):
+    """Début et fin d'un projet : ceux du dépôt GitHub quand il existe, sinon ceux donnés dans le contenu."""
+    repo = gh["public"].get(p.get("repo", ""))
+    if repo:
+        return repo["created"], repo["pushed"]
+    return p.get("start", ""), p.get("end", "")
+
+
+# ---------- page d'accueil ----------
+
+def home(c, gh):
+    lang, ui = c["lang"], c["ui"]
+    h, a, x, pr, sk, ct, lf, pl, stt, jn = c["hero"], c["about"], c["experience"], c["projects"], c["skills"], c["contact"], c["life"], c["play"], c["stats"], c["journey"]
+    pn, months = lf["piano"], ui["months"]
+    cv_hash = fingerprint(ROOT / "assets" / "cv-ethan-blombou.pdf")
+    portrait_hash = fingerprint(ROOT / "assets" / "ethan.jpg")
+    projects = pr["list"]
+    opened_m = int(gh["account_opened"][5:7])
+    facts_gh = {
+        "repos": gh["repos"], "public": gh["public_repos"], "contributions": gh["contributions"], "langs": gh["languages_count"],
+        "best": gh["best_day"]["count"], "best_date": day_label(gh["best_day"]["date"], months), "active": gh["active_days"],
+        "opened": f'{("juin" if lang == "fr" else "June") if opened_m == 6 else months[opened_m - 1]} {gh["account_opened"][:4]}',
+        "synced": day_label(gh["synced"], months),
+    }
+    ev = {
+        k: v.format(cv_hash=cv_hash, photos=sum(len(it.get("photos", [])) for it in x["items"]), code=sum(1 for p in projects if p.get("repo")), **facts_gh)
+        for k, v in c["evidence"].items()
+    }
+    ev["about"] = f'<a href="{CV}" download>{ev["about"]}</a>'
+
+    def portrait(key):
+        return f"""<figure class="portrait portrait--{key}">
+        <div class="stamp" aria-hidden="true">
+          <svg class="stamp__ring" viewBox="0 0 120 120">
+            <defs><path id="stamp-path-{key}" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs>
+            <text><textPath href="#stamp-path-{key}" textLength="286">{ui["stamp"].upper()}</textPath></text>
+          </svg>
+          <svg class="stamp__arrow" viewBox="-3 -3 30 30"><path d="M0 24 24 0M6 0h18v18" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <picture>
+          <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 300px, 210px">
+          <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
+        </picture>
+        <figcaption class="portrait__tag">{ui["exhibit"]}<span>sha256 {portrait_hash}</span></figcaption>
+      </figure>"""
+
+    route = "".join(f'<li{" class=is-target" if i >= 2 else ""}>{name}</li>' for i, name in enumerate(ui["route"]))
+    keyfigs = "".join(
+        f'<li class="keyfig reveal" style="--i:{i}"><p class="keyfig__n">{st[3] if len(st) > 3 else ""}<span data-count="{st[0]}">{st[0]}</span></p>'
+        f'<p class="keyfig__k">{st[1]}</p><p class="keyfig__d">{st[2]}</p></li>'
+        for i, st in enumerate(a["stats"])
+    )
+
+    # à propos
+    paragraphs = "".join(f"<p>{p}</p>" for p in a["paragraphs"])
+    quote = f"« {a['quote']} »" if lang == "fr" else f"“{a['quote']}”"
+    sheet = "".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in a["facts"])
+    away = "".join(f'<li><a class="pill" href="#{target}">{name}</a></li>' for name, target in a["away"])
+
+    # compétences : où chaque outil sert (dépôts pour les langages, projets pour le reste)
+    aliases = {"Bash": "Shell"}
+    haystack = [" ".join(p.get("tags", [])).lower() for p in projects] + [(n + " " + s).lower() for n, s in pr["more"]]
+
+    def usage(name):
+        repos = gh["language_repos"].get(aliases.get(name, name), 0)
+        if repos:
+            return plural(ui["in_repos"], repos)
+        key = name.split(" · ")[0].lower()
+        n = sum(1 for hay in haystack if re.search(r"(?<![\w.])" + re.escape(key) + r"(?![\w.])", hay))
+        return plural(ui["in_projects"], n) if n else ""
+
+    groups = ""
+    for i, g in enumerate(sk["groups"]):
+        rows = "".join(
+            f'<li>{icon(slug) or "<span class=ic></span>"}<span class="skill__name">{escape(name)}</span><span class="skill__use">{usage(name)}</span></li>'
+            for name, slug in g["items"]
+        )
+        groups += f'<div class="skillcard reveal" style="--i:{i % 3}"><h3>{g["name"]}<span>{len(g["items"])}</span></h3><ul>{rows}</ul></div>'
+    langs_row = "".join(f'<li class="pill pill--static">{n}<span>{lv}</span></li>' for n, lv in sk["languages"])
+
+    # parcours : expériences, formation, certifications sur un même fil
+    def xp_entry(it):
+        logos = logo(it["logo"], it["org"]) + (logo(it["logo2"], it["org2"]) if it.get("logo2") else "")
+        bullets = "".join(f"<li>{b}</li>" for b in it.get("bullets", []))
+        shots = "".join(
+            photo(ph["stem"], tuple(ph.get("sizes", (480, 960))), ph["w"], ph["h"], ph, "(min-width: 800px) 200px, 44vw", "shot shot--step")
+            for ph in it.get("photos", [])
+        )
+        note = it.get("note")
+        return (
+            f'<li class="step reveal" data-kind="xp"><p class="step__dates">{it["dates"]}</p><span class="step__dot" aria-hidden="true"></span>'
+            f'<div class="step__card"><div class="step__logos">{logos}</div><h3>{it["role"]}</h3><p class="step__org">{it["org"]}</p>'
+            + (f'<ul class="step__list">{bullets}</ul>' if bullets else "")
+            + (f'<div class="step__shots">{shots}</div>' if shots else "")
+            + (f'<p class="bubble bubble--note"><span class="bubble__label">{note["label"]}</span>{note["text"]}</p>' if note else "")
+            + "</div></li>"
+        )
+
+    def edu_entry(it):
+        return (
+            f'<li class="step reveal" data-kind="edu"><p class="step__dates">{it["dates"]}</p><span class="step__dot" aria-hidden="true"></span>'
+            f'<div class="step__card"><div class="step__logos">{logo(it["logo"], it["org"])}</div><h3>{it["what"]}</h3><p class="step__org">{it["org"]}</p></div></li>'
+        )
+
+    def cert_entry(it):
+        return (
+            f'<li class="step step--cert reveal" data-kind="cert"><p class="step__dates"></p><span class="step__dot" aria-hidden="true"></span>'
+            f'<div class="step__card"><h3>{it["name"]}</h3><p class="step__org">{it["issuer"]}</p></div></li>'
+        )
+
+    steps = (
+        xp_entry(x["items"][0]) + edu_entry(x["edu"][0]) + xp_entry(x["items"][1]) + xp_entry(x["items"][2])
+        + edu_entry(x["edu"][2]) + edu_entry(x["edu"][1]) + "".join(cert_entry(it) for it in x["certs"])
+    )
+    counts = {"all": len(x["items"]) + len(x["edu"]) + len(x["certs"]), "xp": len(x["items"]), "edu": len(x["edu"]), "cert": len(x["certs"])}
+    jtabs = "".join(
+        f'<button type="button" class="chipbtn" data-tab="{k}" aria-pressed="{"true" if k == "all" else "false"}">{label}<span>{counts[k]}</span></button>'
+        for k, label in jn["tabs"].items()
+    )
+
+    # projets
+    def card(p, i):
+        tags_html = "".join(f"<li>{escape(t)}</li>" for t in p["tags"][:5])
+        hl = "".join(f"<li>{t}</li>" for t in p["highlights"])
+        cat = pr["cats"][p["cats"][0]]
+        return f"""
+        <li class="pc reveal{" pc--featured" if p.get("featured") else ""}" data-cats="{" ".join(p["cats"])}" style="--i:{i % 3}">
+          <a class="pc__link" href="{project_url(c, p)}">
+            <div class="pc__cover">{project_cover(p, "pc__img")}{status_pill(c, p["status"])}</div>
+            <div class="pc__body">
+              <p class="pc__meta"><i class="dot dot--{p["cats"][0]}"></i>{cat}<span>{ui["kinds"][p["kind"]]}</span></p>
+              <h3 class="pc__name">{p["name"]}</h3>
+              <p class="pc__tagline">{p["tagline"]}</p>
+              <p class="pc__desc">{p["desc"]}</p>
+              <ul class="hl">{hl}</ul>
+              <div class="pc__foot"><ul class="tags">{tags_html}</ul><span class="pc__period">{p["period"]}</span></div>
+              <span class="pc__go">{ui["see_project"]}{SVG["arrow"]}</span>
+            </div>
+          </a>
+        </li>"""
+
+    cards = "".join(card(p, i) for i, p in enumerate(projects))
+    cat_counts = {k: (len(projects) if k == "all" else sum(1 for p in projects if k in p["cats"])) for k in pr["cats"]}
+    pfilters = ""
+    for k, label in pr["cats"].items():
+        if not cat_counts[k]:
+            continue
+        dot = "" if k == "all" else f'<i class="dot dot--{k}"></i>'
+        pfilters += f'<button type="button" class="chipbtn" data-cat="{k}" aria-pressed="{"true" if k == "all" else "false"}">{dot}{label}<span>{cat_counts[k]}</span></button>'
+    more = "".join(f'<li class="reveal"><span class="more__name">{n}</span><span class="more__stack">{s}</span></li>' for n, s in pr["more"])
+
+    # chiffres
+    tiles = "".join(
+        f'<li class="tile reveal" style="--i:{i}"><p class="tile__n"><span data-count="{n.format(**facts_gh)}">{n.format(**facts_gh)}</span></p><p class="tile__k">{k}</p><p class="tile__d">{d.format(**facts_gh)}</p></li>'
+        for i, (n, k, d) in enumerate(stt["tiles"])
+    )
+    rows = []
+    for p in projects:
+        start, end = project_dates(p, gh)
+        if start:
+            rows.append({"name": p["name"], "start": start, "end": end, "cat": p["cats"][0], "href": project_url(c, p), "title": f'{p["name"]} · {p["period"]}'})
+    site_repo = gh["public"].get("BuildRunnerFr.github.io")
+    if site_repo:
+        rows.append({"name": "Ce site" if lang == "fr" else "This site", "start": site_repo["created"], "end": "", "cat": "web", "title": "buildrunnerfr.github.io"})
+    for s, e in gh["private"]:
+        rows.append({"name": ui["private_repo"], "start": s, "end": e, "cat": "private", "title": ui["private_repo"]})
+    g_first, g_last = min(r["start"] for r in rows), date.today().isoformat()
+    legend = "".join(f'<li><i class="dot dot--{k}"></i>{label}</li>' for k, label in pr["cats"].items() if k != "all" and any(r["cat"] == k for r in rows))
+    legend += f'<li><i class="dot dot--private"></i>{ui["private_repo"]}</li><li><i class="dot dot--live"></i>{ui["status"]["live"]}</li>'
+
+    # à côté
+    keys = ""
+    for i in range(15):
+        step = i % 7
+        midi = 60 + (0, 2, 4, 5, 7, 9, 11)[step] + 12 * (i // 7)
+        name, octave = pn["notes"][step], i // 7 + 1
+        black = ""
+        if step in (0, 1, 3, 4, 5) and i < 14:
+            black = f'<button type="button" class="pk__b" data-note="{midi + 1}" tabindex="-1" aria-label="{name} {pn["sharp"]} {octave}"></button>'
+        keys += (
+            f'<span class="pk"><button type="button" class="pk__w" data-note="{midi}" tabindex="{0 if i == 0 else -1}" '
+            f'aria-label="{name} {octave}"><span aria-hidden="true">{name}</span></button>{black}</span>'
+        )
+    cases = ""
+    for i, p in enumerate(lf["panels"]):
+        text = f'<p class="case__text">{p["text"]}</p>' if p["text"] else ""
+        cases += f"""
+        <article class="case case--{p["key"]} reveal" style="--i:{i % 3}">
+          <div class="case__art" aria-hidden="true">{ART.get(p["key"], "")}</div>
+          <h3 class="case__name">{p["name"]}</h3>
+          {text}
+        </article>"""
+
+    # version jeu : répliques, étapes de la carte, liens et photos résolus ici
+    shots_by_org = {
+        it["logo"]: [{"src": f'/assets/photos/{ph["stem"]}-480.webp', "alt": ph["alt"]} for ph in it.get("photos", [])]
+        for it in x["items"]
+    }
+    play_data = json.dumps(
+        {
+            "menu": pl["menu"], "nodes": pl["nodes"],
+            "stops": [dict(st, photos=shots_by_org.get(st.get("photos"), [])) for st in pl["stops"]],
+            "map": pl["map"],
+            "links": {"@cv": CV, "@mail": "mailto:" + EMAIL, "@linkedin": LINKEDIN, "@github": GITHUB},
+        },
+        ensure_ascii=False,
+    ).replace("</", "<\\/")
+    topics = "".join(f'<span class="topic" data-topic="{k}">{v}</span>' for k, v in pl["topics"].items())
+
+    jsonld = json.dumps(
+        {
+            "@context": "https://schema.org", "@type": "Person", "name": "Ethan Blombou", "url": SITE + "/",
+            "image": SITE + "/assets/ethan.jpg", "email": "mailto:" + EMAIL, "jobTitle": x["items"][0]["role"],
+            "worksFor": {"@type": "Organization", "name": "Société Générale"},
+            "alumniOf": [{"@type": "CollegeOrUniversity", "name": "IMT Atlantique"}, {"@type": "CollegeOrUniversity", "name": "IUT de Vélizy"}],
+            "knowsLanguage": ["fr", "en", "es"], "sameAs": [LINKEDIN, GITHUB],
+        },
+        ensure_ascii=False,
+    )
+    gantt_label = stt["gantt_label"].format(start=day_label(g_first, months), end=day_label(g_last, months))
+
+    body = f"""<main id="main">
+  <span id="top-of-page"></span>
 
   <section class="play" id="play" aria-label="{escape(pl["label"])}">
     <div class="wrap">
-
       <div class="scene scene--talk" data-scene="talk">
         <div class="talk">
           <div class="talk__text">
             <p class="talk__top">
               <span class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</span>
-              <button class="talk__classic" type="button" data-mode-set="classic"><span>{pl["skip"]}</span> {pl["to_classic"]}{ARROW}</button>
+              <button class="talk__classic" type="button" data-mode-set="classic"><span>{pl["skip"]}</span> {pl["to_classic"]}{SVG["arrow"]}</button>
             </p>
             <div class="talk__id">
               <img class="talk__face" src="/assets/ethan-400.webp" alt="" width="400" height="542" decoding="async">
-              <h2 class="hero__name talk__name" aria-label="Ethan Blombou">{name_lines}</h2>
+              <h2 class="talk__name">Ethan Blombou</h2>
             </div>
             <p class="talk__you" id="talk-you" hidden></p>
             <p class="bubble talk__say" id="talk-say" tabindex="0" role="button" aria-label="{escape(pl["say_label"])}"></p>
@@ -507,53 +690,34 @@ def render(c):
           {portrait("talk")}
         </div>
       </div>
-
       <div class="scene scene--map" data-scene="map" hidden>
         <div class="mapbar">
-          <button class="btn btn--line" type="button" data-scene-go="talk">← {pl["map"]["back"]}</button>
+          <button class="btn btn--ghost" type="button" data-scene-go="talk">{SVG["back"]}{pl["map"]["back"]}</button>
           <h2 class="mapbar__t" id="map-title" tabindex="-1">{pl["map"]["title"]}</h2>
           <p class="mapbar__hint">{pl["map"]["hint"]}</p>
-          <button class="talk__classic" type="button" data-mode-set="classic">{pl["to_classic"]}{ARROW}</button>
+          <button class="talk__classic" type="button" data-mode-set="classic">{pl["to_classic"]}{SVG["arrow"]}</button>
         </div>
         <div class="map">
           <div class="map__board pcard">
             <svg id="map" viewBox="0 -44 800 534" role="group" aria-label="{escape(pl["map"]["label"])}">
-              <path class="road" id="road" d=""/>
-              <path class="road road--done" id="road-done" d=""/>
-              <g id="stops"></g>
-              <g id="mini" aria-hidden="true">
-                <ellipse cx="0" cy="0" rx="13" ry="4" fill="rgba(28,21,18,0.25)"/>
-                <g>
-                  <rect x="-7.500" y="-11" width="6" height="10" rx="2" fill="#1c1512"/>
-                  <rect x="1.500" y="-11" width="6" height="10" rx="2" fill="#1c1512"/>
-                  <rect x="-11.500" y="-30" width="23" height="21" rx="7" fill="#efe1c8" stroke="#1c1512" stroke-width="2.500"/>
-                  <circle cx="0" cy="-40" r="10.500" fill="#c08a5f" stroke="#1c1512" stroke-width="2.500"/>
-                  <g fill="#1c1512"><circle cx="-8.500" cy="-46" r="5"/><circle cx="-3.500" cy="-50.500" r="5.500"/><circle cx="3.500" cy="-50.500" r="5.500"/><circle cx="8.500" cy="-46" r="5"/><circle cx="0" cy="-47.500" r="6"/><circle cx="-10.500" cy="-41.500" r="3.200"/><circle cx="10.500" cy="-41.500" r="3.200"/></g>
-                  <circle cx="-3.700" cy="-38.500" r="1.400" fill="#1c1512"/><circle cx="3.700" cy="-38.500" r="1.400" fill="#1c1512"/>
-                  <path d="M-3.200 -34.300q3.200 2.600 6.400 0" fill="none" stroke="#1c1512" stroke-width="1.600" stroke-linecap="round"/>
-                </g>
-              </g>
+              <path class="road" id="road" d=""/><path class="road road--done" id="road-done" d=""/>
+              <g id="stops"></g><g id="mini" aria-hidden="true">{MINI}</g>
             </svg>
             <p class="map__hud" id="map-hud" aria-live="polite"></p>
           </div>
           <div class="map__side">
             <div class="bag pcard"><span class="bag__t">{pl["map"]["bag"]}</span><span class="bag__items" id="bag"></span></div>
             <article class="map__panel pcard" id="map-panel" aria-live="polite">
-              <p class="map__tag" id="p-tag"></p>
-              <h3 id="p-title"></h3>
-              <p class="map__what" id="p-what"></p>
-              <div class="map__shots" id="p-shots"></div>
-              <p class="bubble" id="p-say"></p>
-              <p class="map__more" id="p-more"></p>
+              <p class="map__tag" id="p-tag"></p><h3 id="p-title"></h3><p class="map__what" id="p-what"></p>
+              <div class="map__shots" id="p-shots"></div><p class="bubble" id="p-say"></p><p class="map__more" id="p-more"></p>
             </article>
             <div class="map__ctrl">
-              <button class="btn btn--line" id="map-prev" type="button" aria-label="{escape(pl["map"]["prev"])}">←</button>
-              <button class="btn btn--dark" id="map-next" type="button">{pl["map"]["next"]} →</button>
+              <button class="btn btn--ghost" id="map-prev" type="button" aria-label="{escape(pl["map"]["prev"])}">←</button>
+              <button class="btn btn--accent" id="map-next" type="button">{pl["map"]["next"]} →</button>
             </div>
           </div>
         </div>
       </div>
-
     </div>
     <script type="application/json" id="play-data">{play_data}</script>
   </section>
@@ -561,23 +725,27 @@ def render(c):
   <section class="hero" id="home">
     <div class="wrap hero__grid">
       <div class="hero__text">
-        <p class="dossier">{ui["dossier"].format(date=day_label(date.today().isoformat(), months))}</p>
-        <div class="hello">
-          <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
-          <p class="bubble bubble--hello">{ui["hello"]}</p>
-        </div>
-        <h1 class="hero__name" aria-label="Ethan Blombou">{name_lines}</h1>
+        <p class="monoline">{ui["dossier"].format(date=day_label(date.today().isoformat(), months))}</p>
+        <p class="bubble bubble--hello">{ui["hello"]}</p>
+        <h1 class="hero__name">Ethan Blombou</h1>
         <p class="hero__statement">{h["statement"]}</p>
         <p class="hero__lead">{h["lead"]}</p>
         <p class="hero__cta">
-          <button class="btn btn--play" type="button" data-mode-set="play">{PLAY}{pl["hero_play"]}</button>
-          <a class="btn btn--dark" href="#projects">{h["cta_projects"]}{ARROW}</a>
-          <a class="btn btn--line" href="#contact">{h["cta_contact"]}</a>
-          <a class="cv" href="{CV}" download>{DOWN}<span>{ui["cv"]}</span><small>{ui["cv_note"]}</small></a>
+          <a class="btn btn--accent" href="#projects">{h["cta_projects"]}{SVG["arrow"]}</a>
+          <button class="btn btn--ghost" type="button" data-mode-set="play">{SVG["play"]}{ui["play"]}</button>
+          <a class="btn btn--text" href="{CV}" download>{SVG["down"]}<span>{ui["cv"]}</span><small>{ui["cv_note"]}</small></a>
+        </p>
+        <p class="hero__meta">
+          <span class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</span>
+          <span class="socials" role="group" aria-label="{escape(ui["socials"])}">
+            <a href="{GITHUB}" rel="noopener me" aria-label="GitHub">{SVG["github"]}</a>
+            <a href="{LINKEDIN}" rel="noopener me" aria-label="LinkedIn">{SVG["linkedin"]}</a>
+          </span>
         </p>
       </div>
       {portrait("hero")}
     </div>
+    <div class="wrap"><ul class="keyfigs" aria-label="{escape(ui["stats_label"])}">{keyfigs}</ul></div>
   </section>
 
   <div class="band" role="img" aria-label="{escape(ui["route_label"])}">
@@ -591,57 +759,42 @@ def render(c):
         <div class="about__main">
           <div class="prose reveal">{paragraphs}</div>
           <blockquote class="bubble bubble--quote reveal"><p>{quote}</p></blockquote>
+          <div class="away reveal"><p class="label">{ui["away"]}</p><ul class="pills">{away}</ul></div>
         </div>
-        <div class="about__side">
-          <div class="reveal">{photo("presentation", (560, 1000), 1000, 918, a["photo"], "(min-width: 900px) 520px, 100vw", "shot shot--about")}</div>
-        </div>
-      </div>
-      <dl class="facts reveal">{facts}</dl>
-      <ul class="stats" aria-label="{escape(ui["stats_label"])}">{stats}</ul>
-    </div>
-  </section>
-
-  <section class="section" id="experience" aria-labelledby="experience-title">
-    <div class="wrap">
-      {shead(c, "02", x["eyebrow"], x["title"], "experience-title", ev["experience"])}
-      <p class="intro intro--lead reveal">{x["intro"]}</p>
-      <div class="path">
-        <div class="path__line" aria-hidden="true"><span></span></div>
-        <ol class="hops">{xp}
-        </ol>
-      </div>
-      <div class="creds">
-        <div>
-          <h3 class="subtitle reveal">{x["edu_title"]}</h3>
-          <ul class="rows">{edu}
-          </ul>
-        </div>
-        <div>
-          <h3 class="subtitle reveal">{ui["certs"]}</h3>
-          <ul class="rows">{certs}
-          </ul>
-        </div>
+        <aside class="about__side">
+          <div class="reveal">{photo("presentation", (560, 1000), 1000, 918, a["photo"], "(min-width: 900px) 440px, 100vw", "shot shot--about")}</div>
+          <div class="sheet reveal"><p class="label">{ui["sheet"]}</p><dl>{sheet}</dl></div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="section" id="projects" aria-labelledby="projects-title">
+  <section class="section section--tint" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      {shead(c, "03", pr["eyebrow"], pr["title"], "projects-title", ev["projects"])}
-      <p class="intro reveal">{pr["intro"]}</p>
-      {featured}
-      <div class="projects">{cards}
-      </div>
+      {shead(c, "02", sk["eyebrow"], sk["title"], "skills-title", ev["skills"])}
+      <div class="skillgrid">{groups}</div>
+      <ul class="pills pills--langs reveal" aria-label="{escape(sk["languages_title"])}">{langs_row}</ul>
+    </div>
+  </section>
+
+  <section class="section" id="journey" aria-labelledby="journey-title">
+    <div class="wrap">
+      {shead(c, "03", jn["eyebrow"], jn["title"], "journey-title", ev["experience"])}
+      <p class="lead reveal">{x["intro"]}</p>
+      <div class="chips reveal" role="group" aria-label="{escape(jn["eyebrow"])}">{jtabs}</div>
+      <ol class="steps">{steps}</ol>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      {shead(c, "04", pr["eyebrow"], pr["title"], "projects-title", ev["projects"])}
+      <p class="lead reveal">{pr["intro"]}</p>
+      <div class="chips reveal" role="group" aria-label="{escape(pr["eyebrow"])}">{pfilters}</div>
+      <ul class="pcs">{cards}
+      </ul>
       <h3 class="subtitle reveal">{pr["more_title"]}</h3>
       <ul class="more">{more}</ul>
-    </div>
-  </section>
-
-  <section class="section" id="skills" aria-labelledby="skills-title">
-    <div class="wrap">
-      {shead(c, "04", sk["eyebrow"], sk["title"], "skills-title", ev["skills"])}
-      <div class="filters reveal" role="group" aria-label="{escape(ui["filter"])}">{filters}</div>
-      <div class="groups">{groups}</div>
     </div>
   </section>
 
@@ -651,32 +804,40 @@ def render(c):
       <ul class="tiles">{tiles}</ul>
       <div class="plots">
         <figure class="plot reveal">
-          <figcaption class="plot__t">{stt["activity"].format(**facts_gh)}</figcaption>
+          <figcaption class="label">{stt["activity"].format(**facts_gh)}</figcaption>
           <div class="heat" role="img" aria-label="{escape(stt["activity_label"].format(**facts_gh))}">{heatmap(gh["days"], months)}</div>
           <p class="plot__note">{stt["activity_note"]}<span class="heat__key" aria-hidden="true">{stt["less"]}<i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i>{stt["more"]}</span></p>
         </figure>
-        <figure class="plot reveal">
-          <figcaption class="plot__t">{stt["languages"]}</figcaption>
-          <div class="langs__bar" aria-hidden="true">{lang_bar}</div>
-          <ul class="langs__list">{lang_list}</ul>
+        <figure class="plot reveal" style="--i:1">
+          <figcaption class="label">{stt["languages"]}</figcaption>
+          {lang_bar(gh["languages"], stt["other"], lang)}
           <p class="plot__note">{stt["languages_note"]}</p>
         </figure>
       </div>
+      <figure class="plot plot--gantt reveal">
+        <figcaption class="label">{stt["gantt"]}</figcaption>
+        <ul class="legend">{legend}</ul>
+        <div class="gantt" role="group" aria-label="{escape(gantt_label)}">{gantt(rows, months, ui["today"])}</div>
+        <p class="plot__note">{stt["gantt_note"]}</p>
+      </figure>
     </div>
   </section>
 
-  <section class="section" id="life" aria-labelledby="life-title">
+  <section class="section section--tint" id="life" aria-labelledby="life-title">
     <div class="wrap">
       {shead(c, "06", lf["eyebrow"], lf["title"], "life-title", ev["life"])}
       <div class="planche">
         <article class="case case--piano reveal">
-          <div class="case__head">
-            <h3 class="case__name">{pn["name"]}</h3>
-            <p class="case__text">{pn["text"]}</p>
-          </div>
+          <div class="case__head"><h3 class="case__name">{pn["name"]}</h3><p class="case__text">{pn["text"]}</p></div>
           <div class="piano" role="group" aria-label="{escape(pn["label"])}">{keys}</div>
-          <p class="piano__more"><button type="button" class="demo" data-demo aria-pressed="false">{PLAY}<span>{pn["demo"]}</span><small>{pn["demo_note"]}</small></button></p>
+          <p class="piano__more"><button type="button" class="demo" data-demo aria-pressed="false">{SVG["play"]}<span>{pn["demo"]}</span><small>{pn["demo_note"]}</small></button></p>
         </article>{cases}
+        <article class="case case--play reveal">
+          <svg class="case__mini" viewBox="-16 -60 32 64" aria-hidden="true">{MINI}</svg>
+          <h3 class="case__name">{lf["play"]["name"]}</h3>
+          <p class="case__text">{lf["play"]["text"]}</p>
+          <p><button class="btn btn--accent" type="button" data-mode-set="play">{SVG["play"]}{ui["play"]}</button></p>
+        </article>
       </div>
     </div>
   </section>
@@ -684,37 +845,109 @@ def render(c):
   <section class="section section--dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap contact">
       {shead(c, "07", ct["eyebrow"], ct["title"], "contact-title", ev["contact"])}
-      <p class="contact__text reveal">{ct["text"]}</p>
+      <p class="lead reveal">{ct["text"]}</p>
       <div class="contact__mail reveal">
         <a class="mail" href="mailto:{EMAIL}"><span class="sr-only">{ct["email_label"]} : </span>{EMAIL}</a>
         <button class="copy" type="button" data-copy="{EMAIL}" data-done="{ui["copied"]}">{ui["copy"]}</button>
         <span class="copy__status" role="status" aria-live="polite"></span>
       </div>
       <ul class="contact__links reveal">
-        <li><a class="link link--cv" href="{CV}" download>{ui["cv"]}<span class="link__handle">{ui["cv_note"]}</span>{DOWN}</a></li>
-        <li><a class="link" href="{LINKEDIN}" rel="noopener me">{ct["linkedin"]}<span class="link__handle">in/ethan-blombou</span>{ARROW}</a></li>
-        <li><a class="link" href="{GITHUB}" rel="noopener me">{ct["github"]}<span class="link__handle">BuildRunnerFr</span>{ARROW}</a></li>
+        <li><a class="link link--cv" href="{CV}" download>{ui["cv"]}<span class="link__handle">{ui["cv_note"]}</span>{SVG["down"]}</a></li>
+        <li><a class="link" href="{LINKEDIN}" rel="noopener me">{ct["linkedin"]}<span class="link__handle">in/ethan-blombou</span>{SVG["arrow"]}</a></li>
+        <li><a class="link" href="{GITHUB}" rel="noopener me">{ct["github"]}<span class="link__handle">BuildRunnerFr</span>{SVG["arrow"]}</a></li>
       </ul>
+      <p class="next reveal"><span class="bubble">{ui["next"]}</span></p>
     </div>
-    <div class="wrap"><p class="next reveal"><span>{ui["next"]}</span></p></div>
-    <p class="signoff" aria-hidden="true">Ethan Blombou</p>
   </section>
 
-</main>
+</main>"""
+    return shell(
+        c, title=c["meta"]["title"], description=c["meta"]["description"], path=c["path"], alt_path=c["other_path"], body=body, home="",
+        extra_head=f'<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>\n<script type="application/ld+json">{jsonld}</script>\n',
+        scripts=("main", "play"),
+    )
 
-<footer class="footer">
-  <div class="wrap footer__in">
-    <p>© 2026 Ethan Blombou</p>
-    <p>{c["footer"]["note"]}</p>
-    <p><a href="#home">{ui["top"]} ↑</a></p>
+
+# ---------- page d'un projet ----------
+
+def project_page(c, gh, p, prev, nxt, alt_path):
+    lang, ui, pr = c["lang"], c["ui"], c["projects"]
+    months = ui["months"]
+    home_url = c["path"]
+    repo = gh["public"].get(p.get("repo", ""))
+    repo_url = f'{GITHUB}/{p["repo"]}' if repo else ""
+    readme_html, minutes = "", 1
+    if repo:
+        src = ROOT / "content" / "readmes" / f'{p["repo"]}.md'
+        if src.exists():
+            readme_html = md(src.read_text(encoding="utf-8"), f'{repo_url}/blob/{repo["branch"]}', p.get("readme_keep"))
+            minutes = max(1, round(len(re.sub(r"<[^>]+>", " ", readme_html).split()) / 220))
+    readme_lang = p.get("readme_lang", "fr")
+    other = ui["readme_en"] if readme_lang == "en" else ui["readme_fr"]
+    hl = "".join(f"<li>{t}</li>" for t in p["highlights"])
+    tags_html = "".join(f"<li>{escape(t)}</li>" for t in p["tags"])
+    logos = "".join(logo(stem, name, "plogo") for stem, name in p["logos"])
+    part = f'<div class="callout reveal"><p class="label">{ui["my_part"]}</p><p>{p["part"]}</p></div>' if p.get("part") else ""
+    note = f'<p class="pp__note reveal">{p["note"]}</p>' if p.get("note") else ""
+    gallery = ""
+    if p.get("photo"):
+        ph = p["photo"]
+        gallery = '<div class="pp__gallery reveal">' + photo(ph["stem"], tuple(ph["sizes"]), ph["w"], ph["h"], ph, "(min-width: 900px) 640px, 100vw", "shot") + "</div>"
+    if p.get("gallery"):
+        org = next(it for it in c["experience"]["items"] if it["logo"] == p["gallery"])
+        gallery = '<div class="pp__gallery pp__gallery--3 reveal">' + "".join(
+            photo(ph["stem"], tuple(ph.get("sizes", (480, 960))), ph["w"], ph["h"], ph, "(min-width: 900px) 220px, 46vw", "shot shot--step") for ph in org.get("photos", [])
+        ) + "</div>"
+    readme = ""
+    if readme_html:
+        readme = (
+            f'<section class="pp__readme reveal"><h2>{ui["readme"]}</h2><p class="monoline">{ui["readme_note"].format(date=day_label(gh["synced"], months))}'
+            f'{" " + other if other else ""}</p><div class="md"{" lang=en" if readme_lang == "en" else " lang=fr"}>{readme_html}</div></section>'
+        )
+    langs = f'<div class="side__block"><p class="label">{ui["languages"]}</p>{lang_bar(repo["languages"], c["stats"]["other"], lang)}</div>' if repo and repo["languages"] else ""
+    repo_btn = f'<a class="btn btn--dark btn--wide" href="{repo_url}" rel="noopener">{SVG["github"]}{ui["repo"]}</a>' if repo else f'<p class="pp__norepo">{ui["no_repo"]}</p>'
+    logos_block = f'<div class="side__logos">{logos}</div>' if logos else ""
+    side = f"""
+      <aside class="pp__side">
+        {repo_btn}
+        <div class="side">
+          <div class="side__row"><span class="label">{ui["period"]}</span><span>{p["period"]}</span></div>
+          <div class="side__block"><p class="label">{ui["context"]}</p><p>{p["context"]}</p>{logos_block}</div>
+          <div class="side__block"><p class="label">{ui["stack"]}</p><ul class="tags">{tags_html}</ul></div>
+          {langs}
+        </div>
+      </aside>"""
+
+    def neighbour(q, label, cls):
+        return f'<a class="pp__neigh pp__neigh--{cls}" href="{project_url(c, q)}"><span class="label">{label}</span><strong>{q["name"]}</strong></a>'
+
+    cat = pr["cats"][p["cats"][0]]
+    body = f"""<main id="main" class="pp">
+  <span id="top-of-page"></span>
+  <div class="wrap">
+    <a class="back" href="{home_url}#projects">{SVG["back"]}{ui["all_projects"]}</a>
+    <div class="pp__cover">{project_cover(p, "pp__img", True)}{status_pill(c, p["status"])}</div>
+    <p class="pp__meta"><i class="dot dot--{p["cats"][0]}"></i>{cat}<span>{ui["kinds"][p["kind"]]}</span><span>{ui["min_read"].format(n=minutes)}</span></p>
+    <h1 class="pp__title">{p["name"]}</h1>
+    <p class="pp__tagline">{p["tagline"]}</p>
+    <div class="pp__grid">
+      <div class="pp__main">
+        <p class="pp__sum">{p["desc"]}</p>
+        <ul class="hl hl--big">{hl}</ul>
+        {part}
+        {gallery}
+        {note}
+        {readme}
+      </div>{side}
+    </div>
+    <nav class="pp__nav" aria-label="{escape(ui["all_projects"])}">{neighbour(prev, ui["prev_project"], "prev")}{neighbour(nxt, ui["next_project"], "next")}</nav>
+    <p class="pp__cta"><a class="btn btn--accent" href="{home_url}#contact">{ui["contact_cta"]}{SVG["arrow"]}</a></p>
   </div>
-</footer>
-
-<script src="/assets/js/main.js" defer></script>
-<script src="/assets/js/play.js" defer></script>
-</body>
-</html>
-"""
+</main>"""
+    return shell(
+        c, title=f'{p["name"]} · Ethan Blombou', description=p["desc"], path=project_url(c, p), alt_path=alt_path, body=body, home=home_url, page="project",
+        extra_head='<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>\n',
+    )
 
 
 def render_404(c):
@@ -726,7 +959,7 @@ def render_404(c):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>404 · Ethan Blombou</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#b8401f">
+<meta name="theme-color" content="{THEME}">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -735,7 +968,7 @@ def render_404(c):
   <p class="nf__code" aria-hidden="true">404</p>
   <h1 class="nf__title">{ui["nf_title"]}</h1>
   <p class="nf__text">{ui["nf_text"]}</p>
-  <p><a class="btn btn--dark" href="/">{ui["nf_back"]}{ARROW}</a></p>
+  <p><a class="btn btn--accent" href="/">{ui["nf_back"]}{SVG["arrow"]}</a></p>
 </main>
 </body>
 </html>
@@ -743,17 +976,36 @@ def render_404(c):
 
 
 def main():
+    gh = json.loads((ROOT / "content" / "github.json").read_text(encoding="utf-8"))
+    contents = {}
+    for lang in ("fr", "en"):
+        c = json.loads((ROOT / "content" / f"{lang}.json").read_text(encoding="utf-8"))
+        contents[lang] = walk(c, nbsp_fr) if lang == "fr" else c
+    urls = []
     for lang, out in (("fr", "index.html"), ("en", "en/index.html")):
-        content = json.loads((ROOT / "content" / f"{lang}.json").read_text(encoding="utf-8"))
-        if lang == "fr":
-            content = walk(content, nbsp_fr)
+        c = contents[lang]
+        other = contents["en" if lang == "fr" else "fr"]
         target = ROOT / out
         target.parent.mkdir(exist_ok=True)
-        target.write_text(render(content), encoding="utf-8")
-        print("écrit", out)
-        if lang == "fr":
-            (ROOT / "404.html").write_text(render_404(content), encoding="utf-8")
-            print("écrit 404.html")
+        target.write_text(home(c, gh), encoding="utf-8")
+        urls.append(c["path"])
+        projects = c["projects"]["list"]
+        for i, p in enumerate(projects):
+            twin = next(q for q in other["projects"]["list"] if q["key"] == p["key"])
+            page = project_page(c, gh, p, projects[i - 1], projects[(i + 1) % len(projects)], project_url(other, twin))
+            dest = ROOT / project_url(c, p).strip("/") / "index.html"
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_text(page, encoding="utf-8")
+            urls.append(project_url(c, p))
+        print("écrit", out, "et", len(projects), "pages de projet")
+    (ROOT / "404.html").write_text(render_404(contents["fr"]), encoding="utf-8")
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join(f"  <url><loc>{SITE}{u}</loc></url>\n" for u in urls)
+        + "</urlset>\n",
+        encoding="utf-8",
+    )
+    print("écrit 404.html et sitemap.xml")
 
 
 if __name__ == "__main__":
