@@ -96,24 +96,31 @@
     var fx = pr && pr.width ? pr.left - hr.left - 30 : W * 0.72;
     if (pr && pr.width && fx < 28) fx = pr.right - hr.left + 30;  /* téléphone : le portrait est collé à gauche, la source passe à sa droite */
     var fy = pr && pr.width ? pr.top - hr.top + pr.height * 0.4 : H * 0.36;
-    var sd = Infinity;
-    nodes.forEach(function (nd, idx) {
-      nd.quiet = !inText(nd.x, nd.y);
-      var d = Math.hypot(nd.x - fx, nd.y - fy);
-      if (nd.quiet && d < sd) { sd = d; src = idx; }
-    });
+    nodes.forEach(function (nd) { nd.quiet = !inText(nd.x, nd.y); });
     var reach = Math.max(W, H) * (W < 700 ? 0.95 : 0.78);
     nodes.forEach(function (nd) {
       var k = Math.max(0, 1 - Math.hypot(nd.x - fx, nd.y - fy) / reach);
       nd.a = k * k * (W < 700 ? 0.6 : 1);
     });
+    /* La source : près du portrait, à un endroit d'où partent des routes qui ne traversent ni le texte ni la photo.
+       On essaie à gauche du portrait, puis au-dessus, puis en dessous, et on garde le premier endroit qui convient. */
+    var anchors = [[fx, fy]];
+    if (pr && pr.width) anchors.push([pr.left - hr.left - 12, pr.top - hr.top - 44], [pr.left - hr.left - 12, pr.bottom - hr.top + 44], [pr.right - hr.left + 30, pr.top - hr.top - 44]);
+    var first = -1;
+    for (var t = 0; t < anchors.length && first < 0; t++) {
+      var sd = Infinity;
+      nodes.forEach(function (nd, idx) {
+        var d = Math.hypot(nd.x - anchors[t][0], nd.y - anchors[t][1]);
+        if (nd.quiet && d < sd) { sd = d; src = idx; }
+      });
+      var far = 0;
+      nodes.forEach(function (nd, idx) {
+        if (!nd.quiet || nd.a < 0.12) return;
+        var d = Math.hypot(nd.x - nodes[src].x, nd.y - nodes[src].y);
+        if (d > far && d < Math.max(240, W * 0.5) && calm(idx)) { far = d; first = idx; }
+      });
+    }
     dst = -1; path = []; pathLen = 0;
-    var first = -1, far = 0;
-    nodes.forEach(function (nd, idx) {
-      if (!nd.quiet || nd.a < 0.12) return;
-      var d = Math.hypot(nd.x - nodes[src].x, nd.y - nodes[src].y);
-      if (d > far && d < Math.max(240, W * 0.5) && calm(idx)) { far = d; first = idx; }
-    });
     if (first >= 0) go(first, false);
   }
 
