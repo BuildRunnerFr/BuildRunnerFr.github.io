@@ -697,12 +697,12 @@
       {
         "name": "Python Essentials 1",
         "issuer": "Cisco Networking Academy",
-        "logo": "cisco-networking-academy"
+        "badge": "python-essentials-1"
       },
       {
         "name": "Python Essentials 2",
         "issuer": "Cisco Networking Academy",
-        "logo": "cisco-networking-academy"
+        "badge": "python-essentials-2"
       }
     ]
   },

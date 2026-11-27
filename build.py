@@ -549,7 +549,12 @@ def home(c, gh):
         )
     spoken = "".join(f"<li><span>{n}</span><small>{lv}</small></li>" for n, lv in sk["languages"])
     skillrows += f'<div class="skillrow"><h3>{sk["languages_title"]}<span>{len(sk["languages"])}</span></h3><ul class="skilllist">{spoken}</ul></div>'
-    certs = "".join(f'<li>{logo(it.get("logo", ""), it["issuer"], "clogo")}<span>{it["name"]}</span><small>{it["issuer"]}</small></li>' for it in x["certs"])
+    def badge(it):
+        f = ROOT / "assets" / "badges" / f'{it.get("badge", "")}.webp'
+        alt = escape(f'{it["name"]}, {it["issuer"]}')
+        return f'<img class="badge-img" src="/assets/badges/{f.name}" alt="{alt}" width="160" height="160" loading="lazy" decoding="async">' if f.exists() else ""
+
+    certs = "".join(f'<li class="cert">{badge(it)}<span><b>{it["name"]}</b><small>{it["issuer"]}</small></span></li>' for it in x["certs"])
     skillrows += f'<div class="skillrow"><h3>{sk["certs_title"]}<span>{len(x["certs"])}</span></h3><ul class="skilllist">{certs}</ul></div>'
 
     # parcours : expériences, formation, certifications sur un même fil
