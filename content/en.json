@@ -156,7 +156,7 @@
         ]
       },
       "abroad": {
-        "say": "An Erasmus+ semester in Sofia, then an internship in Malaysia at SEATRU: an app for sea turtle conservation. My supervisor, Engku Fadzli, was very, very kind.",
+        "say": "An Erasmus+ semester in Sofia, then an internship in Malaysia at SEATRU: an app for sea turtle conservation. My supervisor, Engku Fadzli Hasan, was very, very kind.",
         "opts": [
           [
             "Explore the journey on the map",
@@ -422,7 +422,7 @@
         "tag": "May – August 2026 · Malaysia",
         "title": "SEATRU, the sea turtles",
         "what": "Software development internship: an app replacing paper field forms, and TurtleScope for visitors to the island.",
-        "say": "My supervisor, Engku Fadzli: a very, very kind person.",
+        "say": "My supervisor, Engku Fadzli Hasan: a very, very kind person.",
         "photos": "seatru",
         "more": [
           [
@@ -555,7 +555,7 @@
         ],
         "note": {
           "label": "Who I met",
-          "text": "My supervisor, Engku Fadzli, a very, very kind person."
+          "text": "My supervisor, Engku Fadzli Hasan, a very, very kind person."
         },
         "photos": [
           {
