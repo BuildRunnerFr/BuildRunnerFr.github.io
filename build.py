@@ -5,9 +5,11 @@ Les textes sont dans content/fr.json et content/en.json.
 Après une modification :  python3 build.py
 Aucune dépendance : bibliothèque standard uniquement.
 """
+import hashlib
 import json
 import re
 import struct
+from datetime import date
 from html import escape
 from pathlib import Path
 
@@ -133,11 +135,44 @@ def words(text):
     )
 
 
-def shead(c, n, kicker, title, id_):
+def shead(c, n, kicker, title, id_, evidence=""):
+    ev = f'<p class="shead__ev reveal"><b>{c["ui"]["evidence"]}</b><span>{evidence}</span></p>' if evidence else ""
     return (
         f'<header class="shead"><p class="shead__k"><span class="shead__n">{c["ui"]["chapter"]} {n}</span>{kicker}</p>'
-        f'<h2 class="shead__t reveal" id="{id_}" aria-label="{escape(title)}">{words(title)}</h2></header>'
+        f'<h2 class="shead__t reveal" id="{id_}" aria-label="{escape(title)}">{words(title)}</h2>{ev}</header>'
     )
+
+
+def fingerprint(path):
+    """Empreinte SHA-256 abrégée d'un fichier du site : une pièce se reconnaît à son empreinte."""
+    h = hashlib.sha256(path.read_bytes()).hexdigest()
+    return f"{h[:8]}…{h[-4:]}"
+
+
+def day_label(iso, months, year=True):
+    y, m, d = (int(x) for x in iso.split("-"))
+    return f"{d} {months[m - 1]}" + (f" {y}" if year else "")
+
+
+def heatmap(days, months):
+    """Calendrier d'activité : une colonne par semaine, une case par jour."""
+    first = date.fromisoformat(days[0][0])
+    pad = first.weekday()  # lundi = 0
+    cell, gap = 13, 3
+    cols = (pad + len(days) + 6) // 7
+    rects, labels, seen = [], [], set()
+    for i, (iso, n) in enumerate(days):
+        col, row = divmod(pad + i, 7)
+        level = 0 if n == 0 else 1 if n < 4 else 2 if n < 10 else 3 if n < 25 else 4
+        x, y = col * (cell + gap), 18 + row * (cell + gap)
+        rects.append(f'<rect class="l{level}" x="{x}" y="{y}" width="{cell}" height="{cell}" rx="3"><title>{day_label(iso, months)} : {n}</title></rect>')
+        ym = iso[:7]
+        if ym not in seen and int(iso[8:]) <= 7:
+            seen.add(ym)
+            labels.append(f'<text x="{x}" y="10">{months[int(iso[5:7]) - 1]}</text>')
+    w, h = cols * (cell + gap) - gap, 18 + 7 * (cell + gap) - gap
+    return f'<svg viewBox="0 0 {w} {h}" width="{w}" height="{h}" aria-hidden="true">{"".join(labels)}{"".join(rects)}</svg>'
+
 
 
 def render(c):
@@ -147,6 +182,33 @@ def render(c):
     h, a, x, pr, sk, ct = c["hero"], c["about"], c["experience"], c["projects"], c["skills"], c["contact"]
     lf = c["life"]
     pn = lf["piano"]
+    months = ui["months"]
+    gh = json.loads((ROOT / "content" / "github.json").read_text(encoding="utf-8"))
+    cv_hash = fingerprint(ROOT / "assets" / "cv-ethan-blombou.pdf")
+    facts_gh = {
+        "repos": gh["repos"], "public": gh["public_repos"], "contributions": gh["contributions"], "langs": gh["languages_count"],
+        "best": gh["best_day"]["count"], "best_date": day_label(gh["best_day"]["date"], months), "active": gh["active_days"],
+        "opened": f'{("juin" if lang == "fr" else "June") if gh["account_opened"][5:7] == "06" else months[int(gh["account_opened"][5:7]) - 1]} {gh["account_opened"][:4]}',
+        "synced": day_label(gh["synced"], months),
+    }
+    ev = {
+        k: v.format(
+            cv_hash=cv_hash, photos=sum(len(it.get("photos", [])) for it in x["items"]),
+            code=sum(1 for p in [pr["featured"]] + pr["items"] if p.get("url")), **facts_gh,
+        )
+        for k, v in c["evidence"].items()
+    }
+    ev["about"] = f'<a href="{CV}" download>{ev["about"]}</a>'
+    stt = c["stats"]
+    tiles = "".join(
+        f'<li class="tile reveal"><p class="tile__n">{n.format(**facts_gh)}</p><p class="tile__k">{k}</p><p class="tile__d">{d.format(**facts_gh)}</p></li>'
+        for n, k, d in stt["tiles"]
+    )
+    lang_bar = "".join(f'<span class="langs__seg langs__seg--{i}" style="flex-grow:{pct}"></span>' for i, (_, pct) in enumerate(gh["languages"]))
+    lang_list = "".join(
+        f'<li><i class="langs__dot langs__seg--{i}"></i>{stt["other"] if name == "other" else escape(name)}<span>{str(pct).replace(".", "," if lang == "fr" else ".")} %</span></li>'
+        for i, (name, pct) in enumerate(gh["languages"])
+    )
 
     pl = c["play"]
     nav_links = (
@@ -316,6 +378,8 @@ def render(c):
         for p in lf["panels"]
     )
 
+    portrait_hash = fingerprint(ROOT / "assets" / "ethan.jpg")
+
     def portrait(key):
         return f"""<figure class="portrait portrait--{key}">
         <span class="burst" aria-hidden="true"></span>
@@ -330,6 +394,7 @@ def render(c):
           <source type="image/webp" srcset="/assets/ethan-400.webp 400w, /assets/ethan-640.webp 640w" sizes="(min-width: 900px) 250px, 190px">
           <img src="/assets/ethan.jpg" alt="{escape(h["photo_alt"])}" width="890" height="1205" fetchpriority="high" decoding="async">
         </picture>
+        <figcaption class="portrait__tag">{ui["exhibit"]}<span>sha256 {portrait_hash}</span></figcaption>
       </figure>"""
 
     # données de la version jeu : répliques, étapes de la carte, liens et photos résolus ici
@@ -397,6 +462,7 @@ def render(c):
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 <script>(function(){{var d=document.documentElement,h=location.hash.slice(1),m=null;d.classList.add('js');try{{m=localStorage.getItem('mode')}}catch(e){{}}if(h==='jeu'||h==='play')m='play';else if(h)m='classic';d.setAttribute('data-mode',m==='classic'?'classic':'play')}})()</script>
 <script type="application/ld+json">{jsonld}</script>
@@ -495,6 +561,7 @@ def render(c):
   <section class="hero" id="home">
     <div class="wrap hero__grid">
       <div class="hero__text">
+        <p class="dossier">{ui["dossier"].format(date=day_label(date.today().isoformat(), months))}</p>
         <div class="hello">
           <p class="badge"><span class="badge__dot" aria-hidden="true"></span>{h["badge"]}</p>
           <p class="bubble bubble--hello">{ui["hello"]}</p>
@@ -519,7 +586,7 @@ def render(c):
 
   <section class="section" id="about" aria-labelledby="about-title">
     <div class="wrap">
-      {shead(c, "01", a["eyebrow"], a["title"], "about-title")}
+      {shead(c, "01", a["eyebrow"], a["title"], "about-title", ev["about"])}
       <div class="about">
         <div class="about__main">
           <div class="prose reveal">{paragraphs}</div>
@@ -536,7 +603,7 @@ def render(c):
 
   <section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
-      {shead(c, "02", x["eyebrow"], x["title"], "experience-title")}
+      {shead(c, "02", x["eyebrow"], x["title"], "experience-title", ev["experience"])}
       <p class="intro intro--lead reveal">{x["intro"]}</p>
       <div class="path">
         <div class="path__line" aria-hidden="true"><span></span></div>
@@ -560,7 +627,7 @@ def render(c):
 
   <section class="section" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
-      {shead(c, "03", pr["eyebrow"], pr["title"], "projects-title")}
+      {shead(c, "03", pr["eyebrow"], pr["title"], "projects-title", ev["projects"])}
       <p class="intro reveal">{pr["intro"]}</p>
       {featured}
       <div class="projects">{cards}
@@ -572,15 +639,35 @@ def render(c):
 
   <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      {shead(c, "04", sk["eyebrow"], sk["title"], "skills-title")}
+      {shead(c, "04", sk["eyebrow"], sk["title"], "skills-title", ev["skills"])}
       <div class="filters reveal" role="group" aria-label="{escape(ui["filter"])}">{filters}</div>
       <div class="groups">{groups}</div>
     </div>
   </section>
 
+  <section class="section" id="stats" aria-labelledby="stats-title">
+    <div class="wrap">
+      {shead(c, "05", stt["eyebrow"], stt["title"], "stats-title", ev["stats"])}
+      <ul class="tiles">{tiles}</ul>
+      <div class="plots">
+        <figure class="plot reveal">
+          <figcaption class="plot__t">{stt["activity"].format(**facts_gh)}</figcaption>
+          <div class="heat" role="img" aria-label="{escape(stt["activity_label"].format(**facts_gh))}">{heatmap(gh["days"], months)}</div>
+          <p class="plot__note">{stt["activity_note"]}<span class="heat__key" aria-hidden="true">{stt["less"]}<i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i>{stt["more"]}</span></p>
+        </figure>
+        <figure class="plot reveal">
+          <figcaption class="plot__t">{stt["languages"]}</figcaption>
+          <div class="langs__bar" aria-hidden="true">{lang_bar}</div>
+          <ul class="langs__list">{lang_list}</ul>
+          <p class="plot__note">{stt["languages_note"]}</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="life" aria-labelledby="life-title">
     <div class="wrap">
-      {shead(c, "05", lf["eyebrow"], lf["title"], "life-title")}
+      {shead(c, "06", lf["eyebrow"], lf["title"], "life-title", ev["life"])}
       <div class="planche">
         <article class="case case--piano reveal">
           <div class="case__head">
@@ -596,7 +683,7 @@ def render(c):
 
   <section class="section section--dark" id="contact" aria-labelledby="contact-title">
     <div class="wrap contact">
-      {shead(c, "06", ct["eyebrow"], ct["title"], "contact-title")}
+      {shead(c, "07", ct["eyebrow"], ct["title"], "contact-title", ev["contact"])}
       <p class="contact__text reveal">{ct["text"]}</p>
       <div class="contact__mail reveal">
         <a class="mail" href="mailto:{EMAIL}"><span class="sr-only">{ct["email_label"]} : </span>{EMAIL}</a>

@@ -41,9 +41,26 @@
     "cv": "Download my CV",
     "cv_short": "CV",
     "cv_note": "PDF",
-    "chapter": "Chapter",
+    "chapter": "Finding",
     "hello": "Hi, I'm",
-    "next": "To be continued…"
+    "next": "To be continued…",
+    "evidence": "Evidence",
+    "dossier": "Ethan Blombou, case file · updated on {date}",
+    "exhibit": "Exhibit 01 · portrait",
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
   },
   "nav": {
     "home": "Home",
@@ -1089,6 +1106,40 @@
       ]
     ]
   },
+  "stats": {
+    "eyebrow": "In numbers",
+    "title": "What my GitHub says.",
+    "tiles": [
+      [
+        "{repos}",
+        "repositories",
+        "{public} of them public"
+      ],
+      [
+        "{contributions}",
+        "contributions",
+        "over the last twelve months"
+      ],
+      [
+        "{langs}",
+        "languages",
+        "across my repositories"
+      ],
+      [
+        "{best}",
+        "contributions in one day",
+        "on {best_date}"
+      ]
+    ],
+    "activity": "Activity since the account opened, in {opened}",
+    "activity_label": "{contributions} contributions over {active} active days since {opened}",
+    "activity_note": "Each square is a day. The November peaks are my three hackathons.",
+    "languages": "Languages across my repositories",
+    "languages_note": "Averaged per repository, private ones included.",
+    "other": "other",
+    "less": "less",
+    "more": "more"
+  },
   "life": {
     "eyebrow": "Off duty",
     "title": "The rest of my life, in a few panels.",
@@ -1153,5 +1204,14 @@
   "footer": {
     "note": "Logos and trademarks belong to their respective owners.",
     "made": "Static site, made by hand."
+  },
+  "evidence": {
+    "about": "CV as a PDF, sha256 fingerprint {cv_hash}",
+    "experience": "{photos} field photos, from Free and Malaysia",
+    "projects": "{code} public code repositories",
+    "skills": "{repos} repositories and {langs} languages recorded on GitHub",
+    "stats": "GitHub API, recorded on {synced}",
+    "life": "a piano, to be tried on site",
+    "contact": "one is missing: your message"
   }
 }

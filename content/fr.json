@@ -41,9 +41,26 @@
     "cv": "Télécharger mon CV",
     "cv_short": "CV",
     "cv_note": "PDF, en anglais",
-    "chapter": "Chapitre",
+    "chapter": "Constat",
     "hello": "Salut, moi c'est",
-    "next": "À suivre…"
+    "next": "À suivre…",
+    "evidence": "Pièces",
+    "dossier": "Dossier Ethan Blombou · mis à jour le {date}",
+    "exhibit": "Pièce 01 · portrait",
+    "months": [
+      "janv.",
+      "févr.",
+      "mars",
+      "avr.",
+      "mai",
+      "juin",
+      "juil.",
+      "août",
+      "sept.",
+      "oct.",
+      "nov.",
+      "déc."
+    ]
   },
   "nav": {
     "home": "Accueil",
@@ -1089,6 +1106,40 @@
       ]
     ]
   },
+  "stats": {
+    "eyebrow": "En chiffres",
+    "title": "Ce que dit mon GitHub.",
+    "tiles": [
+      [
+        "{repos}",
+        "dépôts",
+        "dont {public} publics"
+      ],
+      [
+        "{contributions}",
+        "contributions",
+        "sur les douze derniers mois"
+      ],
+      [
+        "{langs}",
+        "langages",
+        "dans mes dépôts"
+      ],
+      [
+        "{best}",
+        "contributions en un jour",
+        "le {best_date}"
+      ]
+    ],
+    "activity": "Activité depuis l'ouverture du compte, en {opened}",
+    "activity_label": "{contributions} contributions sur {active} jours actifs depuis {opened}",
+    "activity_note": "Chaque case est un jour. Les pics de novembre correspondent à mes trois hackathons.",
+    "languages": "Langages dans mes dépôts",
+    "languages_note": "Moyenne par dépôt, dépôts privés compris.",
+    "other": "autres",
+    "less": "moins",
+    "more": "plus"
+  },
   "life": {
     "eyebrow": "À côté",
     "title": "Le reste de ma vie, en quelques cases.",
@@ -1153,5 +1204,14 @@
   "footer": {
     "note": "Les logos et marques cités appartiennent à leurs détenteurs respectifs.",
     "made": "Site statique, fait main."
+  },
+  "evidence": {
+    "about": "CV en PDF, empreinte sha256 {cv_hash}",
+    "experience": "{photos} photos de terrain, chez Free et en Malaisie",
+    "projects": "{code} dépôts de code publics",
+    "skills": "{repos} dépôts et {langs} langages relevés sur GitHub",
+    "stats": "API GitHub, relevé du {synced}",
+    "life": "un piano, à essayer sur place",
+    "contact": "il en manque une, votre message"
   }
 }
