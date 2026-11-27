@@ -93,7 +93,7 @@ ART = {
     "chess": '<span class="board"></span>',
     "foot": '<svg viewBox="0 0 160 120" preserveAspectRatio="xMaxYMid slice" fill="none" stroke="currentColor" stroke-width="2.200"><path d="M92 -40v200M160 28h-30v64h30M160 44h-12v32h12"/><circle cx="92" cy="60" r="30"/><circle cx="92" cy="60" r="2.600" fill="currentColor" stroke="none"/></svg>',
     "abroad": '<svg viewBox="0 0 240 70" preserveAspectRatio="xMinYMid meet" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 60C62 -6 178 -6 228 60" stroke-dasharray="0.100 9"/><circle cx="12" cy="60" r="6" fill="currentColor" stroke="none"/><circle cx="228" cy="60" r="6" fill="currentColor" stroke="none"/><path d="M108 3l24 7.500-24 7.500 5.500-7.500z" fill="currentColor" stroke-linejoin="round" stroke-width="2"/></svg>',
-    "ctf": '<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 74V8"/><path d="M18 12h44l-10 15 10 15H18z" fill="var(--clay)"/></svg>',
+    "ctf": '<svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 74V8"/><path d="M18 12h44l-10 15 10 15H18z" fill="var(--accent)"/></svg>',
     "quant": '<svg viewBox="0 0 200 80" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"><path d="M4 66l28-14 22 8 30-30 24 14 30-26 26 10 32-22" vector-effect="non-scaling-stroke"/></svg>',
 }
 
