@@ -195,38 +195,55 @@
     copy.hidden = true;
   }
 
-  /* Compétences : chaque ligne défile en boucle, à vitesse constante, une ligne sur deux dans l'autre sens.
-     Sans script ou si le visiteur préfère moins de mouvement, les pastilles restent simplement posées. */
+  /* Lignes qui défilent (compétences, étagère de mangas) : en boucle, à vitesse constante, une ligne sur deux dans l'autre sens.
+     Sans script, ou si le visiteur préfère moins de mouvement, les éléments restent simplement posés.
+     Les copies qui font la boucle ne sont créées que lorsque la ligne approche de l'écran : une image copiée
+     se télécharge tout de suite, et il ne faut pas charger toute l'étagère dès l'ouverture de la page. */
   var marquees = document.querySelectorAll('[data-marquee]');
   if (!reduce && marquees.length) {
-    var fillAll = function () {
-      each(marquees, function (box, idx) {
-        var track = box.querySelector('.marquee__track');
-        var list = box.querySelector('ul');
-        if (!track) {
-          track = document.createElement('div');
-          track.className = 'marquee__track';
-          box.appendChild(track);
-          track.appendChild(list);
-          box.classList.add('is-live');
-          if (idx % 2) box.classList.add('marquee--rev');
-        }
-        while (track.children.length > 1) track.removeChild(track.lastChild);
-        var w = list.getBoundingClientRect().width;
-        if (!w) return;
-        var copies = Math.ceil(box.clientWidth / w) + 1;
-        for (var i = 0; i < copies; i++) {
-          var clone = list.cloneNode(true);
-          clone.setAttribute('aria-hidden', 'true');
-          track.appendChild(clone);
-        }
-        track.style.setProperty('--shift', (-w).toFixed(1) + 'px');
-        track.style.animationDuration = (w / 34).toFixed(1) + 's';
-      });
+    var fill = function (box) {
+      var track = box.querySelector('.marquee__track');
+      var list = track.querySelector('ul');
+      while (track.children.length > 1) track.removeChild(track.lastChild);
+      var w = list.getBoundingClientRect().width;
+      if (!w) return;
+      var copies = Math.ceil(box.clientWidth / w) + 1;
+      for (var i = 0; i < copies; i++) {
+        var clone = list.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      }
+      each(track.querySelectorAll('img[loading="lazy"]'), function (img) { img.loading = 'eager'; });
+      track.style.setProperty('--shift', (-w).toFixed(1) + 'px');
+      track.style.animationDuration = (w / (parseFloat(box.dataset.speed) || 34)).toFixed(1) + 's';
+      box.classList.add('is-running');
     };
-    fillAll();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fillAll);
+    var fillNear = function () {
+      each(marquees, function (box) { if (box.dataset.near) fill(box); });
+    };
+    each(marquees, function (box, idx) {
+      var track = document.createElement('div');
+      track.className = 'marquee__track';
+      track.appendChild(box.querySelector('ul'));
+      box.appendChild(track);
+      box.classList.add('is-live');
+      if (idx % 2) box.classList.add('marquee--rev');
+    });
+    if ('IntersectionObserver' in window) {
+      var near = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          near.unobserve(entry.target);
+          entry.target.dataset.near = '1';
+          fill(entry.target);
+        });
+      }, { rootMargin: '600px 0px' });
+      each(marquees, function (box) { near.observe(box); });
+    } else {
+      each(marquees, function (box) { box.dataset.near = '1'; fill(box); });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fillNear);
     var refill = 0;
-    window.addEventListener('resize', function () { clearTimeout(refill); refill = setTimeout(fillAll, 200); });
+    window.addEventListener('resize', function () { clearTimeout(refill); refill = setTimeout(fillNear, 200); });
   }
 })();

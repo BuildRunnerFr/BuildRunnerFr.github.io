@@ -46,7 +46,7 @@ Dans `projects.list` des deux fichiers de contenu. Champs utiles :
 
 ## Mangas, logos de certifications
 
-- Étagère de mangas : la liste est dans `life.shelf.items`. Une image déposée dans `assets/mangas/<slug>.webp` (ou `.jpg`, `.png`) remplace la couverture typographique du livre.
+- Étagère de mangas : la liste est dans `life.shelf.items`. Chaque livre prend sa couverture dans `assets/mangas/<slug>-160.webp` et `<slug>-320.webp` ; sans image, il affiche son titre et son auteur. Les couvertures sont celles des éditions officielles et appartiennent à leurs éditeurs ; elles sont montrées en petit, pour désigner les œuvres, sans but commercial.
 - Certifications : le logo de l'organisme s'affiche dès qu'un fichier `assets/logos/cisco-networking-academy.svg` (ou `.png`, `.webp`) existe.
 
 ## Organisation

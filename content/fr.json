@@ -95,7 +95,8 @@
       "down": "lien coupé · route recalculée",
       "hop": "saut|sauts"
     },
-    "site": "Voir le site"
+    "site": "Voir le site",
+    "site_short": "clairfinances.com"
   },
   "nav": {
     "home": "Accueil",
@@ -849,7 +850,7 @@
         "key": "clair",
         "start": "2026-08-14",
         "end": "2026-09-14",
-        "site": ""
+        "site": "https://clairfinances.com"
       },
       {
         "name": "TurtleScope",
@@ -1365,18 +1366,118 @@
     },
     "shelf": {
       "name": "Mangas et animés",
-      "text": "Quelques séries que j'ai lues ou vues.",
+      "text": "Les séries que j'ai lues ou vues.",
       "label": "Étagère : mangas et animés",
       "items": [
+        {
+          "slug": "naruto",
+          "title": "Naruto",
+          "author": "Masashi Kishimoto"
+        },
+        {
+          "slug": "naruto-shippuden",
+          "title": "Naruto Shippuden",
+          "author": "Masashi Kishimoto"
+        },
+        {
+          "slug": "dragon-ball",
+          "title": "Dragon Ball",
+          "author": "Akira Toriyama"
+        },
+        {
+          "slug": "dragon-ball-z",
+          "title": "Dragon Ball Z",
+          "author": "Akira Toriyama"
+        },
+        {
+          "slug": "one-punch-man",
+          "title": "One-Punch Man",
+          "author": "ONE, Yusuke Murata"
+        },
+        {
+          "slug": "my-hero-academia",
+          "title": "My Hero Academia",
+          "author": "Kohei Horikoshi"
+        },
+        {
+          "slug": "one-piece",
+          "title": "One Piece",
+          "author": "Eiichiro Oda"
+        },
+        {
+          "slug": "spy-x-family",
+          "title": "Spy × Family",
+          "author": "Tatsuya Endo"
+        },
+        {
+          "slug": "attaque-des-titans",
+          "title": "L'Attaque des Titans",
+          "author": "Hajime Isayama"
+        },
+        {
+          "slug": "blue-exorcist",
+          "title": "Blue Exorcist",
+          "author": "Kazue Kato"
+        },
+        {
+          "slug": "death-note",
+          "title": "Death Note",
+          "author": "Tsugumi Ohba, Takeshi Obata"
+        },
+        {
+          "slug": "eyeshield-21",
+          "title": "Eyeshield 21",
+          "author": "Riichiro Inagaki, Yusuke Murata"
+        },
+        {
+          "slug": "hajime-no-ippo",
+          "title": "Hajime no Ippo",
+          "author": "George Morikawa"
+        },
+        {
+          "slug": "assassination-classroom",
+          "title": "Assassination Classroom",
+          "author": "Yusei Matsui"
+        },
+        {
+          "slug": "demon-slayer",
+          "title": "Demon Slayer",
+          "author": "Koyoharu Gotouge"
+        },
+        {
+          "slug": "jujutsu-kaisen",
+          "title": "Jujutsu Kaisen",
+          "author": "Gege Akutami"
+        },
+        {
+          "slug": "fullmetal-alchemist",
+          "title": "Fullmetal Alchemist",
+          "author": "Hiromu Arakawa"
+        },
+        {
+          "slug": "dr-stone",
+          "title": "Dr. Stone",
+          "author": "Riichiro Inagaki, Boichi"
+        },
+        {
+          "slug": "the-promised-neverland",
+          "title": "The Promised Neverland",
+          "author": "Kaiu Shirai, Posuka Demizu"
+        },
+        {
+          "slug": "kuroko-no-basket",
+          "title": "Kuroko's Basket",
+          "author": "Tadatoshi Fujimaki"
+        },
+        {
+          "slug": "haikyu",
+          "title": "Haikyu!!",
+          "author": "Haruichi Furudate"
+        },
         {
           "slug": "vinland-saga",
           "title": "Vinland Saga",
           "author": "Makoto Yukimura"
-        },
-        {
-          "slug": "hunter-x-hunter",
-          "title": "Hunter × Hunter",
-          "author": "Yoshihiro Togashi"
         },
         {
           "slug": "parasyte",
@@ -1384,9 +1485,24 @@
           "author": "Hitoshi Iwaaki"
         },
         {
+          "slug": "hunter-x-hunter",
+          "title": "Hunter × Hunter",
+          "author": "Yoshihiro Togashi"
+        },
+        {
           "slug": "tokyo-ghoul",
           "title": "Tokyo Ghoul",
           "author": "Sui Ishida"
+        },
+        {
+          "slug": "tokyo-revengers",
+          "title": "Tokyo Revengers",
+          "author": "Ken Wakui"
+        },
+        {
+          "slug": "food-wars",
+          "title": "Food Wars!",
+          "author": "Yuto Tsukuda, Shun Saeki"
         }
       ]
     }

@@ -633,13 +633,17 @@ def home(c, gh):
 
     # à côté : une étagère de mangas en volume, puis les autres centres d'intérêt
     def book(i, it):
-        art = next((f"/assets/mangas/{it['slug']}.{ext}" for ext in ("webp", "jpg", "png") if (ROOT / "assets" / "mangas" / f"{it['slug']}.{ext}").exists()), "")
-        front = (
-            f'<span class="book__front book__front--art" style="background-image:url({art})"><span class="sr-only">{it["title"]}, {it["author"]}</span></span>'
-            if art else f'<span class="book__front"><b>{it["title"]}</b><small>{it["author"]}</small></span>'
-        )
+        # la couverture : une image rangée dans assets/mangas/ (plusieurs largeurs), sinon le titre et l'auteur en toutes lettres
+        files = [(w, f"/assets/mangas/{it['slug']}-{w}.webp") for w in (160, 320) if (ROOT / "assets" / "mangas" / f"{it['slug']}-{w}.webp").exists()]
+        if files:
+            front = (
+                f'<span class="book__front book__front--art"><img src="{files[-1][1]}" srcset="{srcset(files)}" sizes="(min-width: 900px) 148px, 12vw" '
+                f'alt="{escape(it["title"])}, {escape(it["author"])}" width="320" height="480" loading="lazy" decoding="async"></span>'
+            )
+        else:
+            front = f'<span class="book__front"><b>{it["title"]}</b><small>{it["author"]}</small></span>'
         return (
-            f'<li class="book book--{i % 4}" style="--i:{i}"><div class="book__box">'
+            f'<li class="book book--{i % 4}" style="--i:{min(i, 9)}"><div class="book__box">'
             f'<span class="book__spine" aria-hidden="true">{it["title"]}</span>{front}</div></li>'
         )
 
@@ -829,7 +833,7 @@ def home(c, gh):
       {shead(lf["eyebrow"], lf["title"], "life-title")}
       <article class="shelf reveal">
         <div class="shelf__head"><h3>{sh["name"]}</h3><p>{sh["text"]}</p></div>
-        <ul class="books" aria-label="{escape(sh["label"])}">{books}</ul>
+        <div class="shelf__row marquee" data-marquee data-speed="26"><ul class="books" aria-label="{escape(sh["label"])}">{books}</ul></div>
       </article>
       <ul class="hobbies">{hobbies}</ul>
       <p class="playline reveal"><span><b>{lf["play"]["name"]}.</b> {lf["play"]["text"]}</span><button class="btn btn--ghost btn--small" type="button" data-mode-set="play">{SVG["play"]}{ui["play"]}</button></p>
