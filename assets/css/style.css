@@ -35,8 +35,10 @@
   --decor: rgba(74, 63, 224, 0.1);        /* filets des décors de fond */
   --decor-strong: rgba(74, 63, 224, 0.22);
   --glow: rgba(74, 63, 224, 0.09);
-  --plate: transparent;         /* plaque blanche sous les logos, en thème sombre */
+  --plate: transparent;         /* plaque blanche sous les icônes de technologies, en thème sombre */
   --plate-pad: 0px;
+  --on-light: inline-block;     /* logos : la version d'origine en thème clair, la version « -dark » en thème sombre */
+  --on-dark: none;
   --show-moon: block;
   --show-sun: none;
 
@@ -58,7 +60,7 @@
     --dark: #151829; --on-dark: #eef0f7; --muted-on-dark: #9aa0b4; --spark: #a9a4ff;
     --c-ia: #a9a4ff; --c-cyber: #d5d9e6; --c-web: #4fd1c0; --c-network: #f0a85a; --c-rest: #7b8196;
     --decor: rgba(169, 164, 255, 0.17); --decor-strong: rgba(169, 164, 255, 0.36); --glow: rgba(116, 104, 255, 0.24);
-  --plate: #ffffff; --plate-pad: 2px 3px; --show-moon: none; --show-sun: block;
+  --plate: #ffffff; --plate-pad: 2px 3px; --on-light: none; --on-dark: inline-block; --show-moon: none; --show-sun: block;
     color-scheme: dark;
   }
 }
@@ -69,7 +71,7 @@
   --dark: #151829; --on-dark: #eef0f7; --muted-on-dark: #9aa0b4; --spark: #a9a4ff;
   --c-ia: #a9a4ff; --c-cyber: #d5d9e6; --c-web: #4fd1c0; --c-network: #f0a85a; --c-rest: #7b8196;
   --decor: rgba(169, 164, 255, 0.17); --decor-strong: rgba(169, 164, 255, 0.36); --glow: rgba(116, 104, 255, 0.24);
-  --plate: #ffffff; --plate-pad: 2px 3px; --show-moon: none; --show-sun: block;
+  --plate: #ffffff; --plate-pad: 2px 3px; --on-light: none; --on-dark: inline-block; --show-moon: none; --show-sun: block;
   color-scheme: dark;
 }
 
@@ -178,6 +180,9 @@ html:not(.js) .chips { display: none; }
 .hl { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .hl li { padding: 0.32rem 0.85rem; background: var(--accent-soft); color: var(--accent-deep); border-radius: 999px; font-size: 0.9rem; font-weight: 500; }
 .logo, .plogo, .clogo, img.ic { width: auto; object-fit: contain; flex: none; background: var(--plate); padding: var(--plate-pad); border-radius: 5px; box-sizing: content-box; }
+/* logos d'organisations : pas de plaque, chaque thème a sa version du logo */
+.logo, .plogo { background: none; padding: 0; border-radius: 0; }
+.on-light { display: var(--on-light); } .on-dark { display: var(--on-dark); }
 .logo--wide { height: 16px; } .logo--mid { height: 26px; } .logo--square { height: 28px; } .logo--free { height: 18px; } .logo--iut-velizy { height: 20px; }
 .plogo { height: 17px; } .plogo--google-cloud { height: 15px; } .plogo--seatru, .plogo--umt { height: 34px; }
 img.ic { width: 16px; height: 16px; }
@@ -188,13 +193,13 @@ img.ic { width: 16px; height: 16px; }
 .cert span { display: grid; line-height: 1.3; }
 .cert b { font-weight: 500; }
 .cert small { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
-/* logos du parcours : une tuile claire, de taille fixe, au-dessus du titre ; le logo y garde ses couleurs */
-.step__logos { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem; }
-.logotile { display: inline-flex; align-items: center; justify-content: center; height: 48px; min-width: 48px; padding: 0 14px; background: #ffffff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.5); transition: transform 0.35s var(--ease); }
-.logotile .logo { background: none; padding: 0; border-radius: 0; }
-.logotile .logo--wide { height: 18px; } .logotile .logo--mid { height: 30px; } .logotile .logo--square { height: 32px; }
-.logotile .logo--free { height: 20px; } .logotile .logo--iut-velizy { height: 26px; }
-@media (hover: hover) { .step:hover .logotile { transform: translateY(-2px); } }
+/* logos du parcours : une tuile discrète, de hauteur fixe, au-dessus du titre ; elle prend la teinte du fond, pas de blanc */
+.step__logos { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1rem; }
+.logotile { display: inline-flex; align-items: center; justify-content: center; height: 60px; min-width: 60px; padding: 0 18px; background: linear-gradient(180deg, rgba(var(--ink-rgb), 0.07), rgba(var(--ink-rgb), 0.03)); border: 1px solid var(--line); border-radius: 16px; transition: transform 0.35s var(--ease), border-color 0.35s; }
+.logotile .logo--wide { height: 22px; } .logotile .logo--mid { height: 36px; } .logotile .logo--square { height: 38px; }
+.logotile .logo--free { height: 24px; } .logotile .logo--iut-velizy { height: 30px; }
+@media (max-width: 479px) { .logotile { height: 54px; min-width: 54px; padding: 0 14px; } .logotile .logo--iut-velizy { height: 26px; } }
+@media (hover: hover) { .step:hover .logotile { transform: translateY(-2px); border-color: var(--line-2); } }
 
 /* ---------- En-tête ---------- */
 
@@ -377,6 +382,7 @@ html:not(.js) .netcap { display: none; }
 .pc__img--blank, .pp__img--blank { display: grid; place-items: center; align-content: center; gap: 1rem; }
 .pc__img--blank small, .pp__img--blank small { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
 .pc__img--blank .plogo, .pp__img--blank .plogo { height: 26px; padding: 0.7rem 1rem; background: #ffffff; border-radius: 10px; }
+.pc__img--blank .on-light, .pp__img--blank .on-light { display: inline-block; } .pc__img--blank .on-dark, .pp__img--blank .on-dark { display: none; }
 .pc__meta, .pp__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.9rem; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
 .pc__meta { justify-self: stretch; margin-top: 1.3rem; }
 .pc__meta .dot, .pp__meta .dot { margin-right: -0.4rem; }

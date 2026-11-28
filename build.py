@@ -68,18 +68,33 @@ def image_size(path):
 
 
 def logo(stem, alt, cls="logo"):
-    """Balise <img> d'un logo d'organisation, ou rien si le fichier manque."""
-    for ext in ("svg", "webp", "png"):
-        path = ROOT / "assets" / "logos" / f"{stem}.{ext}"
-        if path.exists():
-            w, h = image_size(path)
-            ratio = w / h
-            shape = "wide" if ratio > 3.5 else "square" if ratio < 1.25 else "mid"
-            return (
-                f'<img class="{cls} {cls}--{shape} {cls}--{stem}" src="/assets/logos/{stem}.{ext}" '
-                f'alt="{escape(alt)}" width="{round(w)}" height="{round(h)}" loading="lazy" decoding="async">'
-            )
-    return ""
+    """Balise <img> d'un logo d'organisation, ou rien si le fichier manque.
+
+    Quand « <nom>-dark.<ext> » existe (voir tools/dark_logos.py), deux images sortent :
+    l'une pour le thème clair, l'autre pour le thème sombre ; la feuille de style n'en montre qu'une.
+    """
+    def find(name):
+        for ext in ("svg", "webp", "png"):
+            path = ROOT / "assets" / "logos" / f"{name}.{ext}"
+            if path.exists():
+                return path
+        return None
+
+    def img(path, extra=""):
+        w, h = image_size(path)
+        ratio = w / h
+        shape = "wide" if ratio > 3.5 else "square" if ratio < 1.25 else "mid"
+        return (
+            f'<img class="{cls} {cls}--{shape} {cls}--{stem}{extra}" src="/assets/logos/{path.name}" '
+            f'alt="{escape(alt)}" width="{round(w)}" height="{round(h)}" loading="lazy" decoding="async">'
+        )
+
+    light, dark = find(stem), find(f"{stem}-dark")
+    if not light:
+        return ""
+    if not dark:
+        return img(light, " on-any")
+    return img(light, " on-light") + img(dark, " on-dark")
 
 
 def icon(slug):

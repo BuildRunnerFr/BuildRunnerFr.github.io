@@ -61,6 +61,7 @@ Dans `projects.list` des deux fichiers de contenu. Champs utiles :
 - `assets/js/net.js` : le réseau animé de l'en-tête. Un maillage fixe, et le plus court chemin (Dijkstra, l'algorithme d'OSPF) entre le portrait et le curseur, recalculé en direct ; de temps en temps un lien tombe et la route se recalcule. Décoratif : sans lui la page est complète
 - `assets/photos/` : photos en WebP, plusieurs largeurs par image (`nom-320.webp`, `nom-480.webp`…). Même principe pour les couvertures de projets : `triad-cockpit.webp` et ses réductions `triad-cockpit-800.webp`, `triad-cockpit-1200.webp`
 - `assets/logos/` : logos des organisations, non modifiés. Pour les logos en image, le site sert une copie réduite en WebP sans perte (`.webp`) ; le fichier d'origine reste à côté (`.png`)
+- `assets/logos/<nom>-dark.*` : la version du logo pour le thème sombre (texte noir passé en clair), fabriquée par `python3 tools/dark_logos.py` (il faut Pillow). Quand elle existe, le site la montre à la place de l'original en thème sombre ; les logos n'ont plus de plaque blanche. Pour un nouveau logo au texte sombre, ajouter sa règle dans ce script ou déposer à la main un fichier `<nom>-dark.svg`
 - `assets/icons/` : icônes des technologies, issues de Simple Icons
 - `assets/fonts/` : Space Grotesk (titres), Poppins (texte) et JetBrains Mono (mentions techniques), sous licence OFL
 
